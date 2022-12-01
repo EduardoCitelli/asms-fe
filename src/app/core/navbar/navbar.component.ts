@@ -61,17 +61,17 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
         },
         {
           title: 'Profesores',
-          link: 'start-slider',
+          link: '',
           icon: 'people'
         },
         {
           title: 'Espacios',
-          link: 'start-slider',
+          link: 'institute/rooms',
           icon: 'room_preferences'
         },
         {
           title: 'Staff',
-          link: 'start-slider',
+          link: '',
           icon: 'people'
         },
       ]
