@@ -34,12 +34,12 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
       children: [
         {
           title: 'Gestion de Usuario',
-          link: 'editar-admin',
+          link: 'user/manage-user',
           icon: 'account_circle',
         },
         {
           title: 'Cambiar Contraseña',
-          link: 'pass-management',
+          link: 'user/manage-pass',
           icon: 'vpn_key',
         },
       ],
