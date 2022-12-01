@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-
 <mat-sidenav-container class="example-container">
-  <mat-sidenav mode="side" opened class="sidenav">
+  <mat-sidenav mode="side" opened class="sidenav" *ngIf="isLoggedIn$ | async as ILoggedIn">
     <div fxLayout="row" fxLayoutAlign="space-around center" class="navHeader">
       <img src="../../../assets/images/logo-sinfondo.png" class="image">
     </div>

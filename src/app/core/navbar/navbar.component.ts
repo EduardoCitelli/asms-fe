@@ -1,19 +1,29 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, AfterViewChecked {
   data: any;
-  title: string = 'ADMINISTRADOR';
+  isLoggedIn$: Observable<boolean>;
 
-  constructor() {
+  constructor(
+    private _authService: AuthService,
+    private changeDetector: ChangeDetectorRef,
+  ) {
+    this.isLoggedIn$ = this._authService.logged;
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.data = this.adminItems;
+  }
+
+  public ngAfterViewChecked(): void {
+    this.changeDetector.detectChanges();
   }
 
   adminItems = [

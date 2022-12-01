@@ -1,0 +1,28 @@
+<div fxLayout="row" fxLayoutAlign="center center" class="color">
+  <mat-card fxFlex="50">
+    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <img src="../../../../assets/images/logo-sinfondo.png" class="login-image" >
+        <h2 class="cardHeader">Panel de administración</h2>
+        <div fxLayout="column" fxLayoutAlign="center center" class="fields">
+          <mat-form-field appearance="outline">
+            <mat-label>Usuario</mat-label>
+            <input matInput formControlName="userName">
+            <mat-error *ngIf="loginForm.controls['userName'].hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input matInput type="password" formControlName="password">
+            <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+          <button type="submit" mat-raised-button class="squared-btn" [disabled]="!loginForm.valid" >Ingresar</button>
+
+        </div>
+      </div>
+    </form>
+  </mat-card>
+</div>
