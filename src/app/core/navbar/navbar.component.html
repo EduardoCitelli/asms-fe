@@ -20,7 +20,7 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div *ngFor="let child of item.children">
-            <button mat-button routerLink="{{child.link}}">
+            <button mat-button routerLink="{{child.link}}" fxLayout="row" fxLayoutAlign="start center">
               <mat-icon class="subicon">{{child.icon}}</mat-icon>
               <span class="subitem">{{child.title}}</span>
             </button>

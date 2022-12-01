@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit, AfterViewChecked {
-  data: any;
+  data: NavItems[];
   isLoggedIn$: Observable<boolean>;
 
   constructor(
@@ -16,19 +16,19 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
     private changeDetector: ChangeDetectorRef,
   ) {
     this.isLoggedIn$ = this._authService.logged;
+    this.data = this.adminItems;
   }
 
   public ngOnInit(): void {
-    this.data = this.adminItems;
   }
 
   public ngAfterViewChecked(): void {
     this.changeDetector.detectChanges();
   }
 
-  adminItems = [
+  adminItems: NavItems[] = [
     {
-      heading: 'Panel',
+      heading: 'Panel de usuario',
       icon: 'api',
       link: '',
       children: [
@@ -45,163 +45,107 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
       ],
     },
     {
-      heading: 'Banners',
-      icon: 'filter',
+      heading: 'Institución',
+      icon: 'foundation',
       link: '',
       children: [
         {
-          title: 'Banners',
-          link: 'banners-management',
-          icon: 'image'
+          title: 'Gestionar Datos',
+          link: '',
+          icon: 'description'
         },
         {
-          title: 'Slider de Inicio',
-          link: 'start-slider',
-          icon: 'filter'
+          title: 'Actividades',
+          link: '',
+          icon: 'sports_martial_arts'
         },
-
+        {
+          title: 'Profesores',
+          link: 'start-slider',
+          icon: 'people'
+        },
+        {
+          title: 'Espacios',
+          link: 'start-slider',
+          icon: 'room_preferences'
+        },
+        {
+          title: 'Staff',
+          link: 'start-slider',
+          icon: 'people'
+        },
       ]
     },
     {
-      heading: 'Administrar ciudades',
-      icon: 'place',
-      link: 'city-management',
+      heading: 'Gestionar Miembros',
+      icon: 'people',
+      link: '',
       children: []
     },
     {
-      heading: 'Páginas de la aplicación',
-      icon: 'content_copy',
-      link: 'app-pages-management',
-      children: []
-    },
-    {
-      heading: 'Comercios',
+      heading: 'Gestionar Membresias',
       icon: 'store',
       link: '',
       children: [
         {
-          title: 'Administrar comercios',
-          link: 'adm-comercio',
-          icon: 'storefront',
+          title: 'Membresias',
+          link: '',
+          icon: 'card_membership',
         },
         {
-          title: 'Administrar tipos de comercio',
-          link: 'shop-type-management',
+          title: 'Tipos de Membresias',
+          link: '',
           icon: 'list',
         }
       ]
     },
     {
-      heading: 'Administrar descuentos',
-      icon: 'local_offer',
-      link: 'discount-management',
+      heading: 'Pagos',
+      icon: 'payments',
+      link: '',
       children: []
     },
     {
-      heading: 'Miembros del personal',
+      heading: 'Planes',
+      icon: 'shopping_bag',
+      link: '',
+      children: []
+    },
+    {
+      heading: 'Gestion de usuarios',
       icon: 'people',
-      link: 'personal',
-      children: []
-    },
-    {
-      heading: 'Administrar pedidos',
-      icon: 'shopping_cart',
       link: '',
       children: [
         {
-          title: "Pedidos Activos",
-          link: 'active-orders',
-          icon: 'double_arrow',
+          title: "Usuarios",
+          link: '',
+          icon: 'people',
         },
         {
-          title: "Pedidos Rechazados",
-          link: 'cancelled-orders',
-          icon: 'do_disturb',
-        },
-        // {
-        //   title: "Pedidos Asignados a Cadete",
-        //   link: 'assigned-orders',
-        //   icon: 'done_all',
-        // },
-        {
-          title: "Pedidos En Viaje",
-          link: 'completed-orders',
-          icon: 'double_arrow',
+          title: "Roles",
+          link: '',
+          icon: 'manage_accounts',
         },
       ]
-    },
-    {
-      heading: 'Enviar notificación',
-      icon: 'send',
-      link: 'notifications',
-      children: []
-    },
-    {
-      heading: 'Liquidaciones',
-      icon: 'stacked_line_chart',
-      link: '',
-      children: [
-        {
-          title: 'Cadetes',
-          link: 'liquidaciones-cadetes',
-          icon: 'sports_motorsports'
-        },
-        {
-          title: 'Empresas',
-          link: 'liquidaciones-empresas',
-          icon: 'work'
-        },
-        {
-          title: 'Recibos cadetes',
-          link: 'recibos-cadetes',
-          icon: 'sports_motorsports'
-        },
-      ]
-    },
-    {
-      heading: 'Reportes',
-      icon: 'stacked_line_chart',
-      link: '',
-      children: [
-        {
-          title: 'Reportes de Ventas',
-          link: 'sales-report',
-          icon: 'list',
-        },
-        // {
-        //   title: 'Reportes de Cadetes',
-        //   link: 'delivery-report',
-        //   icon: 'list',
-        // },
-        {
-          title: 'Consultar liquidaciones',
-          link: 'consulta-liquidaciones',
-          icon: 'analytics'
-        },
-        {
-          title: 'Consultar recibos',
-          link: 'consulta-recibos-cadetes',
-          icon: 'receipt'
-        },
-      ]
-    },
-    {
-      heading: 'Herramientas adicionales',
-      icon: 'addchart',
-      link: 'admin-home',
-      children: []
-    },
-    {
-      heading: 'Usuarios de app',
-      icon: 'groups',
-      link: 'app-users',
-      children: []
     },
     {
       heading: 'Salir',
       icon: 'exit_to_app',
-      link: 'login-admin',
+      link: 'login',
       children: []
     }
   ]
+}
+
+interface NavItems {
+  heading: string;
+  icon: string;
+  link: string;
+  children: NavChild[];
+}
+
+interface NavChild {
+  title: string;
+  link: string;
+  icon: string;
 }
