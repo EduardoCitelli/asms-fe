@@ -2,3 +2,33 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@font-face {
+  font-family: RubikBold;
+  src: url('assets/fonts/Rubik-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: RubikLight;
+  src: url('assets/fonts/Rubik-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: RubikMedium;
+  src: url('assets/fonts/Rubik-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: RubikRegular;
+  src: url('assets/fonts/Rubik-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: RobotoMedium;
+  src: url('assets/fonts/Roboto-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: RobotoBold;
+  src: url('assets/fonts/Roboto-Bold.ttf') format('truetype');
+}

@@ -1,1 +1,38 @@
-<p>navbar works!</p>
+<!DOCTYPE html>
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav mode="side" opened class="sidenav">
+    <div fxLayout="row" fxLayoutAlign="space-around center" class="navHeader">
+      <img src="../../../assets/images/logo-sinfondo.png" class="image">
+    </div>
+    <mat-nav-list id="navList">
+      <ng-container *ngFor="let item of data">
+
+        <button mat-button routerLink="{{item.link}}" fxLayout="row" fxLayoutAlign="start center" class="item-link"
+          *ngIf="item.children.length === 0">
+          <mat-icon class="icon">{{item.icon}}</mat-icon>
+          <span class="item">{{item.heading}}</span>
+        </button>
+
+        <mat-expansion-panel hideToggle class="mat-elevation-z0 panel" *ngIf="item.children.length > 0" id="expPanel">
+          <mat-expansion-panel-header class="panel-header" fxLayout="row" fxLayoutAlign="start center">
+            <mat-panel-title>
+              <mat-icon class="icon">{{item.icon}}</mat-icon>
+              <span class="item">{{item.heading}}</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngFor="let child of item.children">
+            <button mat-button routerLink="{{child.link}}">
+              <mat-icon class="subicon">{{child.icon}}</mat-icon>
+              <span class="subitem">{{child.title}}</span>
+            </button>
+          </div>
+        </mat-expansion-panel>
+      </ng-container>
+    </mat-nav-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

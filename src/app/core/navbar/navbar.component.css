@@ -1,0 +1,91 @@
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.navHeader {
+  padding: 1.5rem 0.5rem;
+  background-color: #00f3be;
+}
+
+.image {
+  width: 7rem;
+  height: 4rem;
+}
+
+.sidenav {
+  width: 19rem;
+}
+
+.mat-list-base {
+  padding-top: 0;
+}
+
+h2 {
+  margin: 0 !important;
+  font-family: RubikRegular !important;
+}
+
+/* Nav list */
+.item {
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+}
+
+.icon,
+.item,
+.subitem {
+  margin: 0.5rem !important;
+}
+
+.item,
+.subitem {
+  font-family: RubikRegular !important;
+}
+
+#navList button,
+.item-link {
+  border-bottom: 1px solid white;
+  background-color: #424242;
+}
+
+#navList button {
+  width: 100%;
+  height: 3rem;
+}
+
+.panel-header {
+  padding: 0 16px;
+  border-bottom: 1px solid;
+}
+
+.mat-expansion-panel-header.mat-expanded {
+  border-bottom: 0;
+}
+
+.mat-expansion-panel-body {
+  padding: 0;
+  margin-bottom: 0.5rem;
+}
+
+#expPanel button {
+  text-align: left;
+}
+
+.subitem {
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  overflow-y: scroll;
+  box-shadow: inset 0 0 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}

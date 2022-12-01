@@ -4,6 +4,7 @@ import { LoaderModule } from './loader/loader.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { NavbarModule } from './navbar/navbar.module';
 
 
 
@@ -13,10 +14,12 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     CommonModule,
     LoaderModule,
     HttpClientModule,
+    NavbarModule,
   ],
   exports: [
     HttpClientModule,
     LoaderModule,
+    NavbarModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
