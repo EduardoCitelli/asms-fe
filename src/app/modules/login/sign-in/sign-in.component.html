@@ -1,25 +1,24 @@
 <div fxLayout="row" fxLayoutAlign="center center" class="color">
   <mat-card fxFlex="50">
-    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div fxLayout="column" fxLayoutAlign="center center">
         <img src="../../../../assets/images/logo-sinfondo.png" class="login-image" >
-        <h2 class="cardHeader">Panel de administración</h2>
         <div fxLayout="column" fxLayoutAlign="center center" class="fields">
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="fill">
             <mat-label>Usuario</mat-label>
             <input matInput formControlName="userName">
-            <mat-error *ngIf="loginForm.controls['userName'].hasError('required')">
+            <mat-error *ngIf="UserName?.invalid && (UserName?.dirty || UserName?.touched)">
               Este campo es obligatorio
             </mat-error>
           </mat-form-field>
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="fill">
             <mat-label>Contraseña</mat-label>
             <input matInput type="password" formControlName="password">
-            <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+            <mat-error *ngIf="Password?.invalid && (Password?.dirty || Password?.touched)">
               Este campo es obligatorio
             </mat-error>
           </mat-form-field>
-          <button type="submit" mat-raised-button class="squared-btn" [disabled]="!loginForm.valid" >Ingresar</button>
+          <button type="submit" mat-raised-button class="login-btn" [disabled]="!loginForm.valid" >Ingresar</button>
 
         </div>
       </div>

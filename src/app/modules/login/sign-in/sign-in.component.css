@@ -1,3 +1,14 @@
 .login-image {
   margin: 2rem;
 }
+
+.login-btn {
+  margin: 1rem;
+  width: 100%;
+}
+
+.cardHeader {
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
