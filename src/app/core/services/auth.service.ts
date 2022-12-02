@@ -2,18 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
-import { ApiErrorResponse } from 'src/app/shared/interfaces/api-error-response';
 import { BaseResponse } from 'src/app/shared/interfaces/base-response';
 import { AuthLoginDto } from 'src/app/shared/interfaces/dtos/auth/auth-login-dto';
 import { AuthResponseDto } from 'src/app/shared/interfaces/dtos/auth/auth-response-dto';
 import { environment } from 'src/environments/environment';
 import { LocalStorageService } from './local-storage.service';
 import { ToastrService } from 'ngx-toastr';
+import { BaseService } from './base-service.service';
+import { RoleTypeEnum } from 'src/app/shared/interfaces/enums/role-type-enum';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService  extends BaseService {
   private basePath = `${environment.apiBaseUrl}auth/`;
   private loggedIn: BehaviorSubject<boolean>;
   private endpoints = {
@@ -25,10 +26,11 @@ export class AuthService {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private http: HttpClient,
-    private router: Router,
     private toastr: ToastrService,
+    http: HttpClient,
+    router: Router,
   ) {
+    super(http, router);
     this.loggedIn = new BehaviorSubject<boolean>(false);
     this.logged = this.loggedIn.asObservable();
    }
@@ -44,7 +46,7 @@ export class AuthService {
 
         this.loggedIn.next(true);
 
-        this.router.navigate(['/home']);
+        this._router.navigate(['/home']);
       },
       error => {
         this.toastr.error(error, 'Login');
@@ -53,7 +55,7 @@ export class AuthService {
 
   public logout(): void {
     this.clearUser();
-    this.router.navigate(['/login']);
+    this._router.navigate(['/login']);
   }
 
   public getToken(): string {
@@ -69,8 +71,13 @@ export class AuthService {
     return JSON.parse(this.localStorageService.getItem('loggedUser'));
   }
 
+  public getUserRoles(): RoleTypeEnum[] {
+    const user = this.currentUser();
+    return user.roles;
+  }
+
   private login(request: AuthLoginDto): Observable<BaseResponse<AuthResponseDto>> {
-    return this.http.post<BaseResponse<AuthResponseDto>>(this.endpoints.login, request)
+    return this._http.post<BaseResponse<AuthResponseDto>>(this.endpoints.login, request)
       .pipe(
         catchError(this.handleError)
       );
@@ -79,19 +86,5 @@ export class AuthService {
   private clearUser(): void {
     this.localStorageService.removeItem('loggedUser');
     this.loggedIn.next(false);
-  }
-
-  private handleError(error: ApiErrorResponse): Observable<never> {
-    if (error.status === 401)
-      this.router.navigate(['/login']);
-
-    let errorMessage: string;
-
-    if (error.error instanceof ErrorEvent)
-      errorMessage = `An error occurred: ${error.error.message}`;
-    else
-      errorMessage = `An error occurred: ${error.error?.errors}`;
-
-    return throwError(errorMessage);
   }
 }

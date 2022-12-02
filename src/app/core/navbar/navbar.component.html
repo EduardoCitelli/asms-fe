@@ -7,12 +7,12 @@
       <ng-container *ngFor="let item of data">
 
         <button mat-button routerLink="{{item.link}}" fxLayout="row" fxLayoutAlign="start center" class="item-link"
-          *ngIf="item.children.length === 0">
+          *ngIf="item.children.length === 0 && canShow(item.roles)">
           <mat-icon class="icon">{{item.icon}}</mat-icon>
           <span class="item">{{item.heading}}</span>
         </button>
 
-        <mat-expansion-panel hideToggle class="mat-elevation-z0 panel" *ngIf="item.children.length > 0" id="expPanel">
+        <mat-expansion-panel hideToggle class="mat-elevation-z0 panel" *ngIf="item.children.length > 0 && canShow(item.roles)" id="expPanel">
           <mat-expansion-panel-header class="panel-header" fxLayout="row" fxLayoutAlign="start center">
             <mat-panel-title>
               <mat-icon class="icon">{{item.icon}}</mat-icon>
@@ -20,7 +20,7 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div *ngFor="let child of item.children">
-            <button mat-button routerLink="{{child.link}}" fxLayout="row" fxLayoutAlign="start center">
+            <button *ngIf="(child.roles && canShow(child.roles)) || !child.roles" mat-button routerLink="{{child.link}}" fxLayout="row" fxLayoutAlign="start center">
               <mat-icon class="subicon">{{child.icon}}</mat-icon>
               <span class="subitem">{{child.title}}</span>
             </button>

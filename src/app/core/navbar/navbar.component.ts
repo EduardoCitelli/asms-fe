@@ -1,5 +1,6 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs';
+import { RoleTypeEnum } from 'src/app/shared/interfaces/enums/role-type-enum';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 export class NavbarComponent implements OnInit, AfterViewChecked {
   data: NavItems[];
   isLoggedIn$: Observable<boolean>;
+  currentUserRole: RoleTypeEnum[] = [];
 
   constructor(
     private _authService: AuthService,
@@ -20,6 +22,12 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
   }
 
   public ngOnInit(): void {
+    this.currentUserRole = this._authService.getUserRoles();
+    console.log(this.currentUserRole);
+  }
+
+  public canShow(roles : RoleTypeEnum[]) : boolean{
+    return this.currentUserRole.some(r => roles.includes(r))
   }
 
   public ngAfterViewChecked(): void {
@@ -28,6 +36,13 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
 
   adminItems: NavItems[] = [
     {
+      roles: [
+        RoleTypeEnum.SuperAdmin,
+        RoleTypeEnum.Manager,
+        RoleTypeEnum.StaffMember,
+        RoleTypeEnum.Coach,
+        RoleTypeEnum.Member,
+      ],
       heading: 'Panel de usuario',
       icon: 'api',
       link: '',
@@ -45,6 +60,10 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
       ],
     },
     {
+      roles: [
+        RoleTypeEnum.Manager,
+        RoleTypeEnum.StaffMember,
+      ],
       heading: 'Institución',
       icon: 'foundation',
       link: '',
@@ -70,6 +89,9 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
           icon: 'room_preferences'
         },
         {
+          roles: [
+            RoleTypeEnum.Manager,
+          ],
           title: 'Staff',
           link: '',
           icon: 'people'
@@ -77,12 +99,26 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
       ]
     },
     {
+      roles: [
+        RoleTypeEnum.SuperAdmin,
+        RoleTypeEnum.Manager,
+        RoleTypeEnum.StaffMember,
+        RoleTypeEnum.Coach,
+        RoleTypeEnum.Member,
+      ],
       heading: 'Gestionar Miembros',
       icon: 'people',
       link: '',
       children: []
     },
     {
+      roles: [
+        RoleTypeEnum.SuperAdmin,
+        RoleTypeEnum.Manager,
+        RoleTypeEnum.StaffMember,
+        RoleTypeEnum.Coach,
+        RoleTypeEnum.Member,
+      ],
       heading: 'Gestionar Membresias',
       icon: 'store',
       link: '',
@@ -100,18 +136,39 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
       ]
     },
     {
+      roles: [
+        RoleTypeEnum.SuperAdmin,
+        RoleTypeEnum.Manager,
+        RoleTypeEnum.StaffMember,
+        RoleTypeEnum.Coach,
+        RoleTypeEnum.Member,
+      ],
       heading: 'Pagos',
       icon: 'payments',
       link: '',
       children: []
     },
     {
+      roles: [
+        RoleTypeEnum.SuperAdmin,
+        RoleTypeEnum.Manager,
+        RoleTypeEnum.StaffMember,
+        RoleTypeEnum.Coach,
+        RoleTypeEnum.Member,
+      ],
       heading: 'Planes',
       icon: 'shopping_bag',
       link: '',
       children: []
     },
     {
+      roles: [
+        RoleTypeEnum.SuperAdmin,
+        RoleTypeEnum.Manager,
+        RoleTypeEnum.StaffMember,
+        RoleTypeEnum.Coach,
+        RoleTypeEnum.Member,
+      ],
       heading: 'Gestion de usuarios',
       icon: 'people',
       link: '',
@@ -129,6 +186,26 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
       ]
     },
     {
+      roles: [
+        RoleTypeEnum.SuperAdmin,
+        RoleTypeEnum.Manager,
+        RoleTypeEnum.StaffMember,
+        RoleTypeEnum.Coach,
+        RoleTypeEnum.Member,
+      ],
+      heading: 'Gestionar Instituciones',
+      icon: 'foundation',
+      link: '',
+      children: []
+    },
+    {
+      roles: [
+        RoleTypeEnum.SuperAdmin,
+        RoleTypeEnum.Manager,
+        RoleTypeEnum.StaffMember,
+        RoleTypeEnum.Coach,
+        RoleTypeEnum.Member,
+      ],
       heading: 'Salir',
       icon: 'exit_to_app',
       link: 'login',
@@ -138,6 +215,7 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
 }
 
 interface NavItems {
+  roles: RoleTypeEnum[],
   heading: string;
   icon: string;
   link: string;
@@ -145,6 +223,7 @@ interface NavItems {
 }
 
 interface NavChild {
+  roles?: RoleTypeEnum[];
   title: string;
   link: string;
   icon: string;
