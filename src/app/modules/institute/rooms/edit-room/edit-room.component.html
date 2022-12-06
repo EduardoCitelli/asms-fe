@@ -1,1 +1,67 @@
-<p>edit-room works!</p>
+<div fxLayout="row" class="background">
+  <div fxFlex="80" fxFlexOffset="10%">
+
+    <section id="header">
+      <h1 class="h1-header">{{title}}</h1>
+    </section>
+
+    <section id="body">
+      <form [formGroup]="roomForm" (ngSubmit)="save()">
+        <mat-card>
+          <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+            <div fxFlex="50">
+              <mat-form-field appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput [formControlName]="nameProperty" type="text">
+                <mat-error *ngIf="Name?.invalid && (Name?.dirty || Name?.touched)">
+                  Este campo es obligatorio
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="50">
+              <mat-form-field appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <input matInput [formControlName]="descriptionProperty" type="text">
+                <mat-error *ngIf="Description?.invalid && (Description?.dirty || Description?.touched)">
+                  Este campo es obligatorio
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+            <div fxFlex="50">
+              <mat-form-field appearance="outline">
+                <mat-label>Numero</mat-label>
+                <input matInput [formControlName]="numberProperty" type="number">
+                <mat-error *ngIf="Number?.invalid && (Number?.dirty || Number?.touched)">
+                  Este campo es obligatorio y debe ser mayor que 1
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="50">
+              <mat-form-field appearance="outline">
+                <mat-label>Piso</mat-label>
+                <input matInput [formControlName]="floorProperty" type="number">
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+            <mat-form-field appearance="outline">
+              <mat-label>Capacidad</mat-label>
+                <input matInput [formControlName]="membersCapacityProperty" type="number">
+                <mat-error *ngIf="MemberCapacity?.invalid && (MemberCapacity?.dirty || MemberCapacity?.touched)">
+                  Este campo es obligatorio y debe ser mayor que 1
+                </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <button mat-flat-button type="submit" [disabled]="!roomForm.valid" class="save-changes">GUARDAR CAMBIOS</button>
+          <button routerLink="/institute/rooms" mat-raised-button class="cancel-changes">CANCELAR</button>
+        </div>
+      </form>
+    </section>
+
+  </div>
+</div>

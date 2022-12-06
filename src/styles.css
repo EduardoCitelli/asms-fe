@@ -36,3 +36,108 @@ body {
   font-family: RobotoBold;
   src: url('assets/fonts/Roboto-Bold.ttf') format('truetype');
 }
+
+/* Cards */
+mat-card {
+  width: auto;
+  padding:1.5rem;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
+
+mat-hint, mat-error {
+  margin-top: 1rem
+}
+
+/* Table */
+table {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.table-header {
+  background-color: #F9FBFD;
+  color: #95AAC9;
+  font-family: RobotoBold;
+  text-transform: uppercase;
+}
+
+.table-content {
+  font-family: RobotoMedium;
+  color: #95AAC9;
+}
+
+.table-image {
+  width: 70px;
+}
+
+/* Pages header */
+.h1-header {
+  color: white;
+  margin: 3rem !important;
+  font-family: RubikBold !important;
+  font-size: 2rem !important;
+  text-transform: uppercase;
+}
+
+/* App background */
+.background{
+  /* background: linear-gradient( #45894b 15rem, #F4F7FC 15rem); */
+  height: 100%;
+}
+
+/* Add new */
+.add-btn {
+  background-color: #45894b !important;
+  color: white;
+  margin-bottom: 1.5rem !important;
+  border-radius: 25px !important;
+  float:right;
+}
+
+/* Action buttons */
+.edit-btn, .delete-btn, .close-btn, .open-btn, .trend-btn, .login-btn, .details-btn, .trend-down-btn {
+  transform: scale(0.8) !important;
+  margin: 0.1rem !important;
+}
+
+.delete-btn, .desactivate-btn, .close-btn {
+  background-color: #F2545B !important;
+  color: white !important;
+}
+
+.edit-btn, .activate-btn, .open-btn {
+  color: white !important;
+  background-color: #35CE9E !important;
+}
+
+.desactivate-btn, .activate-btn {
+  transform: scale(0.9);
+  margin-bottom: 0.5rem !important;
+}
+
+/* Save & cancel buttons */
+.save-changes, .cancel-changes {
+  color: white;
+  transform: scale(1.1) !important;
+}
+
+.save-changes {
+  background-color: #04A865 !important;
+  /* Arriba | Derecha | Abajo | Izquierda */
+  margin: 0 auto 1rem 1rem !important;
+}
+
+.cancel-changes {
+  background-color: #F2545B !important;
+   /* Arriba | Derecha | Abajo | Izquierda */
+  margin: 0 1rem 1rem auto !important;
+}
