@@ -15,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import {MatSnackBarModule} from '@angular/material/snack-bar'
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { MatCardModule } from '@angular/material/card';
     MatTooltipModule,
     MatSelectModule,
     MatCardModule,
+    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
   ]

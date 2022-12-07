@@ -1,6 +1,9 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
+import { catchError, tap, throwError } from 'rxjs';
 import { RoomsService } from 'src/app/core/services/rooms.service';
 import { RoomCreateDto } from 'src/app/shared/interfaces/dtos/rooms/room-create-dto';
 import { RoomSingleDto } from 'src/app/shared/interfaces/dtos/rooms/room-single-dto';
@@ -19,7 +22,7 @@ export class EditRoomComponent implements OnInit {
   public readonly floorProperty: string = 'floor';
   public readonly membersCapacityProperty: string = 'membersCapacity';
 
-  id:number = 0;
+  id: number = 0;
   isEdit: boolean = false;
   title: string = "";
 
@@ -29,20 +32,20 @@ export class EditRoomComponent implements OnInit {
     number: ['', Validators.compose([Validators.required, Validators.min(1)])],
     floor: [''],
     membersCapacity: ['', Validators.compose([Validators.required, Validators.min(1)])],
-  })
-
+  });
 
   constructor(
     private _formBuilder: FormBuilder,
     private _roomService: RoomsService,
-    private _router: Router,
     private _activatedRoute: ActivatedRoute,
-  ){}
+    private _location: Location,
+    private _snackBar: MatSnackBar,
+  ) { }
 
   ngOnInit(): void {
     const routeId = this._activatedRoute.snapshot.paramMap.get('id');
 
-    if (routeId){
+    if (routeId) {
       this.id = Number(routeId);
       this.isEdit = true;
 
@@ -59,7 +62,7 @@ export class EditRoomComponent implements OnInit {
     this.changeTitle();
   }
 
-  public save(){
+  public save() {
     const dto = this.FormToDto();
 
     if (this.isEdit)
@@ -93,16 +96,36 @@ export class EditRoomComponent implements OnInit {
     }
   }
 
-  private addRoom(dto: RoomCreateDto){
-    this._roomService.create(dto).subscribe(x => {
-      this._router.navigate(['institute/rooms']);
-    });
+  private addRoom(dto: RoomCreateDto): void {
+    this._roomService.create(dto).pipe(
+      tap(() => {
+        this._snackBar.open("Salon Creado", "Aceptar");
+        this.goBack();
+      }),
+      catchError(error => {
+        console.log(error);
+        alert("Error creating room.");
+        return throwError(error);
+      }))
+      .subscribe();
   }
 
   private updateRoom(dto: RoomUpdateDto) {
-    this._roomService.update(dto).subscribe(x => {
-      this._router.navigate(['institute/rooms']);
-    })
+    this._roomService.update(dto).pipe(
+      tap(() => {
+        this._snackBar.open("Salon Actualizado", "Aceptar");
+        this.goBack();
+      }),
+      catchError(error => {
+        console.log(error);
+        alert("Error updating rooms.");
+        return throwError(error);
+      }))
+      .subscribe();
   }
 
+  private goBack(){
+    this._location.back();
+  }
 }
+
