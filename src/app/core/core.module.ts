@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { NavbarModule } from './navbar/navbar.module';
+import { ConfirmDialogModule } from './confirm-dialog/confirm-dialog.module';
 
 
 
@@ -15,11 +16,13 @@ import { NavbarModule } from './navbar/navbar.module';
     LoaderModule,
     HttpClientModule,
     NavbarModule,
+    ConfirmDialogModule,
   ],
   exports: [
     HttpClientModule,
     LoaderModule,
     NavbarModule,
+    ConfirmDialogModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
