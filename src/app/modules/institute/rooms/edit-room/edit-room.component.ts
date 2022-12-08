@@ -1,8 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { catchError, tap, throwError } from 'rxjs';
 import { RoomsService } from 'src/app/core/services/rooms.service';
 import { RoomCreateDto } from 'src/app/shared/interfaces/dtos/rooms/room-create-dto';
@@ -15,7 +15,6 @@ import { RoomUpdateDto } from 'src/app/shared/interfaces/dtos/rooms/room-update-
   styleUrls: ['./edit-room.component.css']
 })
 export class EditRoomComponent implements OnInit {
-  public readonly idProperty: string = 'id';
   public readonly nameProperty: string = 'name';
   public readonly descriptionProperty: string = 'description';
   public readonly numberProperty: string = 'number';
@@ -30,7 +29,7 @@ export class EditRoomComponent implements OnInit {
     name: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
     description: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
     number: ['', Validators.compose([Validators.required, Validators.min(1)])],
-    floor: [''],
+    floor: [undefined],
     membersCapacity: ['', Validators.compose([Validators.required, Validators.min(1)])],
   });
 
@@ -39,7 +38,7 @@ export class EditRoomComponent implements OnInit {
     private _roomService: RoomsService,
     private _activatedRoute: ActivatedRoute,
     private _location: Location,
-    private _snackBar: MatSnackBar,
+    private _toastrService: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -49,21 +48,14 @@ export class EditRoomComponent implements OnInit {
       this.id = Number(routeId);
       this.isEdit = true;
 
-      this._roomService.getRoom(this.id).subscribe(room => {
-        console.log(room);
-        this.Name?.setValue(room.name);
-        this.Description?.setValue(room.description);
-        this.Number?.setValue(room.number);
-        this.Floor?.setValue(room.floor);
-        this.MemberCapacity?.setValue(room.membersCapacity);
-      });
+      this.getAndSetRoomInfo();
     }
 
     this.changeTitle();
   }
 
   public save() {
-    const dto = this.FormToDto();
+    const dto = this.formToDto();
 
     if (this.isEdit)
       this.updateRoom(dto);
@@ -85,7 +77,7 @@ export class EditRoomComponent implements OnInit {
     }
   }
 
-  private FormToDto(): RoomSingleDto {
+  private formToDto(): RoomSingleDto {
     return {
       id: this.id,
       name: this.Name?.value,
@@ -96,15 +88,27 @@ export class EditRoomComponent implements OnInit {
     }
   }
 
+  private getAndSetRoomInfo(): void {
+    this._roomService.getRoom(this.id).subscribe(room => {
+      this.Name?.setValue(room.name);
+      this.Description?.setValue(room.description);
+      this.Number?.setValue(room.number);
+      this.Floor?.setValue(room.floor);
+      this.MemberCapacity?.setValue(room.membersCapacity);
+    },
+      (error: string) => {
+        this.showError(error);
+      });
+  }
+
   private addRoom(dto: RoomCreateDto): void {
     this._roomService.create(dto).pipe(
       tap(() => {
-        this._snackBar.open("Salon Creado", "Aceptar");
+        this.showSuccess("Salon Creado");
         this.goBack();
       }),
-      catchError(error => {
-        console.log(error);
-        alert("Error creating room.");
+      catchError((error: string) => {
+        this.showError(error);
         return throwError(error);
       }))
       .subscribe();
@@ -113,18 +117,25 @@ export class EditRoomComponent implements OnInit {
   private updateRoom(dto: RoomUpdateDto) {
     this._roomService.update(dto).pipe(
       tap(() => {
-        this._snackBar.open("Salon Actualizado", "Aceptar");
+        this.showSuccess("Salon Actualizado");
         this.goBack();
       }),
-      catchError(error => {
-        console.log(error);
-        alert("Error updating rooms.");
+      catchError((error: string) => {
+        this.showError(error);
         return throwError(error);
       }))
       .subscribe();
   }
 
-  private goBack(){
+  private showSuccess(message: string) {
+    this._toastrService.success(message, "Aceptar");
+  }
+
+  private showError(message: string) {
+    this._toastrService.error(message);
+  }
+
+  private goBack() {
     this._location.back();
   }
 }

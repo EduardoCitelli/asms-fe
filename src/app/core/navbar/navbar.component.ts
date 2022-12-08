@@ -26,11 +26,18 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
   }
 
   public canShow(roles : RoleTypeEnum[]) : boolean{
+    if (this.currentUserRole.length <= 0)
+      return false;
+
     return this.currentUserRole.some(r => roles.includes(r))
   }
 
   public ngAfterViewChecked(): void {
     this.changeDetector.detectChanges();
+    this.isLoggedIn$.subscribe(logged => {
+      if (logged)
+        this.currentUserRole = this._authService.getUserRoles();
+    })
   }
 
   adminItems: NavItems[] = [

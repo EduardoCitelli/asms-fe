@@ -1,5 +1,6 @@
-import { HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ActivityCreateDto } from 'src/app/shared/interfaces/dtos/activities/activity-create-dto';
 import { ActivityListDto } from 'src/app/shared/interfaces/dtos/activities/activity-list-dto';
@@ -27,7 +28,7 @@ export class ActivitiesService extends BaseService<ActivitySingleDto, ActivityLi
     return this.getAll(params);
   }
 
-  public createActivity(dto: ActivityCreateDto): Observable<ActivitySingleDto> {
+  public create(dto: ActivityCreateDto): Observable<ActivitySingleDto> {
     return this.createBase(dto);
   }
 

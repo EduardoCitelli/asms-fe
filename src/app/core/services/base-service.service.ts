@@ -1,6 +1,5 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { ApiErrorResponse } from 'src/app/shared/interfaces/api-error-response';
 import { BaseResponse } from 'src/app/shared/interfaces/base-response';
@@ -23,14 +22,26 @@ export abstract class BaseService<TSingleDto, TListDto, TCreateDto, TUpdateDto> 
       );
   }
 
-  protected getAll(params: HttpParams): Observable<PagedList<TListDto>>{
-
-    return this._http.get<BaseResponse<PagedList<TListDto>>>(this.basePath, {params: params})
+  protected getAll(params: HttpParams): Observable<PagedList<TListDto>> {
+    return this._http.get<BaseResponse<PagedList<TListDto>>>(this.basePath, { params: params })
       .pipe(
         map(res => {
           return res.content;
         }),
-        catchError(this.handleError)
+        catchError((error: ApiErrorResponse) => {
+          console.log(this._router);
+          if (error.status === 401)
+            this._router.navigate(['/login']);
+
+          let errorMessage: string;
+
+          if (error.error instanceof ErrorEvent)
+            errorMessage = `An error occurred: ${error.error.message}`;
+          else
+            errorMessage = `An error occurred: ${error.error?.errors}`;
+
+          return throwError(errorMessage);
+        })
       );
   }
 

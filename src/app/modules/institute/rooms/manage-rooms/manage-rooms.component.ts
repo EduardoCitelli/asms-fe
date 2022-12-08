@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { catchError, tap, throwError } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/core/confirm-dialog/confirm-dialog.component';
 import { RoomsService } from 'src/app/core/services/rooms.service';
@@ -30,7 +30,7 @@ export class ManageRoomsComponent implements OnInit, AfterViewInit {
   constructor(
     private _roomService: RoomsService,
     private _router: Router,
-    private _snackBar: MatSnackBar,
+    private _toastrService: ToastrService,
     private _dialog: MatDialog,
   ) {
   }
@@ -59,11 +59,11 @@ export class ManageRoomsComponent implements OnInit, AfterViewInit {
     this._dialog.open(ConfirmDialogComponent, {
       data: '¿Esta seguro que desea eliminar el salon?',
     })
-    .afterClosed()
-    .subscribe( confirmed => {
-      if (confirmed)
-        this.deleteRoom(id);
-    });
+      .afterClosed()
+      .subscribe(confirmed => {
+        if (confirmed)
+          this.deleteRoom(id);
+      });
   }
 
   private deleteRoom(id: number) {
@@ -71,8 +71,11 @@ export class ManageRoomsComponent implements OnInit, AfterViewInit {
       .subscribe(response => {
         this.dataSource = this.dataSource.filter(x => x.id !== response.id);
         this.roomsCount -= 1;
-        this._snackBar.open("Salon Eliminado", 'Aceptar');
-      });
+        this._toastrService.success("Salon Eliminado");
+      },
+        (error: string) => {
+          this._toastrService.error(error);
+        });
   }
 
   private loadRoomsPage() {
@@ -89,7 +92,7 @@ export class ManageRoomsComponent implements OnInit, AfterViewInit {
       }),
       catchError(error => {
         console.log(error);
-        this._snackBar.open("Error obteniendo salones.", "Aceptar");
+        this._toastrService.error("Error obteniendo salones.");
         return throwError(error);
       })
     ).subscribe();

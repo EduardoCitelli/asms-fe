@@ -6,14 +6,14 @@
         <div fxLayout="column" fxLayoutAlign="center center" class="fields">
           <mat-form-field appearance="fill">
             <mat-label>Usuario</mat-label>
-            <input matInput formControlName="userName">
+            <input autocomplete="username" matInput formControlName="userName">
             <mat-error *ngIf="UserName?.invalid && (UserName?.dirty || UserName?.touched)">
               Este campo es obligatorio
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Contraseña</mat-label>
-            <input matInput type="password" formControlName="password">
+            <input autocomplete="current-password" matInput type="password" formControlName="password">
             <mat-error *ngIf="Password?.invalid && (Password?.dirty || Password?.touched)">
               Este campo es obligatorio
             </mat-error>

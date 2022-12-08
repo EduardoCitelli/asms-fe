@@ -73,7 +73,7 @@ export class AuthService extends BaseSimpleService {
 
   public getUserRoles(): RoleTypeEnum[] {
     const user = this.currentUser();
-    return user.roles;
+    return user?.roles;
   }
 
   private login(request: AuthLoginDto): Observable<BaseResponse<AuthResponseDto>> {
