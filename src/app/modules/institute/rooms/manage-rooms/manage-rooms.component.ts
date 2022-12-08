@@ -14,6 +14,7 @@ import { RoomListDto } from 'src/app/shared/interfaces/dtos/rooms/room-list-dto'
   styleUrls: ['./manage-rooms.component.css']
 })
 export class ManageRoomsComponent implements OnInit, AfterViewInit {
+  public title: string = 'Salones';
   displayedColumns: string[] = [
     "name",
     "description",
@@ -88,7 +89,7 @@ export class ManageRoomsComponent implements OnInit, AfterViewInit {
       }),
       catchError(error => {
         console.log(error);
-        alert("Error loding rooms.");
+        this._snackBar.open("Error obteniendo salones.", "Aceptar");
         return throwError(error);
       })
     ).subscribe();

@@ -23,7 +23,6 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
 
   public ngOnInit(): void {
     this.currentUserRole = this._authService.getUserRoles();
-    console.log(this.currentUserRole);
   }
 
   public canShow(roles : RoleTypeEnum[]) : boolean{
@@ -75,7 +74,7 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
         },
         {
           title: 'Actividades',
-          link: '',
+          link: 'institute/activities',
           icon: 'sports_martial_arts'
         },
         {

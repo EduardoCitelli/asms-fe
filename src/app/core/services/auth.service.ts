@@ -8,13 +8,13 @@ import { AuthResponseDto } from 'src/app/shared/interfaces/dtos/auth/auth-respon
 import { environment } from 'src/environments/environment';
 import { LocalStorageService } from './local-storage.service';
 import { ToastrService } from 'ngx-toastr';
-import { BaseService } from './base-service.service';
 import { RoleTypeEnum } from 'src/app/shared/interfaces/enums/role-type-enum';
+import { BaseSimpleService } from './base-simple.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService  extends BaseService {
+export class AuthService extends BaseSimpleService {
   private basePath = `${environment.apiBaseUrl}auth/`;
   private loggedIn: BehaviorSubject<boolean>;
   private endpoints = {
@@ -33,9 +33,9 @@ export class AuthService  extends BaseService {
     super(http, router);
     this.loggedIn = new BehaviorSubject<boolean>(false);
     this.logged = this.loggedIn.asObservable();
-   }
+  }
 
-   get isLoggedIn(): boolean {
+  get isLoggedIn(): boolean {
     return !!this.currentUser();
   }
 
