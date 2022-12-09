@@ -10,37 +10,28 @@ import { BaseSimpleService } from './base-simple.service';
   providedIn: 'root'
 })
 export abstract class BaseService<TSingleDto, TListDto, TCreateDto, TUpdateDto> extends BaseSimpleService {
-  protected readonly basePath: string = '';
+  abstract readonly basePath: string;
 
-  protected getOne(id: number): Observable<TSingleDto> {
+  protected getOneBase(id: number): Observable<TSingleDto> {
     const url = this.basePath + id;
 
     return this._http.get<BaseResponse<TSingleDto>>(url)
       .pipe(
         map(res => res.content),
-        catchError(this.handleError)
+        catchError((error: ApiErrorResponse) => {
+          return this.handleError(error);
+        })
       );
   }
 
-  protected getAll(params: HttpParams): Observable<PagedList<TListDto>> {
+  protected getAllBase(params: HttpParams): Observable<PagedList<TListDto>> {
     return this._http.get<BaseResponse<PagedList<TListDto>>>(this.basePath, { params: params })
       .pipe(
         map(res => {
           return res.content;
         }),
         catchError((error: ApiErrorResponse) => {
-          console.log(this._router);
-          if (error.status === 401)
-            this._router.navigate(['/login']);
-
-          let errorMessage: string;
-
-          if (error.error instanceof ErrorEvent)
-            errorMessage = `An error occurred: ${error.error.message}`;
-          else
-            errorMessage = `An error occurred: ${error.error?.errors}`;
-
-          return throwError(errorMessage);
+          return this.handleError(error);
         })
       );
   }
@@ -49,7 +40,9 @@ export abstract class BaseService<TSingleDto, TListDto, TCreateDto, TUpdateDto> 
     return this._http.post<BaseResponse<TSingleDto>>(this.basePath, dto)
       .pipe(
         map(res => res.content),
-        catchError(this.handleError)
+        catchError((error: ApiErrorResponse) => {
+          return this.handleError(error);
+        })
       );
   }
 
@@ -57,7 +50,9 @@ export abstract class BaseService<TSingleDto, TListDto, TCreateDto, TUpdateDto> 
     return this._http.put<BaseResponse<TSingleDto>>(url, dto)
       .pipe(
         map(res => res.content),
-        catchError(this.handleError)
+        catchError((error: ApiErrorResponse) => {
+          return this.handleError(error);
+        })
       );
   }
 
@@ -67,7 +62,9 @@ export abstract class BaseService<TSingleDto, TListDto, TCreateDto, TUpdateDto> 
     return this._http.delete<BaseResponse<TSingleDto>>(url)
       .pipe(
         map(res => res.content),
-        catchError(this.handleError)
+        catchError((error: ApiErrorResponse) => {
+          return this.handleError(error);
+        })
       );
   }
 }

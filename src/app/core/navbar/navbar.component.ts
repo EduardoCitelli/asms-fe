@@ -125,18 +125,18 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
         RoleTypeEnum.Coach,
         RoleTypeEnum.Member,
       ],
-      heading: 'Gestionar Membresias',
+      heading: 'Gestion',
       icon: 'store',
       link: '',
       children: [
         {
           title: 'Membresias',
-          link: '',
+          link: 'manage/memberships',
           icon: 'card_membership',
         },
         {
           title: 'Tipos de Membresias',
-          link: '',
+          link: 'manage/membership-types',
           icon: 'list',
         }
       ]

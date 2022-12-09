@@ -16,7 +16,7 @@ export class RoomsService extends BaseService<RoomSingleDto, RoomListDto, RoomCr
   override readonly basePath = `${environment.apiBaseUrl}room/`;
 
   public getRoom(id: number): Observable<RoomSingleDto> {
-    return this.getOne(id);
+    return this.getOneBase(id);
   }
 
   public getRooms(pageNumber: number, pageSize: number): Observable<PagedList<RoomListDto>> {
@@ -24,7 +24,7 @@ export class RoomsService extends BaseService<RoomSingleDto, RoomListDto, RoomCr
       .set('Page', pageNumber.toString())
       .set('Size', pageSize.toString());
 
-    return this.getAll(params);
+    return this.getAllBase(params);
   }
 
   public create(dto: RoomCreateDto): Observable<RoomSingleDto> {
