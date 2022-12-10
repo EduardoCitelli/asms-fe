@@ -48,7 +48,7 @@
                     <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
                         <mat-form-field appearance="outline">
                             <mat-label> Precio </mat-label>
-                            <input matInput currencyMask [formControlName]="priceProperty" class="price-field">
+                            <input matInput currencyMask [formControlName]="priceProperty">
                             <mat-error *ngIf="Price?.invalid">
                                 {{getNumericError(Price)}}
                             </mat-error>
