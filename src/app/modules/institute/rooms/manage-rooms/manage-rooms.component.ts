@@ -16,6 +16,7 @@ import { RoomListDto } from 'src/app/shared/interfaces/dtos/rooms/room-list-dto'
 export class ManageRoomsComponent implements OnInit, AfterViewInit {
   public title: string = 'Salones';
   displayedColumns: string[] = [
+    "number",
     "name",
     "description",
     "option",

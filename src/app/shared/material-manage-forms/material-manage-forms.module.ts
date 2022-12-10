@@ -12,6 +12,17 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox'
+import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
+
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+  align: "left",
+  allowNegative: false,
+  decimal: ",",
+  precision: 2,
+  prefix: "$ ",
+  suffix: "",
+  thousands: "."
+};
 
 const component = [
   MatInputModule,
@@ -28,6 +39,7 @@ const component = [
   FormsModule,
   ReactiveFormsModule,
   MatCheckboxModule,
+  CurrencyMaskModule,
 ]
 
 
@@ -35,5 +47,8 @@ const component = [
   declarations: [],
   imports: [component],
   exports: [component],
+  providers: [
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
+  ],
 })
 export class MaterialManageFormsModule { }

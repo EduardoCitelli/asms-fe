@@ -1,62 +1,64 @@
 <div fxLayout="row" class="background">
-    <div fxFlex="80" fxFlexOffset="10%">
+  <div fxFlex="80" fxFlexOffset="10%">
 
-      <section id="header">
-        <h1 class="h1-header">{{title}}</h1>
-      </section>
+    <section id="header">
+      <h1 class="h1-header">{{title}}</h1>
+    </section>
 
-      <section id="body">
-        <form [formGroup]="form" (ngSubmit)="save()">
-          <mat-card>
-            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
-              <div fxFlex="50">
-                <mat-form-field appearance="outline">
-                  <mat-label>Nombre</mat-label>
-                  <input matInput [formControlName]="nameProperty" type="text">
-                  <mat-error *ngIf="Name?.invalid && (Name?.dirty || Name?.touched)">
-                    Este campo es obligatorio
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <div fxFlex="50">
-                <mat-form-field appearance="outline">
-                  <mat-label>Descripción</mat-label>
-                  <input matInput [formControlName]="descriptionProperty" type="text">
-                  <mat-error *ngIf="Description?.invalid && (Description?.dirty || Description?.touched)">
-                    Este campo es obligatorio
-                  </mat-error>
-                </mat-form-field>
-              </div>
+    <section id="body">
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <mat-card>
+          <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+            <div fxFlex="50">
+              <mat-form-field appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput [formControlName]="nameProperty" type="text">
+                <mat-error *ngIf="Name?.invalid">
+                  Este campo es obligatorio
+                </mat-error>
+              </mat-form-field>
             </div>
             <div fxFlex="50">
-                <mat-form-field appearance="outline">
-                    <mat-label> Meses de duración </mat-label>
-                    <input matInput [formControlName]="monthQuantityProperty" type="number">
-                    <mat-error *ngIf="MonthQuantity?.invalid && (MonthQuantity?.dirty || MonthQuantity?.touched)">
-                        Este campo es obligatorio
-                      </mat-error>
-                </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <input matInput [formControlName]="descriptionProperty" type="text">
+                <mat-error *ngIf="Description?.invalid">
+                  Este campo es obligatorio
+                </mat-error>
+              </mat-form-field>
             </div>
-            <div fxFlex="50">
-                <mat-form-field appearance="outline">
-                    <mat-label> Cantidad de clases </mat-label>
-                    <input matInput [formControlName]="classQuantityProperty" type="number">
-                    <mat-error *ngIf="ClassQuantity?.invalid && (ClassQuantity?.dirty || ClassQuantity?.touched)">
-                        Este campo es obligatorio
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
-                  <mat-checkbox [formControlName]="isByQuantityProperty" [(ngModel)]="isByQuantityChecked"> Es por cantidad de clases? </mat-checkbox>
-            </div>
-          </mat-card>
-          <br>
-          <div fxLayout="row" fxLayoutAlign="start center">
-            <button mat-flat-button type="submit" [disabled]="!form.valid" class="save-changes">GUARDAR CAMBIOS</button>
-            <button routerLink="/manage/membership-types" mat-raised-button class="cancel-changes">CANCELAR</button>
           </div>
-        </form>
-      </section>
+          <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+            <mat-form-field appearance="outline">
+              <mat-label> Meses de duración </mat-label>
+              <input matInput [formControlName]="monthQuantityProperty" type="number">
+              <mat-error *ngIf="MonthQuantity?.invalid">
+                {{getNumericError(MonthQuantity!)}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" class="checkQuantity" fxLayoutAlign="flex-start flex-start" fxLayoutGap="2rem">
+            <mat-checkbox [formControlName]="isByQuantityProperty" [(ngModel)]="isByQuantityChecked"
+              (change)="onCheckChange($event.checked)">
+              Es por cantidad de clases? </mat-checkbox>
+          </div>
+          <div *ngIf="isByQuantityChecked" fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+            <mat-form-field appearance="outline">
+              <mat-label> Cantidad de clases </mat-label>
+              <input min="0" matInput [formControlName]="classQuantityProperty" type="number">
+              <mat-error *ngIf="isByQuantityChecked && ClassQuantity?.invalid">
+                Este campo es obligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <button mat-flat-button type="submit" [disabled]="!form.valid" class="save-changes">GUARDAR CAMBIOS</button>
+          <button routerLink="/manage/membership-types" mat-raised-button class="cancel-changes">CANCELAR</button>
+        </div>
+      </form>
+    </section>
 
-    </div>
   </div>
+</div>

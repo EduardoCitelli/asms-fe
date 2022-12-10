@@ -1,6 +1,7 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ComboDto } from 'src/app/shared/interfaces/combo-dto';
 import { MembershipTypeCreateDto } from 'src/app/shared/interfaces/dtos/membership-types/membership-type-create-dto';
 import { MembershipTypeListDto } from 'src/app/shared/interfaces/dtos/membership-types/membership-type-list-dto';
 import { MembershipTypeSingleDto } from 'src/app/shared/interfaces/dtos/membership-types/membership-type-single-dto';
@@ -26,6 +27,10 @@ export class MembershipTypeService extends BaseService<MembershipTypeSingleDto, 
       .set('Size', pageSize.toString());
 
     return this.getAllBase(params);
+  }
+
+  public getCombo(): Observable<ComboDto<number>[]> {
+    return this.getComboBase();
   }
 
   public create(dto: MembershipTypeCreateDto): Observable<MembershipTypeSingleDto> {

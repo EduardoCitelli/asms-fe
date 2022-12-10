@@ -1,0 +1,69 @@
+<div fxLayout="row" class="background">
+    <div fxFlex="80" fxFlexOffset="10%">
+
+        <section id="header">
+            <h1 class="h1-header">{{title}}</h1>
+        </section>
+
+        <section id="body">
+            <form [formGroup]="form" (ngSubmit)="save()">
+                <mat-card>
+                    <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+                        <div fxFlex="50">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nombre</mat-label>
+                                <input matInput [formControlName]="nameProperty" type="text">
+                                <mat-error *ngIf="Name?.invalid">
+                                    {{getStringError(Name)}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Descripción</mat-label>
+                                <input matInput [formControlName]="descriptionProperty" type="text">
+                                <mat-error *ngIf="Description?.invalid">
+                                    {{getStringError(Description)}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxLayout="row" class="checkbox-field" fxLayoutAlign="flex-start flex-start" fxLayoutGap="2rem">
+                        <mat-checkbox [formControlName]="isPremiumProperty">Es premium? </mat-checkbox>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+                        <mat-form-field appearance="outline">
+                            <mat-label> Tipo de membresía </mat-label>
+                            <mat-select [formControlName]="membershipTypeIdProperty">
+                                <mat-option>Seleccionar</mat-option>
+                                <mat-option *ngFor="let type of typeDtos" [value]="type.id">
+                                    {{type.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="MembershipTypeId?.invalid">
+                                Este campo es obligatorio
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+                        <mat-form-field appearance="outline">
+                            <mat-label> Precio </mat-label>
+                            <input matInput currencyMask [formControlName]="priceProperty" class="price-field">
+                            <mat-error *ngIf="Price?.invalid">
+                                {{getNumericError(Price)}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </mat-card>
+                <br>
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <button mat-flat-button type="submit" [disabled]="!form.valid" class="save-changes">GUARDAR
+                        CAMBIOS</button>
+                    <button routerLink="/manage/memberships" mat-raised-button
+                        class="cancel-changes">CANCELAR</button>
+                </div>
+            </form>
+        </section>
+
+    </div>
+</div>

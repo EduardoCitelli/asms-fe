@@ -119,7 +119,7 @@ export class EditActivityComponent implements OnInit {
   }
 
   private showSuccess(message: string) {
-    this._toastrService.info(message);
+    this._toastrService.success(message);
   }
 
   private showError(message: string) {

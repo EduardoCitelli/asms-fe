@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap, throwError } from 'rxjs';
@@ -43,6 +43,7 @@ export class EditMembershipTypeComponent implements OnInit {
     });
   }
 
+
   ngOnInit(): void {
     const membershipTypeId = this._activatedRoute.snapshot.paramMap.get('id');
 
@@ -56,6 +57,13 @@ export class EditMembershipTypeComponent implements OnInit {
     this.changeTitle();
   }
 
+  public getNumericError(control: AbstractControl) {
+    if (control?.hasError('required'))
+      return "Este campo es obligatorio";
+
+    return "El valor debe ser mayor que 1";
+  }
+
   public save() {
     const dto = this.formToDto();
 
@@ -63,6 +71,17 @@ export class EditMembershipTypeComponent implements OnInit {
       this.update(dto);
     else
       this.add(dto);
+  }
+
+  onCheckChange(value: boolean) {
+    if (value)
+      this.ClassQuantity?.addValidators([Validators.required, Validators.min(1)])
+    else {
+      this.ClassQuantity?.clearValidators();
+      this.ClassQuantity?.setValue(undefined);
+      this.ClassQuantity?.markAsUntouched();
+    }
+
   }
 
   get Name() { return this.form.get(this.nameProperty); }
@@ -131,7 +150,7 @@ export class EditMembershipTypeComponent implements OnInit {
   }
 
   private showSuccess(message: string) {
-    this._toastrService.info(message);
+    this._toastrService.success(message);
   }
 
   private showError(message: string) {
