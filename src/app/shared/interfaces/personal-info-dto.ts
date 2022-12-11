@@ -3,6 +3,6 @@ export interface PersonalInfoDto {
   phone: string;
   addressStreet: string;
   addressNumber: number;
-  addressExtraInfo: string | null;
+  addressExtraInfo?: string;
   identificationNumber: number;
 }
