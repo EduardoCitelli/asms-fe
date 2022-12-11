@@ -86,7 +86,7 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
         },
         {
           title: 'Profesores',
-          link: '',
+          link: 'institute/coaches',
           icon: 'people'
         },
         {
