@@ -1,1 +1,151 @@
-<p>edit-coach works!</p>
+<div fxLayout="row" class="background">
+  <div fxFlex="80" fxFlexOffset="10%">
+
+    <section id="header">
+      <h1 class="h1-header">{{title}}</h1>
+    </section>
+
+    <section id="body">
+      <form autocomplete="off" [formGroup]="form" (ngSubmit)="save()">
+        <mat-card>
+          <fieldset>
+            <legend>Información de usuario</legend>
+            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxFlex="50">
+                <mat-form-field appearance="outline">
+                  <mat-label>Nombre de usuario</mat-label>
+                  <input matInput [formControlName]="userNameProperty" type="text" required>
+                  <mat-error *ngIf="UserName?.invalid">
+                    {{getStringError(UserName)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="50">
+                <mat-form-field appearance="outline">
+                  <mat-label>Nombre</mat-label>
+                  <input matInput [formControlName]="firstNameProperty" type="text" required>
+                  <mat-error *ngIf="FirstName?.invalid">
+                    {{getStringError(FirstName)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxFlex="50">
+                <mat-form-field appearance="outline">
+                  <mat-label>Apellido</mat-label>
+                  <input matInput [formControlName]="lastNameProperty" type="text" required>
+                  <mat-error *ngIf="LastName?.invalid">
+                    {{getStringError(LastName)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="50">
+                <mat-form-field appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input matInput [formControlName]="emailProperty" type="text" required>
+                  <mat-error *ngIf="Email?.invalid">
+                    {{getEmailError(Email)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div *ngIf="!isEdit" fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input autocomplete="new-password" matInput [formControlName]="passwordProperty" type="password" required>
+                <mat-error *ngIf="Password?.invalid">
+                  {{getStringError(Password)}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Información Personal</legend>
+            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxFlex="50">
+                <mat-form-field appearance="outline">
+                  <mat-label>Fecha de Nacimiento</mat-label>
+                  <input matInput [min]="minDate" [max]="maxDate" [formControlName]="birthDateProperty"
+                    [matDatepicker]="picker" required>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+                  <mat-error *ngIf="BirthDate?.invalid">
+                    Este campo es requerido
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="50">
+                <mat-form-field appearance="outline">
+                  <mat-label>Telefono</mat-label>
+                  <input matInput [formControlName]="phoneProperty" type="tel" required>
+                  <mat-error *ngIf="Phone?.invalid">
+                    {{getStringError(Phone)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxFlex="50">
+                <mat-form-field appearance="outline">
+                  <mat-label> Salario </mat-label>
+                  <input matInput currencyMask [formControlName]="salaryProperty">
+                  <mat-error *ngIf="Salary?.invalid">
+                    {{getNumericError(Salary)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="50">
+                <mat-form-field appearance="outline">
+                  <mat-label>CUIT/DNI</mat-label>
+                  <input matInput min="1" max="99999999999" [formControlName]="identificationNumberProperty" type="number"
+                    required>
+                  <mat-error *ngIf="IdentificationNumber?.invalid">
+                    {{getNumericError(IdentificationNumber)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <fieldset>
+              <legend>Domicilio</legend>
+              <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+                <div fxFlex="50">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Nombre Calle</mat-label>
+                    <input matInput [formControlName]="addressStreetProperty" type="text" required>
+                    <mat-error *ngIf="AddressStreet?.invalid">
+                      {{getStringError(AddressStreet)}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxFlex="50">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Numero Calle</mat-label>
+                    <input autocomplete="address-level1" matInput [formControlName]="addressNumberProperty" type="number" required>
+                    <mat-error *ngIf="AddressNumber?.invalid">
+                      {{getNumericError(AddressNumber)}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+                <mat-form-field appearance="outline">
+                  <mat-label>Información extra</mat-label>
+                  <textarea matInput [formControlName]="addressExtraInfoProperty" type="text" cols="30"
+                    rows="10"></textarea>
+                </mat-form-field>
+              </div>
+            </fieldset>
+          </fieldset>
+        </mat-card>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <button mat-flat-button type="submit" [disabled]="!form.valid" class="save-changes">GUARDAR
+            CAMBIOS</button>
+          <button routerLink="/institute/coaches" mat-raised-button class="cancel-changes">CANCELAR</button>
+        </div>
+      </form>
+    </section>
+
+  </div>
+</div>

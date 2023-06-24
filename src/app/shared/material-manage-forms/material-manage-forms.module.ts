@@ -12,6 +12,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from '@angular/material/core';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -40,6 +42,8 @@ const component = [
   ReactiveFormsModule,
   MatCheckboxModule,
   CurrencyMaskModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 ]
 
 

@@ -14,17 +14,27 @@ import { CoachUpdateDto } from 'src/app/shared/interfaces/dtos/coaches/coach-upd
   templateUrl: './edit-coach.component.html',
   styleUrls: ['./edit-coach.component.css']
 })
-export class EditCoachComponent implements OnInit  {
-  public readonly nameProperty: string = 'name';
-  public readonly descriptionProperty: string = 'description';
-  public readonly isPremiumProperty: string = 'isPremium';
-  public readonly membershipTypeIdProperty: string = 'membershipTypeId';
-  public readonly priceProperty: string = 'price';
+export class EditCoachComponent implements OnInit {
+  public readonly userNameProperty: string = 'userName';
+  public readonly firstNameProperty: string = 'firstName';
+  public readonly lastNameProperty: string = 'lastName';
+  public readonly emailProperty: string = 'email';
+  public readonly passwordProperty: string = 'password';
+
+  public readonly birthDateProperty: string = 'birthDate';
+  public readonly phoneProperty: string = 'phone';
+  public readonly addressStreetProperty: string = 'addressStreet';
+  public readonly addressNumberProperty: string = 'addressNumber';
+  public readonly addressExtraInfoProperty: string = 'addressExtraInfo';
+  public readonly identificationNumberProperty: string = 'identificationNumber';
+  public readonly salaryProperty: string = 'salary';
 
   id: number = 0;
   isEdit: boolean = false;
   title: string = "";
   form: FormGroup;
+  minDate: Date;
+  maxDate: Date;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -34,22 +44,37 @@ export class EditCoachComponent implements OnInit  {
     private _toastrService: ToastrService,
   ) {
     this.form = this._formBuilder.group({
-      fullName: new FormControl<string | undefined>(undefined, Validators.compose([Validators.required, Validators.minLength(3)])),
-      phone: new FormControl<string | undefined>(undefined, Validators.compose([Validators.required, Validators.minLength(3)])),
-      isPremium: [false],
-      price: new FormControl<number | undefined>(undefined, Validators.compose([Validators.required, Validators.min(1)])),
+      userName: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
+      firstName: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
+      lastName: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
+      email: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3), Validators.email]),
+
+      birthDate: new FormControl<string | undefined>(undefined),
+      phone: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3), Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
+      addressStreet: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
+      addressNumber: new FormControl<number | undefined>(undefined, [Validators.required, Validators.min(1)]),
+      addressExtraInfo: new FormControl<string | undefined>(undefined),
+      identificationNumber: new FormControl<number | undefined>(undefined, [Validators.required]),
+
+      salary: new FormControl<number | undefined>(undefined, [Validators.required, Validators.min(1)]),
     });
+
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 100, 0, 1);
+    this.maxDate = new Date(currentYear - 5, 0, 1);
   }
 
   ngOnInit(): void {
-    const membershipId = this._activatedRoute.snapshot.paramMap.get('id');
+    const coachId = this._activatedRoute.snapshot.paramMap.get('id');
 
-    if (membershipId) {
-      this.id = Number(membershipId);
+    if (coachId) {
+      this.id = Number(coachId);
       this.isEdit = true;
 
       this.getAndSetFormInfo();
     }
+    else
+      this.form.addControl('password', new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(6)]))
 
     this.changeTitle();
   }
@@ -58,30 +83,63 @@ export class EditCoachComponent implements OnInit  {
     if (control?.hasError('required'))
       return "Este campo es obligatorio";
 
+    if (control?.hasError('max'))
+      return "El valor debe ser menor";
+
     return "El valor debe ser mayor que 1";
   }
 
-  public getStringError(control : AbstractControl | null) {
+  public getStringError(control: AbstractControl | null) {
     if (control?.hasError('required'))
       return "Este campo es obligatorio";
 
-    return "El campo debe contener más de 3 digitos";
+    if (control?.hasError('pattern'))
+      return "Este campo debe tener un formato valido";
+
+    return "El campo debe contener más digitos";
+  }
+
+  public getEmailError(control: AbstractControl | null) {
+    if (control?.hasError('required'))
+      return "Este campo es obligatorio";
+
+    if (control?.hasError('email'))
+      return "El campo debe tener un formato de email valido";
+
+    return "El campo debe contener más digitos";
   }
 
   public save() {
-    const dto = this.formToDto();
-
-    if (this.isEdit)
+    if (this.isEdit) {
+      const dto = this.formToUpdateDto();
       this.update(dto);
-    else
+    }
+    else {
+      const dto = this.formToCreateDto();
+      this.DateChangeCreator(this.BirthDate?.value)
       this.add(dto);
+    }
   }
 
-  get Name() { return this.form.get(this.nameProperty); }
-  get Description() { return this.form.get(this.descriptionProperty); }
-  get IsPremium() { return this.form.get(this.isPremiumProperty); }
-  get MembershipTypeId() { return this.form.get(this.membershipTypeIdProperty); }
-  get Price() { return this.form.get(this.priceProperty); }
+  private DateChangeCreator(date: Date): string {
+    const selectedDate = date.toISOString().split('T')[0];
+    return selectedDate;
+  }
+
+  get UserName() { return this.form.get(this.userNameProperty); }
+  get FirstName() { return this.form.get(this.firstNameProperty); }
+  get LastName() { return this.form.get(this.lastNameProperty); }
+  get Email() { return this.form.get(this.emailProperty); }
+  get Password() { return this.form.get(this.passwordProperty); }
+
+  get BirthDate() { return this.form.get(this.birthDateProperty); }
+  get Phone() { return this.form.get(this.phoneProperty); }
+  get AddressStreet() { return this.form.get(this.addressStreetProperty); }
+  get AddressNumber() { return this.form.get(this.addressNumberProperty); }
+  get AddressExtraInfo() { return this.form.get(this.addressExtraInfoProperty); }
+  get IdentificationNumber() { return this.form.get(this.identificationNumberProperty); }
+
+  get Salary() { return this.form.get(this.salaryProperty); }
 
   private changeTitle() {
     if (this.isEdit) {
@@ -91,39 +149,73 @@ export class EditCoachComponent implements OnInit  {
     }
   }
 
-  private formToDto(): CoachSingleDto {
+  private formToUpdateDto(): CoachUpdateDto {
     return {
       id: this.id,
       user: {
-        userName: '',
-        firstName: "",
-        lastName: '',
-        email: '',
+        userName: this.UserName?.value,
+        firstName: this.FirstName?.value,
+        lastName: this.LastName?.value,
+        email: this.Email?.value,
       },
       personalInfo: {
-        birthDate: '',
-        phone: '',
-        addressStreet: '',
-        addressNumber: 1,
-        addressExtraInfo: '',
-        identificationNumber: 1,
+        birthDate: this.DateChangeCreator(this.BirthDate?.value),
+        phone: this.Phone?.value,
+        addressStreet: this.AddressStreet?.value,
+        addressNumber: this.AddressNumber?.value,
+        addressExtraInfo: this.AddressExtraInfo?.value,
+        identificationNumber: this.IdentificationNumber?.value,
       },
-      salary: 1,
+      salary: this.Salary?.value,
+    }
+  }
+
+  private formToCreateDto(): CoachCreateDto {
+    return {
+      user: {
+        userName: this.UserName?.value,
+        firstName: this.FirstName?.value,
+        lastName: this.LastName?.value,
+        email: this.Email?.value,
+        password: this.Password?.value,
+      },
+      personalInfo: {
+        birthDate: this.DateChangeCreator(this.BirthDate?.value),
+        phone: this.Phone?.value,
+        addressStreet: this.AddressStreet?.value,
+        addressNumber: this.AddressNumber?.value,
+        addressExtraInfo: this.AddressExtraInfo?.value,
+        identificationNumber: this.IdentificationNumber?.value,
+      },
+      salary: this.Salary?.value,
     }
   }
 
   private getAndSetFormInfo(): void {
     this._coachesService.getOne(this.id)
-      .subscribe(response => {
-        this.Name?.setValue(response.name);
-        this.Description?.setValue(response.description);
-        this.IsPremium?.setValue(response.isPremium);
-        this.MembershipTypeId?.setValue(response.membershipTypeId);
-        this.Price?.setValue(response.price);
-      },
-        error => {
+      .subscribe({
+        next: (response: CoachSingleDto) => {
+          this.UserName?.setValue(response.user.userName);
+          this.FirstName?.setValue(response.user.firstName);
+          this.LastName?.setValue(response.user.lastName);
+          this.Email?.setValue(response.user.email);
+
+          // This will return an ISO string matching your local time.
+          const d = new Date(response.personalInfo.birthDate)
+          this.BirthDate?.setValue(new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes() + d.getTimezoneOffset()));
+
+          this.Phone?.setValue(response.personalInfo.phone);
+          this.AddressStreet?.setValue(response.personalInfo.addressStreet);
+          this.AddressNumber?.setValue(response.personalInfo.addressNumber);
+          this.AddressExtraInfo?.setValue(response.personalInfo.addressExtraInfo);
+          this.IdentificationNumber?.setValue(response.personalInfo.identificationNumber);
+
+          this.Salary?.setValue(response.salary);
+        },
+        error: error => {
           this.showError(error);
-        });
+        },
+      });
   }
 
   private add(dto: CoachCreateDto): void {

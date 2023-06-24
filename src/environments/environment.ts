@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://localhost:7230/api/'
+  apiBaseUrl: 'https://asms-api.azurewebsites.net/api/'
+  // apiBaseUrl: 'https://localhost:7230/api/'
 };
 
 /*

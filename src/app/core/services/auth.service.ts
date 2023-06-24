@@ -58,8 +58,8 @@ export class AuthService extends BaseSimpleService {
     this._router.navigate(['/login']);
   }
 
-  public getToken(): string {
-    const token: string = this.currentUser()?.token;
+  public getToken(): string| undefined {
+    const token = this.currentUser()?.token;
     return token;
   }
 
@@ -67,13 +67,16 @@ export class AuthService extends BaseSimpleService {
     this.loggedIn.next(status);
   }
 
-  private currentUser(): AuthResponseDto {
-    return JSON.parse(this.localStorageService.getItem('loggedUser'));
+  private currentUser(): AuthResponseDto | null {
+    if (this.localStorageService.getItem('loggedUser'))
+      return JSON.parse(this.localStorageService.getItem('loggedUser'));
+
+    return null;
   }
 
   public getUserRoles(): RoleTypeEnum[] {
     const user = this.currentUser();
-    return user?.roles;
+    return user?.roles!;
   }
 
   private login(request: AuthLoginDto): Observable<BaseResponse<AuthResponseDto>> {

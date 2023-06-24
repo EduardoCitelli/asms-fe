@@ -7,6 +7,12 @@ body {
   background: url('assets/images/background.jpg') no-repeat center center fixed;
 }
 
+fieldset{
+  margin: 1rem;
+  color: #04A865;
+  border-color: #04A865;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

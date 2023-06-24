@@ -6,7 +6,11 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { NavbarModule } from './navbar/navbar.module';
 import { ConfirmDialogModule } from './confirm-dialog/confirm-dialog.module';
+import { registerLocaleData } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
+import localeEs from '@angular/common/locales/es-AR';
 
+registerLocaleData(localeEs);
 
 
 @NgModule({
@@ -28,6 +32,7 @@ import { ConfirmDialogModule } from './confirm-dialog/confirm-dialog.module';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: DEFAULT_CURRENCY_CODE, useValue: '$' },
+    { provide: LOCALE_ID, useValue: 'es-AR' },
   ]
 })
 export class CoreModule { }
