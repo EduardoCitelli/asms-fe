@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { CoachesRoutingModule } from './coaches-routing.module';
 import { ManageCoachesComponent } from './manage-coaches/manage-coaches.component';
 import { EditCoachComponent } from './edit-coach/edit-coach.component';

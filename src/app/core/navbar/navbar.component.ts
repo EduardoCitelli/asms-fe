@@ -99,7 +99,7 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
             RoleTypeEnum.Manager,
           ],
           title: 'Staff',
-          link: '',
+          link: 'institute/staff',
           icon: 'people'
         },
       ]

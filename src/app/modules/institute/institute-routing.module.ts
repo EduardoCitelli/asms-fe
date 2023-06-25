@@ -5,6 +5,7 @@ const routes: Routes = [
   { path: 'rooms', loadChildren: () => import('./rooms/rooms.module').then(m => m.RoomsModule) },
   { path: 'activities', loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule) },
   { path: 'coaches', loadChildren: () => import('./coaches/coaches.module').then(m => m.CoachesModule) },
+  { path: 'staff', loadChildren: () => import('./staff/staff.module').then(m => m.StaffModule) },
 ];
 
 @NgModule({
