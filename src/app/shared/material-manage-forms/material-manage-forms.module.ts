@@ -15,6 +15,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from '@angular/material/core';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
+import { TextMaskModule } from 'angular2-text-mask';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
@@ -44,8 +45,8 @@ const component = [
   CurrencyMaskModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  TextMaskModule,
 ]
-
 
 @NgModule({
   declarations: [],

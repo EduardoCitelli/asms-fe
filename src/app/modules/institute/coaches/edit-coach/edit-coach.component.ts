@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap, throwError } from 'rxjs';
 import { CoachesService } from 'src/app/core/services/coaches.service';
@@ -9,6 +10,7 @@ import { CoachCreateDto } from 'src/app/shared/interfaces/dtos/coaches/coach-cre
 import { CoachSingleDto } from 'src/app/shared/interfaces/dtos/coaches/coach-single-dto';
 import { CoachUpdateDto } from 'src/app/shared/interfaces/dtos/coaches/coach-update-dto';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-edit-coach',
   templateUrl: './edit-coach.component.html',
@@ -35,6 +37,7 @@ export class EditCoachComponent implements OnInit {
   form: FormGroup;
   minDate: Date;
   maxDate: Date;
+  cuitMask = [/\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -86,6 +89,9 @@ export class EditCoachComponent implements OnInit {
     if (control?.hasError('max'))
       return "El valor debe ser menor";
 
+    if (control?.hasError('pattern'))
+      return "Este campo debe tener un formato valido";
+
     return "El valor debe ser mayor que 1";
   }
 
@@ -116,7 +122,6 @@ export class EditCoachComponent implements OnInit {
     }
     else {
       const dto = this.formToCreateDto();
-      this.DateChangeCreator(this.BirthDate?.value)
       this.add(dto);
     }
   }

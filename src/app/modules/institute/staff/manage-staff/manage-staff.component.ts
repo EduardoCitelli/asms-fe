@@ -7,7 +7,9 @@ import { catchError, tap, throwError } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/core/confirm-dialog/confirm-dialog.component';
 import { StaffService } from 'src/app/core/services/staff.service';
 import { StaffListDto } from 'src/app/shared/interfaces/dtos/staff/staff-list-dto';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-manage-staff',
   templateUrl: './manage-staff.component.html',

@@ -11,6 +11,7 @@ fieldset{
   margin: 1rem;
   color: #04A865;
   border-color: #04A865;
+  border-radius: 1rem;
 }
 
 input::-webkit-outer-spin-button,
