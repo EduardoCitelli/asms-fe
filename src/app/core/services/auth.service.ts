@@ -67,7 +67,7 @@ export class AuthService extends BaseSimpleService {
     this.loggedIn.next(status);
   }
 
-  private currentUser(): AuthResponseDto | null {
+  public currentUser(): AuthResponseDto | null {
     if (this.localStorageService.getItem('loggedUser'))
       return JSON.parse(this.localStorageService.getItem('loggedUser'));
 
