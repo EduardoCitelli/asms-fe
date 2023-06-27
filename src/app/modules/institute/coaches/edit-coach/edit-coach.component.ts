@@ -77,7 +77,7 @@ export class EditCoachComponent implements OnInit {
       this.getAndSetFormInfo();
     }
     else
-      this.form.addControl('password', new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(6)]))
+      this.form.addControl('password', new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(7)]))
 
     this.changeTitle();
   }

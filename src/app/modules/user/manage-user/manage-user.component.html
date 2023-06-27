@@ -1,1 +1,56 @@
-<h1>manage user works</h1>
+<div fxLayout="row" class="background">
+  <div fxFlex="50" fxFlexOffset="25%">
+
+    <section id="header">
+      <h1 class="h1-header">Editar Mi Usuario</h1>
+    </section>
+
+    <section id="body">
+
+      <form autocomplete="off" [formGroup]="form" (ngSubmit)="save()">
+        <mat-card>
+          <fieldset>
+            <legend>Información de usuario</legend>
+            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxFlex="50">
+                <mat-form-field appearance="outline">
+                  <mat-label>Nombre</mat-label>
+                  <input matInput [formControlName]="firstNameProperty" type="text" required>
+                  <mat-error *ngIf="FirstName?.invalid">
+                    {{getStringError(FirstName)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="50">
+                <mat-form-field appearance="outline">
+                  <mat-label>Apellido</mat-label>
+                  <input matInput [formControlName]="lastNameProperty" type="text" required>
+                  <mat-error *ngIf="LastName?.invalid">
+                    {{getStringError(LastName)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxFlex="100">
+                <mat-form-field appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input matInput [formControlName]="emailProperty" type="text" required>
+                  <mat-error *ngIf="Email?.invalid">
+                    {{getEmailError(Email)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </fieldset>
+        </mat-card>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <button mat-flat-button type="submit" [disabled]="!form.valid" class="save-changes">GUARDAR CAMBIOS</button>
+          <button routerLink="/" mat-raised-button class="cancel-changes">CANCELAR</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+</div>
