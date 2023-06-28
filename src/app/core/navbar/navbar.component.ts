@@ -1,14 +1,22 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Observable } from 'rxjs';
+import { AfterViewInit, AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { NavigationEnd, Router } from '@angular/router';
+import { Observable, delay, filter } from 'rxjs';
 import { RoleTypeEnum } from 'src/app/shared/interfaces/enums/role-type-enum';
 import { AuthService } from '../services/auth.service';
+import { MatSidenav } from '@angular/material/sidenav';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit, AfterViewChecked {
+export class NavbarComponent implements OnInit, AfterViewChecked, AfterViewInit {
+  @ViewChild(MatSidenav)
+  sidenav!: MatSidenav;
+
   data: NavItems[];
   isLoggedIn$: Observable<boolean>;
   currentUserRole: RoleTypeEnum[] = [];
@@ -16,6 +24,8 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
   constructor(
     private _authService: AuthService,
     private changeDetector: ChangeDetectorRef,
+    private observer: BreakpointObserver,
+    private router: Router,
   ) {
     this.isLoggedIn$ = this._authService.logged;
     this.data = this.adminItems;
@@ -38,6 +48,35 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
       if (logged)
         this.currentUserRole = this._authService.getUserRoles();
     })
+  }
+
+  ngAfterViewInit() {
+    console.log(this.sidenav);
+    this.observer
+      .observe(['(max-width: 800px)'])
+      .pipe(delay(1), untilDestroyed(this))
+      .subscribe((res) => {
+        console.log(res);
+        if (res.matches) {
+          this.sidenav.mode = 'over';
+          this.sidenav.close();
+        } else {
+          this.sidenav.mode = 'side';
+          this.sidenav.open();
+        }
+      });
+
+    this.router.events
+      .pipe(
+        untilDestroyed(this),
+        filter((e) => e instanceof NavigationEnd)
+      )
+      .subscribe(() => {
+        console.log(this.sidenav)
+        if (this.sidenav && this.sidenav.mode === 'over') {
+          this.sidenav.close();
+        }
+      });
   }
 
   adminItems: NavItems[] = [

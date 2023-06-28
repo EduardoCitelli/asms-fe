@@ -9,7 +9,6 @@ import { SharedModule } from './shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginModule } from './modules/login/login.module';
 import { HomeModule } from './modules/home/home.module';
-
 @NgModule({
   declarations: [
     AppComponent

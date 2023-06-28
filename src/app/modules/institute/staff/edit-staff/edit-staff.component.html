@@ -10,8 +10,8 @@
         <mat-card>
           <fieldset>
             <legend>Información de usuario</legend>
-            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
-              <div fxFlex="50">
+            <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxFlex>
                 <mat-form-field appearance="outline">
                   <mat-label>Nombre de usuario</mat-label>
                   <input matInput [formControlName]="userNameProperty" type="text" required>
@@ -20,7 +20,7 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-              <div fxFlex="50">
+              <div fxFlex>
                 <mat-form-field appearance="outline">
                   <mat-label>Nombre</mat-label>
                   <input matInput [formControlName]="firstNameProperty" type="text" required>
@@ -30,8 +30,8 @@
                 </mat-form-field>
               </div>
             </div>
-            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
-              <div fxFlex="50">
+            <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxFlex>
                 <mat-form-field appearance="outline">
                   <mat-label>Apellido</mat-label>
                   <input matInput [formControlName]="lastNameProperty" type="text" required>
@@ -40,7 +40,7 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-              <div fxFlex="50">
+              <div fxFlex>
                 <mat-form-field appearance="outline">
                   <mat-label>Email</mat-label>
                   <input matInput [formControlName]="emailProperty" type="text" required>
@@ -50,7 +50,7 @@
                 </mat-form-field>
               </div>
             </div>
-            <div *ngIf="!isEdit" fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+            <div *ngIf="!isEdit" fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
               <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
                 <input autocomplete="new-password" matInput [formControlName]="passwordProperty" type="password" required>
@@ -62,8 +62,8 @@
           </fieldset>
           <fieldset>
             <legend>Información Personal</legend>
-            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
-              <div fxFlex="50">
+            <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxFlex>
                 <mat-form-field appearance="outline">
                   <mat-label>Fecha de Nacimiento</mat-label>
                   <input matInput [min]="minDate" [max]="maxDate" [formControlName]="birthDateProperty"
@@ -75,7 +75,7 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-              <div fxFlex="50">
+              <div fxFlex>
                 <mat-form-field appearance="outline">
                   <mat-label>Telefono</mat-label>
                   <input matInput [formControlName]="phoneProperty" type="tel" required>
@@ -85,7 +85,7 @@
                 </mat-form-field>
               </div>
             </div>
-            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+            <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
               <div fxFlex="100">
                 <mat-form-field appearance="outline">
                   <mat-label>CUIT/DNI</mat-label>
@@ -99,8 +99,8 @@
             </div>
             <fieldset>
               <legend>Domicilio</legend>
-              <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
-                <div fxFlex="50">
+              <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+                <div fxFlex>
                   <mat-form-field appearance="outline">
                     <mat-label>Nombre Calle</mat-label>
                     <input matInput [formControlName]="addressStreetProperty" type="text" required>
@@ -109,7 +109,7 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div fxFlex="50">
+                <div fxFlex>
                   <mat-form-field appearance="outline">
                     <mat-label>Numero Calle</mat-label>
                     <input autocomplete="address-level1" matInput [formControlName]="addressNumberProperty" type="number" required>
@@ -119,7 +119,7 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
                 <mat-form-field appearance="outline">
                   <mat-label>Información extra</mat-label>
                   <textarea matInput [formControlName]="addressExtraInfoProperty" type="text" cols="30"
@@ -130,7 +130,7 @@
           </fieldset>
         </mat-card>
         <br>
-        <div fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
           <button mat-flat-button type="submit" [disabled]="!form.valid" class="save-changes">GUARDAR
             CAMBIOS</button>
           <button routerLink="/institute/staff" mat-raised-button class="cancel-changes">CANCELAR</button>
