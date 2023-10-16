@@ -1,5 +1,15 @@
-<mat-sidenav-container class="example-container">
-  <mat-sidenav mode="side" opened class="sidenav" *ngIf="isLoggedIn$ | async as ILoggedIn">
+<mat-toolbar class="mat-elevation-z8" *ngIf="(isLoggedIn$ | async) && (sidenav?.mode === 'over')">
+    <button
+      mat-icon-button
+      *ngIf="sidenav?.mode === 'over'"
+      (click)="sidenav.toggle()"
+    >
+      <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+      <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+    </button>
+</mat-toolbar>
+<mat-sidenav-container class="example-container mat-elevation-z8">
+  <mat-sidenav #sidenav="matSidenav" mode="side" opened class="sidenav mat-elevation-z8" *ngIf="isLoggedIn$ | async as ILoggedIn">
     <div routerLink="home" fxLayout="row" fxLayoutAlign="space-around center" class="navHeader">
       <img src="../../../assets/images/logo-sinfondo.png" class="image">
     </div>
@@ -30,7 +40,9 @@
     </mat-nav-list>
 
   </mat-sidenav>
-  <mat-sidenav-content class="content">
-    <router-outlet></router-outlet>
+  <mat-sidenav-content>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

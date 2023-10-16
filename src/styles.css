@@ -1,17 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background: url('assets/images/background.jpg') no-repeat center center fixed;
 }
 
-fieldset{
+fieldset {
   margin: 1rem;
   color: #04A865;
   border-color: #04A865;
   border-radius: 1rem;
+}
+
+mat-paginator {
+  margin-top: 1rem;
+  border-radius: 1rem;
+}
+
+table {
+  border: 0.4rem solid #424242 !important;
+  border-radius: 1rem !important;
 }
 
 input::-webkit-outer-spin-button,
@@ -53,7 +67,7 @@ input::-webkit-inner-spin-button {
 /* Cards */
 mat-card {
   width: auto;
-  padding:1.5rem;
+  padding: 1.5rem;
 }
 
 mat-form-field {
@@ -65,7 +79,8 @@ mat-form-field {
   padding-bottom: 0 !important;
 }
 
-mat-hint, mat-error {
+mat-hint,
+mat-error {
   margin-top: 1rem
 }
 
@@ -102,7 +117,7 @@ table {
 }
 
 /* App background */
-.background{
+.background {
   /* background: linear-gradient( #45894b 15rem, #F4F7FC 15rem); */
   height: 100%;
 }
@@ -113,34 +128,50 @@ table {
   color: white;
   margin-bottom: 1.5rem !important;
   border-radius: 25px !important;
-  float:right;
+  float: right;
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 /* Action buttons */
-.edit-btn, .delete-btn, .close-btn, .open-btn, .trend-btn, .login-btn, .details-btn, .trend-down-btn {
+.edit-btn,
+.delete-btn,
+.close-btn,
+.open-btn,
+.trend-btn,
+.login-btn,
+.details-btn,
+.trend-down-btn {
   transform: scale(0.8) !important;
   margin: 0.1rem !important;
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12) !important;
 }
 
-.delete-btn, .desactivate-btn, .close-btn {
+.delete-btn,
+.desactivate-btn,
+.close-btn {
   background-color: #F2545B !important;
   color: white !important;
 }
 
-.edit-btn, .activate-btn, .open-btn {
+.edit-btn,
+.activate-btn,
+.open-btn {
   color: white !important;
   background-color: #35CE9E !important;
 }
 
-.desactivate-btn, .activate-btn {
+.desactivate-btn,
+.activate-btn {
   transform: scale(0.9);
   margin-bottom: 0.5rem !important;
 }
 
 /* Save & cancel buttons */
-.save-changes, .cancel-changes {
+.save-changes,
+.cancel-changes {
   color: white;
   transform: scale(1.1) !important;
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12) !important;
 }
 
 .save-changes {
@@ -151,6 +182,6 @@ table {
 
 .cancel-changes {
   background-color: #F2545B !important;
-   /* Arriba | Derecha | Abajo | Izquierda */
+  /* Arriba | Derecha | Abajo | Izquierda */
   margin: 0 1rem 1rem auto !important;
 }

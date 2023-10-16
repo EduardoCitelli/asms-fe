@@ -11,8 +11,8 @@
         <mat-card>
           <fieldset>
             <legend>Información de usuario</legend>
-            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
-              <div fxFlex="50">
+            <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxFlex>
                 <mat-form-field appearance="outline">
                   <mat-label>Nombre</mat-label>
                   <input matInput [formControlName]="firstNameProperty" type="text" required>
@@ -21,7 +21,7 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-              <div fxFlex="50">
+              <div fxFlex>
                 <mat-form-field appearance="outline">
                   <mat-label>Apellido</mat-label>
                   <input matInput [formControlName]="lastNameProperty" type="text" required>
@@ -31,7 +31,7 @@
                 </mat-form-field>
               </div>
             </div>
-            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+            <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
               <div fxFlex="100">
                 <mat-form-field appearance="outline">
                   <mat-label>Email</mat-label>
@@ -45,7 +45,7 @@
           </fieldset>
         </mat-card>
         <br>
-        <div fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
           <button mat-flat-button type="submit" [disabled]="!form.valid" class="save-changes">GUARDAR CAMBIOS</button>
           <button routerLink="/" mat-raised-button class="cancel-changes">CANCELAR</button>
         </div>

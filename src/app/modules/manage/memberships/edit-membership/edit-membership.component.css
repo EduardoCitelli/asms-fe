@@ -2,3 +2,7 @@
     height: 4rem;
     flex-wrap: wrap;
 }
+
+mat-card {
+  border-radius: 1rem;
+}

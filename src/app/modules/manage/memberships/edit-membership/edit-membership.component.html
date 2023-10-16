@@ -8,8 +8,8 @@
         <section id="body">
             <form [formGroup]="form" (ngSubmit)="save()">
                 <mat-card>
-                    <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
-                        <div fxFlex="50">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+                        <div fxFlex>
                             <mat-form-field appearance="outline">
                                 <mat-label>Nombre</mat-label>
                                 <input matInput [formControlName]="nameProperty" type="text">
@@ -18,7 +18,7 @@
                                 </mat-error>
                             </mat-form-field>
                         </div>
-                        <div fxFlex="50">
+                        <div fxFlex>
                             <mat-form-field appearance="outline">
                                 <mat-label>Descripción</mat-label>
                                 <input matInput [formControlName]="descriptionProperty" type="text">
@@ -28,10 +28,10 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div fxLayout="row" class="checkbox-field" fxLayoutAlign="flex-start flex-start" fxLayoutGap="2rem">
+                    <div fxLayout="row wrap" class="checkbox-field" fxLayoutAlign="flex-start flex-start" fxLayoutGap="2rem">
                         <mat-checkbox [formControlName]="isPremiumProperty">Es premium? </mat-checkbox>
                     </div>
-                    <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
                         <mat-form-field appearance="outline">
                             <mat-label> Tipo de membresía </mat-label>
                             <mat-select [formControlName]="membershipTypeIdProperty">
@@ -45,7 +45,7 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
                         <mat-form-field appearance="outline">
                             <mat-label> Precio </mat-label>
                             <input matInput currencyMask [formControlName]="priceProperty">
@@ -56,7 +56,7 @@
                     </div>
                 </mat-card>
                 <br>
-                <div fxLayout="row" fxLayoutAlign="start center">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
                     <button mat-flat-button type="submit" [disabled]="!form.valid" class="save-changes">GUARDAR
                         CAMBIOS</button>
                     <button routerLink="/manage/memberships" mat-raised-button

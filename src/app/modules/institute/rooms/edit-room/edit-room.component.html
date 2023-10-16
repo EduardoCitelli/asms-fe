@@ -8,8 +8,8 @@
     <section id="body">
       <form [formGroup]="roomForm" (ngSubmit)="save()">
         <mat-card>
-          <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
-            <div fxFlex="50">
+          <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+            <div fxFlex>
               <mat-form-field appearance="outline">
                 <mat-label>Nombre</mat-label>
                 <input matInput [formControlName]="nameProperty" type="text">
@@ -18,7 +18,7 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div fxFlex="50">
+            <div fxFlex>
               <mat-form-field appearance="outline">
                 <mat-label>Descripción</mat-label>
                 <input matInput [formControlName]="descriptionProperty" type="text">
@@ -28,8 +28,8 @@
               </mat-form-field>
             </div>
           </div>
-          <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
-            <div fxFlex="50">
+          <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+            <div fxFlex>
               <mat-form-field appearance="outline">
                 <mat-label>Numero</mat-label>
                 <input matInput [formControlName]="numberProperty" type="number">
@@ -38,14 +38,14 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div fxFlex="50">
+            <div fxFlex>
               <mat-form-field appearance="outline">
                 <mat-label>Piso</mat-label>
                 <input matInput [formControlName]="floorProperty" type="number">
               </mat-form-field>
             </div>
           </div>
-          <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+          <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
             <mat-form-field appearance="outline">
               <mat-label>Capacidad</mat-label>
                 <input matInput [formControlName]="membersCapacityProperty" type="number">
@@ -56,7 +56,7 @@
           </div>
         </mat-card>
         <br>
-        <div fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
           <button mat-flat-button type="submit" [disabled]="!roomForm.valid" class="save-changes">GUARDAR CAMBIOS</button>
           <button routerLink="/institute/rooms" mat-raised-button class="cancel-changes">CANCELAR</button>
         </div>

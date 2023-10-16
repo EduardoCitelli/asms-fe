@@ -8,8 +8,8 @@
     <section id="body">
       <form [formGroup]="form" (ngSubmit)="save()">
         <mat-card>
-          <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
-            <div fxFlex="50">
+          <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+            <div fxFlex>
               <mat-form-field appearance="outline">
                 <mat-label>Nombre</mat-label>
                 <input matInput [formControlName]="nameProperty" type="text">
@@ -18,7 +18,7 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div fxFlex="50">
+            <div fxFlex>
               <mat-form-field appearance="outline">
                 <mat-label>Descripción</mat-label>
                 <input matInput [formControlName]="descriptionProperty" type="text">
@@ -28,7 +28,7 @@
               </mat-form-field>
             </div>
           </div>
-          <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+          <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
             <mat-form-field appearance="outline">
               <mat-label> Meses de duración </mat-label>
               <input matInput [formControlName]="monthQuantityProperty" type="number">
@@ -37,12 +37,12 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <div fxLayout="row" class="checkQuantity" fxLayoutAlign="flex-start flex-start" fxLayoutGap="2rem">
+          <div fxLayout="row wrap" class="checkQuantity" fxLayoutAlign="flex-start flex-start" fxLayoutGap="2rem">
             <mat-checkbox [formControlName]="isByQuantityProperty" [(ngModel)]="isByQuantityChecked"
               (change)="onCheckChange($event.checked)">
               Es por cantidad de clases? </mat-checkbox>
           </div>
-          <div *ngIf="isByQuantityChecked" fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+          <div *ngIf="isByQuantityChecked" fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
             <mat-form-field appearance="outline">
               <mat-label> Cantidad de clases </mat-label>
               <input min="0" matInput [formControlName]="classQuantityProperty" type="number">
@@ -53,7 +53,7 @@
           </div>
         </mat-card>
         <br>
-        <div fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
           <button mat-flat-button type="submit" [disabled]="!form.valid" class="save-changes">GUARDAR CAMBIOS</button>
           <button routerLink="/manage/membership-types" mat-raised-button class="cancel-changes">CANCELAR</button>
         </div>
