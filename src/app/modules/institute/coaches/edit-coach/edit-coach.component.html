@@ -98,7 +98,7 @@
               <div fxFlex>
                 <mat-form-field appearance="outline">
                   <mat-label>CUIT/DNI</mat-label>
-                  <input [textMask]="{mask: cuitMask}" matInput min="1" max="99999999999" [formControlName]="identificationNumberProperty" type="number"
+                  <input [textMask]="{mask: cuitMask}" matInput min="1" max="99999999999" [formControlName]="identificationNumberProperty"
                     required>
                   <mat-error *ngIf="IdentificationNumber?.invalid">
                     {{getNumericError(IdentificationNumber)}}

@@ -115,7 +115,7 @@ export class NavbarComponent implements OnInit, AfterViewChecked, AfterViewInit 
       children: [
         {
           title: 'Gestionar Datos',
-          link: '',
+          link: 'institute/manage',
           icon: 'description'
         },
         {
