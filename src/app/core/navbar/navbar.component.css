@@ -1,5 +1,4 @@
 .example-container {
-  /* position: absolute; */
   height: 100%;
   top: 0;
   bottom: 0;
@@ -72,6 +71,11 @@ h2 {
 .item-link {
   border-bottom: 1px solid white;
   background-color: #424242;
+  padding: 0px 16px;
+}
+
+.item-link {
+  padding: 0px 16px;
 }
 
 #navList button {

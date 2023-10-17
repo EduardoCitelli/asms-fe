@@ -1,0 +1,65 @@
+<div fxLayout="row" class="background">
+  <div fxFlex="80" fxFlexOffset="10%">
+
+    <section id="header">
+      <h1 class="h1-header">{{title}}</h1>
+    </section>
+
+    <section id="body">
+      <form [formGroup]="planForm" (ngSubmit)="save()">
+        <mat-card>
+          <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+            <div fxFlex>
+              <mat-form-field appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput [formControlName]="nameProperty" type="text">
+                <mat-error *ngIf="Name?.invalid && (Name?.dirty || Name?.touched)">
+                  Este campo es obligatorio
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex>
+              <mat-form-field appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <input matInput [formControlName]="descriptionProperty" type="text">
+                <mat-error *ngIf="Description?.invalid && (Description?.dirty || Description?.touched)">
+                  Este campo es obligatorio
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+            <div fxFlex>
+              <mat-form-field appearance="outline">
+                <mat-label>Usuarios Permitidos</mat-label>
+                <input matInput [formControlName]="allowedUsersProperty" type="number">
+                <mat-error *ngIf="AllowedUsers?.invalid">
+                  {{getNumericError(AllowedUsers)}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex>
+              <mat-form-field appearance="outline">
+                <mat-label> Precio </mat-label>
+                <input matInput currencyMask [formControlName]="priceProperty">
+                <mat-error *ngIf="Price?.invalid">
+                  {{getNumericError(Price)}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="checkbox-field" fxLayoutAlign="flex-start flex-start" fxLayoutGap="2rem">
+            <mat-checkbox [formControlName]="hasOnlineClassesProperty">¿Tiene Clases Online? </mat-checkbox>
+        </div>
+        </mat-card>
+        <br>
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+          <button mat-flat-button type="submit" [disabled]="!planForm.valid" class="save-changes">GUARDAR
+            CAMBIOS</button>
+          <button routerLink="/plans" mat-raised-button class="cancel-changes">CANCELAR</button>
+        </div>
+      </form>
+    </section>
+
+  </div>
+</div>
