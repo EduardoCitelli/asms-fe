@@ -9,6 +9,12 @@ import { SharedModule } from './shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginModule } from './modules/login/login.module';
 import { HomeModule } from './modules/home/home.module';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem("access_token");
+}
+
 @NgModule({
   declarations: [
     AppComponent
@@ -22,6 +28,13 @@ import { HomeModule } from './modules/home/home.module';
     SharedModule,
     LoginModule,
     HomeModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["example.com"],
+        disallowedRoutes: ["http://example.com/examplebadroute/"],
+      },
+    }),
   ],
   bootstrap: [AppComponent]
 })
