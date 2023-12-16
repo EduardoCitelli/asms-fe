@@ -1,22 +1,20 @@
-import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { UntilDestroy } from '@ngneat/until-destroy';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap, throwError } from 'rxjs';
-import { StaffService } from 'src/app/core/services/staff.service';
-import { StaffCreateDto } from 'src/app/shared/interfaces/dtos/staff/staff-create-dto';
-import { StaffSingleDto } from 'src/app/shared/interfaces/dtos/staff/staff-single-dto';
-import { StaffUpdateDto } from 'src/app/shared/interfaces/dtos/staff/staff-update-dto';
+import { InstituteMemberService } from 'src/app/core/services/institute-member.service';
+import { InstituteMemberCreateDto } from 'src/app/shared/interfaces/dtos/institute-members/institute-member-create-dto';
+import { InstituteMemberSingleDto } from 'src/app/shared/interfaces/dtos/institute-members/institute-member-single-dto';
+import { InstituteMemberUpdateDto } from 'src/app/shared/interfaces/dtos/institute-members/institute-member-update-dto';
 
-@UntilDestroy({ checkProperties: true })
 @Component({
-  selector: 'app-edit-staff',
-  templateUrl: './edit-staff.component.html',
-  styleUrls: ['./edit-staff.component.css']
+  selector: 'app-edit-institute-members',
+  templateUrl: './edit-institute-members.component.html',
+  styleUrls: ['./edit-institute-members.component.css']
 })
-export class EditStaffComponent implements OnInit {
+export class EditInstituteMembersComponent {
   public readonly userNameProperty: string = 'userName';
   public readonly firstNameProperty: string = 'firstName';
   public readonly lastNameProperty: string = 'lastName';
@@ -40,7 +38,7 @@ export class EditStaffComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _staffService: StaffService,
+    private _instituteMemberService: InstituteMemberService,
     private _activatedRoute: ActivatedRoute,
     private _location: Location,
     private _toastrService: ToastrService,
@@ -65,10 +63,10 @@ export class EditStaffComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const staffId = this._activatedRoute.snapshot.paramMap.get('id');
+    const instituteMemberId = this._activatedRoute.snapshot.paramMap.get('id');
 
-    if (staffId) {
-      this.id = Number(staffId);
+    if (instituteMemberId) {
+      this.id = Number(instituteMemberId);
       this.isEdit = true;
 
       this.getAndSetFormInfo();
@@ -143,13 +141,13 @@ export class EditStaffComponent implements OnInit {
 
   private changeTitle() {
     if (this.isEdit) {
-      this.title = "EDITAR STAFF";
+      this.title = "EDITAR MIEMBRO DE LA INSTITUCIÓN";
     } else {
-      this.title = "AGREGAR NUEVO STAFF";
+      this.title = "AGREGAR NUEVO MIEMBRO DE LA INSTITUCIÓN";
     }
   }
 
-  private formToUpdateDto(): StaffUpdateDto {
+  private formToUpdateDto(): InstituteMemberUpdateDto {
     return {
       id: this.id,
       user: {
@@ -169,7 +167,7 @@ export class EditStaffComponent implements OnInit {
     }
   }
 
-  private formToCreateDto(): StaffCreateDto {
+  private formToCreateDto(): InstituteMemberCreateDto {
     return {
       user: {
         userName: this.UserName?.value,
@@ -190,9 +188,9 @@ export class EditStaffComponent implements OnInit {
   }
 
   private getAndSetFormInfo(): void {
-    this._staffService.getOne(this.id)
+    this._instituteMemberService.getOne(this.id)
       .subscribe({
-        next: (response: StaffSingleDto) => {
+        next: (response: InstituteMemberSingleDto) => {
           this.UserName?.setValue(response.user.userName);
           this.FirstName?.setValue(response.user.firstName);
           this.LastName?.setValue(response.user.lastName);
@@ -214,10 +212,10 @@ export class EditStaffComponent implements OnInit {
       });
   }
 
-  private add(dto: StaffCreateDto): void {
-    this._staffService.create(dto).pipe(
+  private add(dto: InstituteMemberCreateDto): void {
+    this._instituteMemberService.create(dto).pipe(
       tap(() => {
-        this.showSuccess("Staff Creado");
+        this.showSuccess("Meimbro del instituto Creado");
         this.goBack();
       }),
       catchError((error: string) => {
@@ -227,10 +225,10 @@ export class EditStaffComponent implements OnInit {
       .subscribe();
   }
 
-  private update(dto: StaffUpdateDto): void {
-    this._staffService.update(dto).pipe(
+  private update(dto: InstituteMemberUpdateDto): void {
+    this._instituteMemberService.update(dto).pipe(
       tap(() => {
-        this.showSuccess("Staff Actualizado.");
+        this.showSuccess("Miembro del instituto Actualizado.");
         this.goBack();
       }),
       catchError((error: string) => {

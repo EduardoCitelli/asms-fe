@@ -105,6 +105,7 @@ export class MyInstituteComponent implements OnInit {
   }
 
   private formToUpdateDto(): InstituteUpdateDto {
+    const valor = Number(this.IdentificationNumber?.value.replaceAll('-', ""));
     return {
       institutionName: this.InstitutionName?.value,
       personalInfo: {
@@ -113,7 +114,7 @@ export class MyInstituteComponent implements OnInit {
         addressStreet: this.AddressStreet?.value,
         addressNumber: this.AddressNumber?.value,
         addressExtraInfo: this.AddressExtraInfo?.value,
-        identificationNumber: this.IdentificationNumber?.value,
+        identificationNumber: valor,
       },
     }
   }
@@ -128,7 +129,6 @@ export class MyInstituteComponent implements OnInit {
       .subscribe({
         next: (response: InstituteSingleDto) => {
           // This will return an ISO string matching your local time.
-          console.log(response.personalInfo.identificationNumber)
           this.InstitutionName?.setValue(response.institutionName);
 
           const d = new Date(response.personalInfo.birthDate)

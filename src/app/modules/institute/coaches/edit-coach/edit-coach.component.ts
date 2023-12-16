@@ -57,7 +57,7 @@ export class EditCoachComponent implements OnInit {
       addressStreet: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
       addressNumber: new FormControl<number | undefined>(undefined, [Validators.required, Validators.min(1)]),
       addressExtraInfo: new FormControl<string | undefined>(undefined),
-      identificationNumber: new FormControl<number | undefined>(undefined, [Validators.required]),
+      identificationNumber: new FormControl<number | undefined>(undefined, [Validators.required, Validators.pattern("^[0-9]{2}-[0-9]{8}-[0-9]{1}?$")]),
 
       salary: new FormControl<number | undefined>(undefined, [Validators.required, Validators.min(1)]),
     });
