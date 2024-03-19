@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://asms-api.azurewebsites.net/api/'
+  apiBaseUrl: 'http://asms-be.somee.com/api/'
   // apiBaseUrl: 'https://localhost:7230/api/'
 };
 
