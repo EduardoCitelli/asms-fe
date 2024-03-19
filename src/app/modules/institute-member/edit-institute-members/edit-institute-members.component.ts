@@ -54,7 +54,7 @@ export class EditInstituteMembersComponent {
       addressStreet: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
       addressNumber: new FormControl<number | undefined>(undefined, [Validators.required, Validators.min(1)]),
       addressExtraInfo: new FormControl<string | undefined>(undefined),
-      identificationNumber: new FormControl<number | undefined>(undefined, [Validators.required, Validators.pattern("^[0-9]{2}-[0-9]{8}-[0-9]{1}?$")]),
+      identificationNumber: new FormControl<number | undefined>(undefined, [Validators.required, Validators.pattern("^[0-9]{2}-?[0-9]{8}-?[0-9]{1}?$")]),
     });
 
     const currentYear = new Date().getFullYear();
@@ -162,7 +162,7 @@ export class EditInstituteMembersComponent {
         addressStreet: this.AddressStreet?.value,
         addressNumber: this.AddressNumber?.value,
         addressExtraInfo: this.AddressExtraInfo?.value,
-        identificationNumber: this.IdentificationNumber?.value,
+        identificationNumber: this.IdentificationNumber?.value.replace(/-/g, ""),
       },
     }
   }
@@ -182,7 +182,7 @@ export class EditInstituteMembersComponent {
         addressStreet: this.AddressStreet?.value,
         addressNumber: this.AddressNumber?.value,
         addressExtraInfo: this.AddressExtraInfo?.value,
-        identificationNumber: this.IdentificationNumber?.value,
+        identificationNumber: this.IdentificationNumber?.value.replace(/-/g, ""),
       },
     }
   }
