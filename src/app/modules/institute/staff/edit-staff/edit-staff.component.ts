@@ -9,6 +9,7 @@ import { StaffService } from 'src/app/core/services/staff.service';
 import { StaffCreateDto } from 'src/app/shared/interfaces/dtos/staff/staff-create-dto';
 import { StaffSingleDto } from 'src/app/shared/interfaces/dtos/staff/staff-single-dto';
 import { StaffUpdateDto } from 'src/app/shared/interfaces/dtos/staff/staff-update-dto';
+import { isNumber } from 'src/app/shared/utils/check-number';
 
 @UntilDestroy({ checkProperties: true })
 @Component({
@@ -164,7 +165,7 @@ export class EditStaffComponent implements OnInit {
         addressStreet: this.AddressStreet?.value,
         addressNumber: this.AddressNumber?.value,
         addressExtraInfo: this.AddressExtraInfo?.value,
-        identificationNumber: this.IdentificationNumber?.value.replace(/-/g, ""),
+        identificationNumber: isNumber(this.IdentificationNumber?.value) ? this.IdentificationNumber?.value : this.IdentificationNumber?.value.replace(/-/g, ""),
       },
     }
   }

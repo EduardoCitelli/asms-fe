@@ -9,6 +9,7 @@ import { CoachesService } from 'src/app/core/services/coaches.service';
 import { CoachCreateDto } from 'src/app/shared/interfaces/dtos/coaches/coach-create-dto';
 import { CoachSingleDto } from 'src/app/shared/interfaces/dtos/coaches/coach-single-dto';
 import { CoachUpdateDto } from 'src/app/shared/interfaces/dtos/coaches/coach-update-dto';
+import { isNumber } from 'src/app/shared/utils/check-number';
 
 @UntilDestroy({ checkProperties: true })
 @Component({
@@ -169,7 +170,7 @@ export class EditCoachComponent implements OnInit {
         addressStreet: this.AddressStreet?.value,
         addressNumber: this.AddressNumber?.value,
         addressExtraInfo: this.AddressExtraInfo?.value,
-        identificationNumber: this.IdentificationNumber?.value.replace(/-/g, ""),
+        identificationNumber: isNumber(this.IdentificationNumber?.value) ? this.IdentificationNumber?.value : this.IdentificationNumber?.value.replace(/-/g, ""),
       },
       salary: this.Salary?.value,
     }

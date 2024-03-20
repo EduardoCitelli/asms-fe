@@ -1,12 +1,14 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap, throwError } from 'rxjs';
 import { InstituteService } from 'src/app/core/services/institute.service';
 import { InstituteSingleDto } from 'src/app/shared/interfaces/dtos/Institutes/institute-single-dto';
 import { InstituteUpdateDto } from 'src/app/shared/interfaces/dtos/Institutes/institute-update-dto';
+import { isNumber } from 'src/app/shared/utils/check-number';
 
 @UntilDestroy({ checkProperties: true })
 @Component({
@@ -33,7 +35,7 @@ export class MyInstituteComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _instituteService: InstituteService,
-    private _location: Location,
+    private _router: Router,
     private _toastrService: ToastrService,
   ) {
     this.form = this._formBuilder.group({
@@ -113,7 +115,7 @@ export class MyInstituteComponent implements OnInit {
         addressStreet: this.AddressStreet?.value,
         addressNumber: this.AddressNumber?.value,
         addressExtraInfo: this.AddressExtraInfo?.value,
-        identificationNumber: this.IdentificationNumber?.value.replace(/-/g, ""),
+        identificationNumber: isNumber(this.IdentificationNumber?.value) ? this.IdentificationNumber?.value : this.IdentificationNumber?.value.replace(/-/g, ""),
       },
     }
   }
@@ -154,6 +156,6 @@ export class MyInstituteComponent implements OnInit {
   }
 
   private goBack() {
-    this._location.back();
+    this._router.navigate(['home']);
   }
 }

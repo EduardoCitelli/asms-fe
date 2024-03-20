@@ -8,6 +8,7 @@ import { InstituteMemberService } from 'src/app/core/services/institute-member.s
 import { InstituteMemberCreateDto } from 'src/app/shared/interfaces/dtos/institute-members/institute-member-create-dto';
 import { InstituteMemberSingleDto } from 'src/app/shared/interfaces/dtos/institute-members/institute-member-single-dto';
 import { InstituteMemberUpdateDto } from 'src/app/shared/interfaces/dtos/institute-members/institute-member-update-dto';
+import { isNumber } from 'src/app/shared/utils/check-number';
 
 @Component({
   selector: 'app-edit-institute-members',
@@ -162,7 +163,7 @@ export class EditInstituteMembersComponent {
         addressStreet: this.AddressStreet?.value,
         addressNumber: this.AddressNumber?.value,
         addressExtraInfo: this.AddressExtraInfo?.value,
-        identificationNumber: this.IdentificationNumber?.value.replace(/-/g, ""),
+        identificationNumber: isNumber(this.IdentificationNumber?.value) ? this.IdentificationNumber?.value : this.IdentificationNumber?.value.replace(/-/g, ""),
       },
     }
   }
