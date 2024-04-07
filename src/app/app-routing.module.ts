@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'manage', canActivate: [AuthGuard], loadChildren: () => import('./modules/manage/manage.module').then(m => m.ManageModule) },
   { path: 'plans', canActivate: [AuthGuard], loadChildren: () => import('./modules/plans/plans.module').then(m => m.PlansModule) },
   { path: 'institute-members', canActivate: [AuthGuard], loadChildren: () => import('./modules/institute-member/institute-member.module').then(m => m.InstituteMemberModule) },
+  { path: 'manage-users', canActivate: [AuthGuard], loadChildren: () => import('./modules/manage-users/manage-users.module').then(m => m.ManageUsersModule) },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' },
 ];

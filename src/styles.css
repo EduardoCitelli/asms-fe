@@ -96,11 +96,16 @@ table {
   color: #95AAC9;
   font-family: RobotoBold;
   text-transform: uppercase;
+  text-align: center !important;
 }
 
 .table-content {
   font-family: RobotoMedium;
   color: #95AAC9;
+}
+
+.mdc-data-table__cell {
+  text-align: center !important;
 }
 
 .table-image {

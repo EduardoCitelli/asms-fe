@@ -220,7 +220,7 @@ export class NavbarComponent implements OnInit, AfterViewChecked, AfterViewInit 
       children: [
         {
           title: "Usuarios",
-          link: '',
+          link: 'manage-users/users',
           icon: 'people',
         },
         {
