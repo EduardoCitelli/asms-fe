@@ -46,7 +46,12 @@
         <ng-container matColumnDef="isBlocked">
           <th mat-header-cell *matHeaderCellDef class="table-header">Usuario Bloqueado</th>
           <td mat-cell class="isBlocked-cell" *matCellDef="let entity">
-            <mat-slide-toggle [color]="'warn'" [(ngModel)]="entity.isBlocked"></mat-slide-toggle>
+            <mat-slide-toggle
+              [(ngModel)]="entity.isBlocked"
+              [color]="'warn'"
+              (click)="entity.isBlocked ? block(entity) : unblock(entity)"
+              (keyup.space)="entity.isBlocked ? block(entity) : unblock(entity)"
+              ></mat-slide-toggle>
           </td>
         </ng-container>
 

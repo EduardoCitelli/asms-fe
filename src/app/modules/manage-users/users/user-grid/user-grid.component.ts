@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap, throwError } from 'rxjs';
+import { ConfirmDialogComponent } from 'src/app/core/confirm-dialog/confirm-dialog.component';
 import { UsersService } from 'src/app/core/services/users.service';
 import { UserListDto } from 'src/app/shared/interfaces/dtos/users/user-list-dto';
 
@@ -16,7 +17,7 @@ import { UserListDto } from 'src/app/shared/interfaces/dtos/users/user-list-dto'
 })
 export class UserGridComponent implements AfterViewInit {
   public title: string = 'Usuarios';
-  displayedColumns: string [] = [
+  displayedColumns: string[] = [
     'userName',
     'firstName',
     'lastName',
@@ -32,12 +33,12 @@ export class UserGridComponent implements AfterViewInit {
   @ViewChild(MatPaginator)
   paginator: MatPaginator | null = null;
 
-  constructor (
+  constructor(
     private _userService: UsersService,
     private _router: Router,
     private _toastrService: ToastrService,
     private _dialog: MatDialog,
-  ){
+  ) {
     this.loadUsers(1, 5);
   }
 
@@ -47,6 +48,48 @@ export class UserGridComponent implements AfterViewInit {
         tap(() => this.loadUsersPage())
       )
       .subscribe();
+  }
+
+  public block(entity: UserListDto) {
+    this._dialog.open(ConfirmDialogComponent, {
+      data: '¿Esta seguro que desea bloquear al usuario?',
+    })
+      .afterClosed()
+      .subscribe(confirmed => {
+        if (confirmed)
+          this.blockUnblockUser(entity.id, true);
+        else
+          entity.isBlocked = false;
+      });
+  }
+
+  public unblock(entity: UserListDto) {
+    this._dialog.open(ConfirmDialogComponent, {
+      data: '¿Esta seguro que desea desbloquear al usuario?',
+    })
+      .afterClosed()
+      .subscribe(confirmed => {
+        if (confirmed)
+          this.blockUnblockUser(entity.id, false);
+        else
+          entity.isBlocked = true;
+      });
+  }
+
+  private blockUnblockUser(id: number, isBlocked: boolean) {
+    this._userService.blockUnblockUser(id, isBlocked).pipe(
+      tap(response => {
+        if (!response) {
+          const action = isBlocked ? 'bloqueando' : 'desbloqueando';
+          this._toastrService.error(`Error ${action} usuario`);
+        }
+      }),
+      catchError(error => {
+        const action = isBlocked ? 'bloqueando' : 'desbloqueando';
+        this._toastrService.error(`Error ${action} usuario`);
+        return throwError(error);
+      })
+    ).subscribe();
   }
 
   private loadUsersPage() {

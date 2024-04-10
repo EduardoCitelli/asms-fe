@@ -5,9 +5,11 @@ import { UserListDto } from 'src/app/shared/interfaces/dtos/users/user-list-dto'
 import { UserCreateDto } from 'src/app/shared/interfaces/dtos/users/user-create-dto';
 import { UserPersonalInfoDto } from 'src/app/shared/interfaces/dtos/users/user-personal-info.dto';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map } from 'rxjs';
 import { PagedList } from 'src/app/shared/interfaces/paged-list-dto';
 import { HttpParams } from '@angular/common/http';
+import { BaseResponse } from 'src/app/shared/interfaces/base-response';
+import { ApiErrorResponse } from 'src/app/shared/interfaces/api-error-response';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +27,19 @@ export class UsersService extends BaseService<UserBasicDto, UserListDto, UserCre
       .set('Size', pageSize.toString());
 
     return this.getAllBase(params);
+  }
+
+  public blockUnblockUser(id:number, isBlockAction: boolean) {
+    const endpoint = isBlockAction ? 'block' : 'unblock';
+
+    const url = `${this.basePath}${endpoint}/${id}`;
+
+    return this._http.put<BaseResponse<boolean>>(url, null)
+      .pipe(
+        map(res => res.content),
+        catchError((error: ApiErrorResponse) => {
+          return this.handleError(error);
+        })
+      );
   }
 }
