@@ -10,6 +10,7 @@ import { PagedList } from 'src/app/shared/interfaces/paged-list-dto';
 import { HttpParams } from '@angular/common/http';
 import { BaseResponse } from 'src/app/shared/interfaces/base-response';
 import { ApiErrorResponse } from 'src/app/shared/interfaces/api-error-response';
+import { UserUpdateDto } from 'src/app/shared/interfaces/dtos/users/user-update-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,11 @@ export class UsersService extends BaseService<UserBasicDto, UserListDto, UserCre
       .set('Size', pageSize.toString());
 
     return this.getAllBase(params);
+  }
+
+  public update(dto: UserUpdateDto): Observable<UserBasicDto> {
+    const url = this.basePath + dto.id;
+    return this.updateBase(dto, url);
   }
 
   public blockUnblockUser(id:number, isBlockAction: boolean) {

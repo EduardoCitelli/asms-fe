@@ -50,6 +50,10 @@ export class UserGridComponent implements AfterViewInit {
       .subscribe();
   }
 
+  public edit(id: number) {
+    this._router.navigate(['manage-users/users/edit', id]);
+  }
+
   public block(entity: UserListDto) {
     this._dialog.open(ConfirmDialogComponent, {
       data: '¿Esta seguro que desea bloquear al usuario?',
