@@ -1,0 +1,25 @@
+.shelf-title {
+text-align: center;
+}
+
+.shelf-content {
+
+}
+
+.shelf-list {
+  list-style-type: none;
+}
+
+.shelf-item {
+
+}
+
+.save-changes,
+.cancel-changes {
+  margin: 1rem !important;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+    border-radius: 2rem !important;
+  }
+

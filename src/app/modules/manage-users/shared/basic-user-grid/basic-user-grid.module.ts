@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ManageUsersRoutingModule } from './manage-users-routing.module';
+import { BasicUserGridComponent } from './basic-user-grid.component';
 import { MaterialManageFormsModule } from 'src/app/shared/material-manage-forms/material-manage-forms.module';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 
 @NgModule({
   declarations: [
+    BasicUserGridComponent
   ],
   imports: [
     CommonModule,
-    ManageUsersRoutingModule,
     MaterialManageFormsModule,
+    MatSlideToggleModule,
   ],
+  exports: [
+    BasicUserGridComponent,
+  ]
 })
-export class ManageUsersModule { }
+export class BasicUserGridModule { }

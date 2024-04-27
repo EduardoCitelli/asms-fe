@@ -1,0 +1,14 @@
+<h3 mat-dialog-title class="shelf-title">Roles para {{user.name}}</h3>
+<mat-dialog-content class="shelf-content">
+  <ul class="shelf-list">
+    <li class="shelf-item" *ngFor="let role of roles">
+      <mat-checkbox [(ngModel)]="role.checked">
+        {{role.name}}
+      </mat-checkbox>
+    </li>
+  </ul>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+  <button mat-flat-button class="save-changes" (click)="saveChanges()">Guardar cambios</button>
+  <button mat-raised-button class="cancel-changes" mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

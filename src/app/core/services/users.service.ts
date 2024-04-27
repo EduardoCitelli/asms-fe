@@ -11,6 +11,7 @@ import { HttpParams } from '@angular/common/http';
 import { BaseResponse } from 'src/app/shared/interfaces/base-response';
 import { ApiErrorResponse } from 'src/app/shared/interfaces/api-error-response';
 import { UserUpdateDto } from 'src/app/shared/interfaces/dtos/users/user-update-dto';
+import { RoleTypeEnum } from 'src/app/shared/interfaces/enums/role-type-enum';
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +48,29 @@ export class UsersService extends BaseService<UserBasicDto, UserListDto, UserCre
           return this.handleError(error);
         })
       );
+  }
+
+  public getUserRoles(id: number): Observable<RoleTypeEnum[]> {
+    const url = `${this.basePath}${id}/roles`;
+
+    return this._http.get<BaseResponse<RoleTypeEnum[]>>(url)
+    .pipe(
+      map(res => res.content),
+      catchError((error: ApiErrorResponse) => {
+        return this.handleError(error);
+      })
+    );
+  }
+
+  public updateUserRoles(id: number, roles: RoleTypeEnum[]) {
+    const url = `${this.basePath}${id}/roles`;
+
+    return this._http.put<BaseResponse<boolean>>(url, roles)
+    .pipe(
+      map(res => res.content),
+      catchError((error: ApiErrorResponse) => {
+        return this.handleError(error);
+      })
+    );
   }
 }

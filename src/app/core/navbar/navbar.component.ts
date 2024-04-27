@@ -225,7 +225,7 @@ export class NavbarComponent implements OnInit, AfterViewChecked, AfterViewInit 
         },
         {
           title: "Roles",
-          link: '',
+          link: 'manage-users/user-roles',
           icon: 'manage_accounts',
         },
       ]
