@@ -240,7 +240,7 @@ export class NavbarComponent implements OnInit, AfterViewChecked, AfterViewInit 
       ],
       heading: 'Gestionar Instituciones',
       icon: 'foundation',
-      link: '',
+      link: 'institutes',
       children: []
     },
     {
