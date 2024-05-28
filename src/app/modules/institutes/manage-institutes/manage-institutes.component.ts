@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { tap } from 'rxjs';
+import { catchError, tap, throwError } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/core/confirm-dialog/confirm-dialog.component';
 import { InstituteService } from 'src/app/core/services/institute.service';
 import { InstituteListDto } from 'src/app/shared/interfaces/dtos/Institutes/institute-list-dto';
@@ -14,10 +14,10 @@ import { InstituteListDto } from 'src/app/shared/interfaces/dtos/Institutes/inst
   styleUrls: ['./manage-institutes.component.css']
 })
 export class ManageInstitutesComponent {
-  public title: string = "Miembros de la institución"
+  public title: string = "Instituciones"
   displayedColumns: string[] = [
-    "fullName",
-    "phone",
+    "institutionName",
+    "isEnabled",
     "option",
   ];
 
@@ -70,7 +70,7 @@ export class ManageInstitutesComponent {
       .subscribe(response => {
         this.dataSource = this.dataSource.filter(x => x.id !== response.id);
         this.dataCount -= 1;
-        this._toastrService.success("Miembro de la institución Eliminado");
+        this._toastrService.success("Institución Eliminada.");
       },
         (error: string) => {
           this._toastrService.error(error);
@@ -90,7 +90,7 @@ export class ManageInstitutesComponent {
         this.dataCount = response.totalCount;
       }),
       catchError(error => {
-        this._toastrService.error("Error obteniendo usuarios del instituto.");
+        this._toastrService.error("Error obteniendo instituciones.");
         return throwError(error);
       })
     ).subscribe();
