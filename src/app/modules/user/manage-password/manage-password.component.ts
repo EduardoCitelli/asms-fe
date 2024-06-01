@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { catchError, tap, throwError } from 'rxjs';
 import { MyUserService } from 'src/app/core/services/my-user.service';
 import { UpdateMyPasswordDto } from 'src/app/shared/interfaces/dtos/my-user/update-my-password-dto';
-import { ConfirmedValidator } from 'src/app/shared/utils/confirmed.validator';
+import { ConfirmedValidator } from 'src/app/shared/utils/validators/confirmed.validator';
 
 @UntilDestroy({ checkProperties: true })
 @Component({
