@@ -33,7 +33,7 @@ const BASIC_ERRORS_TO_SHOW = {
  * @param controlErrors errors from the component
  * @returns obtained error
  */
-export function getControlError(controlErrors: ValidationErrors): string {
+export function getControlError(controlErrors: ValidationErrors | null): string {
   let errors: string[] = [];
 
   if (controlErrors) {

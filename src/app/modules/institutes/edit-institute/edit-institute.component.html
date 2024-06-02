@@ -1,1 +1,151 @@
-<p>edit-institute works!</p>
+<div fxLayout="row" class="background">
+  <div fxFlex="80" fxFlexOffset="10%">
+
+    <section id="header">
+      <h1 class="h1-header">{{title}}</h1>
+    </section>
+
+    <section id="body">
+      <form autocomplete="off" [formGroup]="form" (ngSubmit)="save()">
+        <mat-card>
+          <fieldset *ngIf="!isEdit">
+            <legend>Información de usuario</legend>
+            <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxFlex>
+                <mat-form-field appearance="outline">
+                  <mat-label>Nombre de usuario</mat-label>
+                  <input matInput [formControl]="userNameControl" type="text" required>
+                  <mat-error *ngIf="userNameControl.invalid">
+                    {{getValidationError(userNameControl.errors)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex>
+                <mat-form-field appearance="outline">
+                  <mat-label>Nombre</mat-label>
+                  <input matInput [formControl]="firstNameControl" type="text" required>
+                  <mat-error *ngIf="firstNameControl.invalid">
+                    {{getValidationError(firstNameControl.errors)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxFlex>
+                <mat-form-field appearance="outline">
+                  <mat-label>Apellido</mat-label>
+                  <input matInput [formControl]="lastNameControl" type="text" required>
+                  <mat-error *ngIf="lastNameControl.invalid">
+                    {{getValidationError(lastNameControl.errors)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex>
+                <mat-form-field appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input matInput [formControl]="emailControl" type="text" required>
+                  <mat-error *ngIf="emailControl.invalid">
+                    {{getValidationError(emailControl.errors)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div *ngIf="!isEdit" fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input autocomplete="new-password" matInput [formControl]="passwordControl" type="password" required>
+                <mat-error *ngIf="passwordControl.invalid">
+                  {{getValidationError(passwordControl.errors)}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Información Personal</legend>
+            <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxFlex>
+                <mat-form-field appearance="outline">
+                  <mat-label> Nombre de la Institución  </mat-label>
+                  <input matInput [formControl]="institutionNameControl" type="text">
+                  <mat-error *ngIf="institutionNameControl.invalid">
+                    {{getValidationError(institutionNameControl.errors)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex>
+                <mat-form-field appearance="outline">
+                  <mat-label>Telefono</mat-label>
+                  <input matInput [formControl]="phoneControl" type="tel" required>
+                  <mat-error *ngIf="phoneControl.invalid">
+                    {{getValidationError(phoneControl.errors)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+              <div fxFlex>
+                <mat-form-field appearance="outline">
+                  <mat-label>Fecha de Nacimiento</mat-label>
+                  <input matInput [min]="minDate" [max]="maxDate" [formControl]="birthDateControl"
+                    [matDatepicker]="picker" required>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+                  <mat-error *ngIf="birthDateControl.invalid">
+                    {{getValidationError(birthDateControl.errors)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex>
+                <mat-form-field appearance="outline">
+                  <mat-label>CUIT/DNI</mat-label>
+                  <input [textMask]="{mask: cuitMask}" matInput min="1" max="99999999999" [formControl]="identificationNumberControl"
+                    required>
+                  <mat-error *ngIf="identificationNumberControl.invalid">
+                    {{getValidationError(identificationNumberControl.errors)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <fieldset>
+              <legend>Domicilio</legend>
+              <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+                <div fxFlex>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Nombre Calle</mat-label>
+                    <input matInput [formControl]="addressStreetControl" type="text" required>
+                    <mat-error *ngIf="addressStreetControl.invalid">
+                      {{getValidationError(addressStreetControl.errors)}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxFlex>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Numero Calle</mat-label>
+                    <input autocomplete="address-level1" matInput [formControl]="addressNumberControl" type="number" required>
+                    <mat-error *ngIf="addressNumberControl.invalid">
+                      {{getValidationError(addressNumberControl.errors)}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+                <mat-form-field appearance="outline">
+                  <mat-label>Información extra</mat-label>
+                  <textarea matInput [formControl]="addressExtraInfoControl" type="text" cols="30"
+                    rows="10"></textarea>
+                </mat-form-field>
+              </div>
+            </fieldset>
+          </fieldset>
+        </mat-card>
+        <br>
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+          <button mat-flat-button type="submit" [disabled]="!form.valid" class="save-changes">GUARDAR
+            CAMBIOS</button>
+          <button routerLink="/institutes" mat-raised-button class="cancel-changes">CANCELAR</button>
+        </div>
+      </form>
+    </section>
+
+  </div>
+</div>

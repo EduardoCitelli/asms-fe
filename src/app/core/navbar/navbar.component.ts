@@ -51,18 +51,18 @@ export class NavbarComponent implements OnInit, AfterViewChecked, AfterViewInit 
   }
 
   ngAfterViewInit() {
-    console.log(this.sidenav);
     this.observer
       .observe(['(max-width: 800px)'])
       .pipe(delay(1), untilDestroyed(this))
       .subscribe((res) => {
-        console.log(res);
         if (res.matches) {
           this.sidenav.mode = 'over';
           this.sidenav.close();
         } else {
-          this.sidenav.mode = 'side';
-          this.sidenav.open();
+          if (this.sidenav){
+            this.sidenav.mode = 'side';
+            this.sidenav.open();
+          }
         }
       });
 
@@ -72,7 +72,6 @@ export class NavbarComponent implements OnInit, AfterViewChecked, AfterViewInit 
         filter((e) => e instanceof NavigationEnd)
       )
       .subscribe(() => {
-        console.log(this.sidenav)
         if (this.sidenav && this.sidenav.mode === 'over') {
           this.sidenav.close();
         }

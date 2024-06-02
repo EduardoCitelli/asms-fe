@@ -10,7 +10,7 @@ body {
 }
 
 fieldset {
-  margin: 1rem;
+  margin-bottom: 1rem;
   color: #04A865;
   border-color: #04A865;
   border-radius: 1rem;
@@ -77,10 +77,6 @@ mat-form-field {
   padding-bottom: 0 !important;
 }
 
-mat-hint,
-mat-error {
-  margin-top: 1rem
-}
 
 /* Table */
 
