@@ -69,7 +69,6 @@ export class RolesShelfComponent {
     this._userService.updateUserRoles(this.user.id, ids)
       .pipe(untilDestroyed(this),
         tap(response => {
-          console.log(response)
           if (!response)
             this._toastrService.error('Error actualizando roles de usuario');
           else {

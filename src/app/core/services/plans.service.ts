@@ -8,6 +8,7 @@ import { environment } from "src/environments/environment";
 import { Observable } from "rxjs";
 import { PagedList } from "src/app/shared/interfaces/paged-list-dto";
 import { HttpParams } from "@angular/common/http";
+import { ComboDto } from "src/app/shared/interfaces/combo-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,9 @@ export class PlansService extends BaseService<PlanSingleDto, PlanListDto, PlanCr
 
   public delete(id: number): Observable<PlanSingleDto> {
     return this.deleteBase(id);
+  }
+
+  public getCombo(): Observable<ComboDto<number>[]> {
+    return this.getComboBase();
   }
 }

@@ -66,4 +66,16 @@ export class InstituteService extends BaseService<InstituteSingleDto, InstituteL
         })
       );
   }
+
+  public disable(id: number): Observable<boolean> {
+    const url = this.basePath + id + '/disable';
+
+    return this._http.put<BaseResponse<boolean>>(url, null)
+      .pipe(
+        map(res => res.content),
+        catchError((error: ApiErrorResponse) => {
+          return this.handleError(error);
+        })
+      );
+  }
 }

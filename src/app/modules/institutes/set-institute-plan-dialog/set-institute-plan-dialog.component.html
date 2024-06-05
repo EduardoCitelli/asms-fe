@@ -1,0 +1,12 @@
+<h3 mat-dialog-title class="shelf-title">Seleccionar plan para {{instituteModel.institutionName}}</h3>
+<mat-dialog-content class="shelf-content">
+  <mat-selection-list [multiple]="false" [(ngModel)]="selectedPlan">
+    <mat-list-option *ngFor="let plan of plans" [selected]="instituteModel.planId === plan.id" [value]="plan">
+      {{plan.name}}
+    </mat-list-option>
+  </mat-selection-list>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+  <button mat-flat-button class="save-changes" (click)="saveChanges()" [disabled]="selectedPlan.length < 1">Guardar cambios</button>
+  <button mat-raised-button class="cancel-changes" mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

@@ -9,6 +9,10 @@ body {
   background: url('assets/images/background.jpg') no-repeat center center fixed;
 }
 
+:root {
+  --mdc-theme-primary: greenyellow;
+}
+
 fieldset {
   margin-bottom: 1rem;
   color: #04A865;
@@ -190,4 +194,8 @@ mat-paginator {
   background-color: #F2545B !important;
   /* Arriba | Derecha | Abajo | Izquierda */
   margin: 0 1rem 1rem auto !important;
+}
+
+.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: yellowgreen;
 }
