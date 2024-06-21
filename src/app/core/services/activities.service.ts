@@ -8,6 +8,7 @@ import { ActivityUpdateDto } from 'src/app/shared/interfaces/dtos/activities/act
 import { PagedList } from 'src/app/shared/interfaces/paged-list-dto';
 import { environment } from 'src/environments/environment';
 import { BaseService } from './base-service.service';
+import { ComboDto } from 'src/app/shared/interfaces/combo-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,10 @@ export class ActivitiesService extends BaseService<ActivitySingleDto, ActivityLi
       .set('Size', pageSize.toString());
 
     return this.getAllBase(params);
+  }
+
+  public getCombo(): Observable<ComboDto<number>[]> {
+    return this.getComboBase();
   }
 
   public create(dto: ActivityCreateDto): Observable<ActivitySingleDto> {

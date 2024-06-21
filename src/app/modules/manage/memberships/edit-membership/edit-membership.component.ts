@@ -1,33 +1,37 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { ToastrService } from 'ngx-toastr';
-import { catchError, tap, throwError } from 'rxjs';
+import { catchError, map, tap, throwError } from 'rxjs';
 import { MembershipTypeService } from 'src/app/core/services/membership-type.service';
 import { MembershipService } from 'src/app/core/services/membership.service';
 import { ComboDto } from 'src/app/shared/interfaces/combo-dto';
 import { MembershipCreateDto } from 'src/app/shared/interfaces/dtos/memberships/membership-create-dto';
 import { MembershipSingleDto } from 'src/app/shared/interfaces/dtos/memberships/membership-single-dto';
 import { MembershipUpdateDto } from 'src/app/shared/interfaces/dtos/memberships/membership-update-dto';
+import { getControlError } from 'src/app/shared/utils/validators/get-input-errors';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-edit-membership',
   templateUrl: './edit-membership.component.html',
   styleUrls: ['./edit-membership.component.css']
 })
 export class EditMembershipComponent implements OnInit {
-  public readonly nameProperty: string = 'name';
-  public readonly descriptionProperty: string = 'description';
-  public readonly isPremiumProperty: string = 'isPremium';
-  public readonly membershipTypeIdProperty: string = 'membershipTypeId';
-  public readonly priceProperty: string = 'price';
-
   id: number = 0;
   isEdit: boolean = false;
   title: string = "";
   form: FormGroup;
   typeDtos: ComboDto<number>[] = [];
+
+  nameControl: FormControl = new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]);
+  descriptionControl: FormControl = new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]);
+  isPremiumControl: FormControl = new FormControl(false);
+  membershipTypeIdControl: FormControl = new FormControl<ComboDto<number> | undefined>(undefined, Validators.required);
+  priceControl: FormControl = new FormControl<number | undefined>(undefined, [Validators.required, Validators.min(1)]);
+  activityQuantityControl: FormControl = new FormControl<number | undefined>(undefined, [Validators.min(1), Validators.required]);
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -38,11 +42,12 @@ export class EditMembershipComponent implements OnInit {
     private _toastrService: ToastrService,
   ) {
     this.form = this._formBuilder.group({
-      name: new FormControl<string | undefined>(undefined, Validators.compose([Validators.required, Validators.minLength(3)])),
-      description: new FormControl<string | undefined>(undefined, Validators.compose([Validators.required, Validators.minLength(3)])),
-      isPremium: [false],
-      membershipTypeId: new FormControl<ComboDto<number> | undefined>(undefined, Validators.required),
-      price: new FormControl<number | undefined>(undefined, Validators.compose([Validators.required, Validators.min(1)])),
+      name: this.nameControl,
+      description: this.descriptionControl,
+      isPremium: this.isPremiumControl,
+      membershipTypeId: this.membershipTypeIdControl,
+      price: this.priceControl,
+      activityQuantity: this.activityQuantityControl,
     });
   }
 
@@ -61,18 +66,18 @@ export class EditMembershipComponent implements OnInit {
     this.changeTitle();
   }
 
-  public getNumericError(control: AbstractControl | null) {
-    if (control?.hasError('required'))
-      return "Este campo es obligatorio";
-
-    return "El valor debe ser mayor que 1";
+  onPremiumCheck(isPremium: boolean) {
+    if (isPremium) {
+      this.activityQuantityControl.removeValidators(Validators.required);
+      this.activityQuantityControl.reset(null);
+    }
+    else {
+      this.activityQuantityControl.addValidators(Validators.required);
+    }
   }
 
-  public getStringError(control : AbstractControl | null) {
-    if (control?.hasError('required'))
-      return "Este campo es obligatorio";
-
-    return "El campo debe contener más de 3 digitos";
+  getError(controlErrors: ValidationErrors | null) {
+    return getControlError(controlErrors)
   }
 
   public save() {
@@ -83,12 +88,6 @@ export class EditMembershipComponent implements OnInit {
     else
       this.add(dto);
   }
-
-  get Name() { return this.form.get(this.nameProperty); }
-  get Description() { return this.form.get(this.descriptionProperty); }
-  get IsPremium() { return this.form.get(this.isPremiumProperty); }
-  get MembershipTypeId() { return this.form.get(this.membershipTypeIdProperty); }
-  get Price() { return this.form.get(this.priceProperty); }
 
   private changeTitle() {
     if (this.isEdit) {
@@ -101,11 +100,12 @@ export class EditMembershipComponent implements OnInit {
   private formToDto(): MembershipSingleDto {
     return {
       id: this.id,
-      name: this.Name?.value,
-      description: this.Description?.value,
-      isPremium: this.IsPremium?.value,
-      membershipTypeId: this.MembershipTypeId?.value,
-      price: this.Price?.value,
+      name: this.nameControl.value,
+      description: this.descriptionControl.value,
+      isPremium: this.isPremiumControl.value,
+      membershipTypeId: this.membershipTypeIdControl.value,
+      price: this.priceControl.value,
+      activityQuantity: this.activityQuantityControl.value,
     }
   }
 
@@ -119,16 +119,21 @@ export class EditMembershipComponent implements OnInit {
 
   private getAndSetFormInfo(): void {
     this._membershipService.getOne(this.id)
-      .subscribe(response => {
-        this.Name?.setValue(response.name);
-        this.Description?.setValue(response.description);
-        this.IsPremium?.setValue(response.isPremium);
-        this.MembershipTypeId?.setValue(response.membershipTypeId);
-        this.Price?.setValue(response.price);
-      },
-        error => {
+      .pipe(
+        map(response => {
+          this.nameControl.setValue(response.name);
+          this.descriptionControl.setValue(response.description);
+          this.isPremiumControl.setValue(response.isPremium);
+          this.membershipTypeIdControl.setValue(response.membershipTypeId);
+          this.priceControl.setValue(response.price);
+          this.activityQuantityControl.setValue(response.activityQuantity);
+        }),
+        catchError(error => {
           this.showError(error);
-        });
+          return error;
+        })
+      )
+      .subscribe();
   }
 
   private add(dto: MembershipCreateDto): void {
@@ -139,7 +144,7 @@ export class EditMembershipComponent implements OnInit {
       }),
       catchError((error: string) => {
         this.showError(error);
-        return throwError(error);
+        return error;
       }))
       .subscribe();
   }
@@ -152,7 +157,7 @@ export class EditMembershipComponent implements OnInit {
       }),
       catchError((error: string) => {
         this.showError(error);
-        return throwError(error);
+        return error;
       }))
       .subscribe();
   }

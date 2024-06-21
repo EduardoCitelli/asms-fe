@@ -187,13 +187,13 @@ mat-paginator {
 .save-changes {
   background-color: #04A865 !important;
   /* Arriba | Derecha | Abajo | Izquierda */
-  margin: 0 auto 1rem 1rem !important;
+  margin: 0 1rem 1rem 1rem !important;
 }
 
 .cancel-changes {
   background-color: #F2545B !important;
   /* Arriba | Derecha | Abajo | Izquierda */
-  margin: 0 1rem 1rem auto !important;
+  margin: 0 1rem 1rem 1rem !important;
 }
 
 .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {

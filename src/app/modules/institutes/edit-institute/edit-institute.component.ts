@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap, throwError } from 'rxjs';
 import { InstituteService } from 'src/app/core/services/institute.service';
@@ -13,6 +14,7 @@ import { getControlError } from 'src/app/shared/utils/validators/get-input-error
 import { identificationNumberValidator } from 'src/app/shared/utils/validators/identification-number.validator';
 import { phoneValidator } from 'src/app/shared/utils/validators/phone.validator';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-edit-institute',
   templateUrl: './edit-institute.component.html',
