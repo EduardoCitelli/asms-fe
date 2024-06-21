@@ -6,7 +6,7 @@
 
     <section id="table">
       <div>
-        <button mat-flat-button class="add-btn" (click)="add()">Agregar nuevo</button>
+        <button mat-flat-button class="add-btn" (click)="add()">Agregar nuevo <mat-icon>add</mat-icon></button>
       </div>
 
       <mat-table class="mat-elevation-z0" [dataSource]="dataSource">
@@ -29,16 +29,27 @@
         <ng-container matColumnDef="option">
           <mat-header-cell *matHeaderCellDef class="table-header">Opciones</mat-header-cell>
           <mat-cell *matCellDef="let entity">
-              <button mat-mini-fab class="edit-btn"
-              matTooltip="Editar Personal" (click)="edit(entity.id)">
-                  <mat-icon>create</mat-icon>
-              </button>
-              <button mat-mini-fab class="delete-btn"
-              matTooltip="Eliminar Personal" (click)="delete(entity.id)">
-                  <mat-icon>delete</mat-icon>
-              </button>
+            <button mat-mini-fab class="edit-btn" matTooltip="Editar miembro" (click)="edit(entity.id)">
+              <mat-icon>create</mat-icon>
+            </button>
+            <button mat-mini-fab class="delete-btn" matTooltip="Eliminar miembro" (click)="delete(entity.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-mini-fab class="add-membership-btn"
+              [matTooltip]="entity.hasMembership ? 'Actualizar membresía' : 'Asignar membresía'"
+              (click)="edit(entity.id)">
+              <mat-icon>loyalty</mat-icon>
+            </button>
+            <button mat-mini-fab class="make-payment-btn" [disabled]="!entity.needToPayMembership || !entity.hasMembership"
+              matTooltip="Pagar membresía" (click)="edit(entity.id)">
+              <mat-icon>attach_money</mat-icon>
+            </button>
+            <button mat-mini-fab class="make-force-payment-btn" [disabled]="!entity.hasMembership" matTooltip="Forzar pago de membresía"
+              (click)="edit(entity.id)">
+              <mat-icon>price_check</mat-icon>
+            </button>
           </mat-cell>
-      </ng-container>
+        </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
@@ -49,4 +60,3 @@
     </section>
   </div>
 </div>
-

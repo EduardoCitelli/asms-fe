@@ -24,6 +24,6 @@ export abstract class BaseSimpleService {
     else
       errorMessage = `An error occurred: ${error.error?.errors}`;
 
-    return throwError(errorMessage);
+    return throwError(() => errorMessage);
   }
 }
