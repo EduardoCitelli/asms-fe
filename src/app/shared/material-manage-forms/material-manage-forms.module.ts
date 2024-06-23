@@ -17,6 +17,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
@@ -48,6 +49,7 @@ const component = [
   MatNativeDateModule,
   TextMaskModule,
   MatDialogModule,
+  MatFormFieldModule,
 ]
 
 @NgModule({

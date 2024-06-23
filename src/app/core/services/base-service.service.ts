@@ -50,6 +50,19 @@ export abstract class BaseService<TSingleDto, TListDto, TCreateDto, TUpdateDto> 
       )
   }
 
+  protected getComboTypeBase<TComboDto>(): Observable<TComboDto[]> {
+    const url = this.basePath + 'combos'
+    return this._http.get<BaseResponse<TComboDto[]>>(url)
+      .pipe(
+        map(res => {
+          return res.content;
+        }),
+        catchError((error: ApiErrorResponse) => {
+          return this.handleError(error);
+        })
+      )
+  }
+
   protected createBase(dto: TCreateDto): Observable<TSingleDto> {
     return this._http.post<BaseResponse<TSingleDto>>(this.basePath, dto)
       .pipe(

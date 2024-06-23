@@ -37,7 +37,7 @@
             </button>
             <button mat-mini-fab class="add-membership-btn"
               [matTooltip]="entity.hasMembership ? 'Actualizar membresía' : 'Asignar membresía'"
-              (click)="edit(entity.id)">
+              (click)="assignMembership(entity.id, entity.hasMembership)">
               <mat-icon>loyalty</mat-icon>
             </button>
             <button mat-mini-fab class="make-payment-btn" [disabled]="!entity.needToPayMembership || !entity.hasMembership"

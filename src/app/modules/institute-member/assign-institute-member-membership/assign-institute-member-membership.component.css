@@ -1,0 +1,21 @@
+mat-card {
+  box-shadow: none;
+}
+
+.mat-stepper-horizontal {
+  border-radius: 1rem;
+}
+
+.button-action-stepper-container {
+  margin-top: 5rem;
+}
+
+.last-step-text {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.checkbox-field {
+  margin-bottom: 2rem;
+}

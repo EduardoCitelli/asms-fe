@@ -1,0 +1,96 @@
+<div fxLayout="row" class="background">
+  <div fxFlex="80" fxFlexOffset="10%">
+
+    <section id="header">
+      <h1 class="h1-header">{{title}}</h1>
+    </section>
+
+    <section id="body">
+
+      <mat-stepper linear #stepper>
+        <mat-step [stepControl]="form">
+          <form autocomplete="off" [formGroup]="form">
+            <ng-template matStepLabel>Asignación de membresía</ng-template>
+            <mat-card>
+              <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+                <mat-form-field appearance="outline">
+                  <mat-label>Membresía</mat-label>
+                  <mat-select (selectionChange)="onChangeMembership($event.value)" [formControl]="membershipControl" placeholder="Seleccionar membresía">
+                    <mat-option *ngFor="let membership of membershipList"
+                      [value]="membership">{{membership.name}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="membershipControl.invalid">
+                    {{getError(membershipControl.errors)}}
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Fecha de inicio</mat-label>
+                  <input matInput [min]="minDate" [max]="maxDate" [formControl]="startDateControl"
+                    [matDatepicker]="picker" required>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker startView="month"></mat-datepicker>
+                  <mat-error *ngIf="startDateControl.invalid">
+                    {{getError(startDateControl.errors)}}
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" *ngIf="selectedMemberhsip && !selectedMemberhsip.isPremium">
+                  <mat-label>Actividades</mat-label>
+                  <mat-select [formControl]="activitiesControl" placeholder="Seleccionar actividades" multiple>
+                    <mat-option *ngFor="let activity of activityList" [value]="activity.id"
+                      [disabled]="isOptionDisabled(activity.id)">{{activity.name}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="activitiesControl.invalid">
+                    {{getError(activitiesControl.errors)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="button-action-stepper-container">
+                <button routerLink="/institute-members" mat-raised-button class="cancel-changes">CANCELAR</button>
+                <button mat-flat-button class="next-step" fxLayout="row-reverse" fxLayoutGap="0.5rem" matStepperNext><mat-icon>arrow_forward</mat-icon> Siguiente</button>
+              </div>
+            </mat-card>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="formPayment">
+          <form [formGroup]="formPayment">
+            <ng-template matStepLabel>Realizar un pago</ng-template>
+            <mat-card>
+              <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="0.5rem">
+                <mat-checkbox class="checkbox-field" (change)="onWantToPayCheck($event.checked)" fxFlex [formControl]="wantToPayControl">¿Desea realizar un pago?</mat-checkbox>
+                <mat-form-field appearance="outline" *ngIf="wantToPayControl.value">
+                  <mat-label>Forma de Pago</mat-label>
+                  <mat-select [formControl]="paymentTypeControl" placeholder="Seleccionar forma de pago">
+                    <mat-option *ngFor="let paymentType of paymentTypes" [value]="paymentType">{{ getPaymentTypeDescription(paymentType) }}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="paymentTypeControl.invalid">
+                    {{getError(paymentTypeControl.errors)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </mat-card>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="button-action-stepper-container">
+              <button routerLink="/institute-members" mat-raised-button class="cancel-changes">CANCELAR</button>
+              <button mat-flat-button class="back-step" matStepperPrevious><mat-icon>arrow_back</mat-icon> Atras</button>
+              <button mat-flat-button class="next-step" fxLayout="row-reverse" fxLayoutGap="0.5rem" matStepperNext><mat-icon>arrow_forward</mat-icon> Siguiente</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Guardar Cambio</ng-template>
+          <p class="last-step-text">¿Está seguro que desea asignar la membresía?</p>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="button-action-stepper-container">
+            <button routerLink="/institute-members" mat-raised-button class="cancel-changes">CANCELAR</button>
+            <button mat-flat-button class="back-step" matStepperPrevious><mat-icon>arrow_back</mat-icon> Atras</button>
+            <button mat-flat-button type="submit" [disabled]="!form.valid" (click)="save()" class="save-changes">GUARDAR
+              CAMBIOS</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </section>
+  </div>
+</div>

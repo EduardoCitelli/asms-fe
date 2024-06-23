@@ -8,6 +8,7 @@ import { MembershipUpdateDto } from 'src/app/shared/interfaces/dtos/memberships/
 import { PagedList } from 'src/app/shared/interfaces/paged-list-dto';
 import { environment } from 'src/environments/environment';
 import { BaseService } from './base-service.service';
+import { MembershipComboDto } from 'src/app/shared/interfaces/dtos/memberships/membership-combo-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,10 @@ export class MembershipService extends BaseService<MembershipSingleDto, Membersh
       .set('Size', pageSize.toString());
 
     return this.getAllBase(params);
+  }
+
+  public getCombo() {
+    return this.getComboTypeBase<MembershipComboDto>();
   }
 
   public create(dto: MembershipCreateDto): Observable<MembershipSingleDto> {

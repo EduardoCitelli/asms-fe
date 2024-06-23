@@ -16,7 +16,7 @@ import { InstituteMemberListDto } from 'src/app/shared/interfaces/dtos/institute
   styleUrls: ['./manage-institute-members.component.css']
 })
 export class ManageInstituteMembersComponent {
-  public title: string = "Miembros de la institución"
+  title: string = "Miembros de la institución"
   displayedColumns: string[] = [
     "fullName",
     "phone",
@@ -48,15 +48,15 @@ export class ManageInstituteMembersComponent {
       .subscribe();
   }
 
-  public add() {
+  add() {
     this._router.navigate(['institute-members/add']);
   }
 
-  public edit(id: number) {
+  edit(id: number) {
     this._router.navigate(['institute-members/edit', id]);
   }
 
-  public delete(id: number) {
+  delete(id: number) {
     this._dialog.open(ConfirmDialogComponent, {
       data: '¿Esta seguro que desea eliminar al miembro de la institución?',
     })
@@ -65,6 +65,14 @@ export class ManageInstituteMembersComponent {
         if (confirmed)
           this.deleteInstituteMember(id);
       });
+  }
+
+  assignMembership(id: number, isUpdateMembership: boolean) {
+    const baseRoute = 'institute-members/';
+
+    const route = isUpdateMembership ? `${baseRoute}update-membership` : `${baseRoute}assign-membership`;
+
+    this._router.navigate([route, id]);
   }
 
   private deleteInstituteMember(id: number) {
