@@ -6,14 +6,16 @@ import { ManageInstituteMembersComponent } from './manage-institute-members/mana
 import { EditInstituteMembersComponent } from './edit-institute-members/edit-institute-members.component';
 import { MaterialManageFormsModule } from 'src/app/shared/material-manage-forms/material-manage-forms.module';
 import { AssignInstituteMemberMembershipComponent } from './assign-institute-member-membership/assign-institute-member-membership.component';
-import { MatStepperModule } from '@angular/material/stepper'
+import { MatStepperModule } from '@angular/material/stepper';
+import { MakePaymentDialogComponent } from './make-payment-dialog/make-payment-dialog.component'
 
 
 @NgModule({
   declarations: [
     ManageInstituteMembersComponent,
     EditInstituteMembersComponent,
-    AssignInstituteMemberMembershipComponent
+    AssignInstituteMemberMembershipComponent,
+    MakePaymentDialogComponent,
   ],
   imports: [
     CommonModule,

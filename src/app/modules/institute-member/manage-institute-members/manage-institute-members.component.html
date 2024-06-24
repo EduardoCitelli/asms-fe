@@ -41,11 +41,11 @@
               <mat-icon>loyalty</mat-icon>
             </button>
             <button mat-mini-fab class="make-payment-btn" [disabled]="!entity.needToPayMembership || !entity.hasMembership"
-              matTooltip="Pagar membresía" (click)="edit(entity.id)">
+              matTooltip="Pagar membresía" (click)="makePayment(entity)">
               <mat-icon>attach_money</mat-icon>
             </button>
             <button mat-mini-fab class="make-force-payment-btn" [disabled]="!entity.hasMembership" matTooltip="Forzar pago de membresía"
-              (click)="edit(entity.id)">
+              (click)="makePayment(entity, true)">
               <mat-icon>price_check</mat-icon>
             </button>
           </mat-cell>

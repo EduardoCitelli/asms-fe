@@ -5,9 +5,11 @@ import { PaymentCreateDto } from "src/app/shared/interfaces/dtos/payments/paymen
 import { PaymentUpdateDto } from "src/app/shared/interfaces/dtos/payments/payment-update-dto";
 import { environment } from "src/environments/environment";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, catchError, map } from "rxjs";
 import { HttpParams } from "@angular/common/http";
 import { PagedList } from "src/app/shared/interfaces/paged-list-dto";
+import { BaseResponse } from "src/app/shared/interfaces/base-response";
+import { ApiErrorResponse } from "src/app/shared/interfaces/api-error-response";
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +31,15 @@ export class PaymentsService extends BaseService<PaymentSingleDto, PaymentListDt
 
   public create(dto: PaymentCreateDto): Observable<PaymentSingleDto> {
     return this.createBase(dto);
+  }
+
+  public createForce(dto: PaymentCreateDto): Observable<PaymentSingleDto> {
+    return this._http.post<BaseResponse<PaymentSingleDto>>(this.basePath + 'force', dto)
+      .pipe(
+        map(res => res.content),
+        catchError((error: ApiErrorResponse) => {
+          return this.handleError(error);
+        })
+      );
   }
 }

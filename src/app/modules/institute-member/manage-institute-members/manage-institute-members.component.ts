@@ -8,6 +8,8 @@ import { catchError, tap, throwError } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/core/confirm-dialog/confirm-dialog.component';
 import { InstituteMemberService } from 'src/app/core/services/institute-member.service';
 import { InstituteMemberListDto } from 'src/app/shared/interfaces/dtos/institute-members/institute-member-list-dto';
+import { MakePaymentDialogComponent } from '../make-payment-dialog/make-payment-dialog.component';
+import { MakePaymentModel } from '../make-payment-dialog/models/make-payment-model';
 
 @UntilDestroy({checkProperties: true})
 @Component({
@@ -73,6 +75,24 @@ export class ManageInstituteMembersComponent {
     const route = isUpdateMembership ? `${baseRoute}update-membership` : `${baseRoute}assign-membership`;
 
     this._router.navigate([route, id]);
+  }
+
+  makePayment(member: InstituteMemberListDto, isForcePayment: boolean = false) {
+    const data: MakePaymentModel = {
+      instituteMemberId: member.id,
+      memberName: member.fullName,
+      remainingPayment: isForcePayment ? member.membershipPrice : member.remainingPayment,
+      isForcePayment: isForcePayment,
+    };
+
+    this._dialog.open(MakePaymentDialogComponent, {
+      data: data,
+      width: '40rem'
+    }).afterClosed()
+    .subscribe((confirmed) => {
+      if (confirmed)
+        this.loadInstituteMembers(this.paginator!.pageIndex + 1, this.paginator!.pageSize);
+    });
   }
 
   private deleteInstituteMember(id: number) {

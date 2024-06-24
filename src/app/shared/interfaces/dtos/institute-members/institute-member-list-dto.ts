@@ -5,4 +5,5 @@ export interface InstituteMemberListDto {
   needToPayMembership?: boolean;
   hasMembership: boolean;
   remainingPayment: number;
+  membershipPrice: number;
 }

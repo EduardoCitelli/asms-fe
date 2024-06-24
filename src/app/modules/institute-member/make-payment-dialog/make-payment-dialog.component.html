@@ -1,0 +1,34 @@
+<h3 mat-dialog-title class="shelf-title">{{data.isForcePayment ? 'Forzar' : 'Realizar'}} pago para {{data.memberName}}</h3>
+
+<mat-dialog-content class="shelf-content" fxLayout="column" fxLayoutGap="2rem">
+  <p>Pago restante: {{data.remainingPayment | currency}}</p>
+
+  <form autocomplete="off" [formGroup]="form" fxFlex fxLayout="column" fxLayoutGap="0.5rem">
+    <mat-form-field>
+      <mat-label>Monto</mat-label>
+      <input currencyMask matInput [formControl]="amountControl">
+      <mat-error *ngIf="amountControl.invalid">
+        {{getError(amountControl.errors)}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Typo de Pago</mat-label>
+      <mat-select [formControl]="paymentTypeControl" placeholder="Seleccionar forma de pago">
+        <mat-option *ngFor="let type of paymentTypes" [value]="type">{{getPaymentTypeDescription(type)}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="paymentTypeControl.invalid">
+        {{getError(paymentTypeControl.errors)}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-checkbox [formControl]="updateByExpirationDateControl" class="checkbox-field" fxFlex>
+      ¿Actualizar por fecha de vencimiento?
+    </mat-checkbox>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+  <button mat-flat-button class="save-changes" (click)="saveChanges()" [disabled]="form.invalid">Realizar pago</button>
+  <button mat-raised-button class="cancel-changes" mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>
