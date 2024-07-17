@@ -7,7 +7,7 @@ import { ConfirmDialogComponent } from 'src/app/core/confirm-dialog/confirm-dial
 import { RolesService } from 'src/app/core/services/roles.service';
 import { UsersService } from 'src/app/core/services/users.service';
 import { RoleListDto } from 'src/app/shared/interfaces/dtos/roles/role-list-dto';
-import { RoleTypeEnum } from 'src/app/shared/interfaces/enums/role-type-enum';
+import { RoleTypeEnum } from 'src/app/shared/interfaces/enums/role-type.enum';
 
 @UntilDestroy({ checkProperties: true })
 @Component({

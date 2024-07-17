@@ -11,7 +11,7 @@ import { HttpParams } from '@angular/common/http';
 import { BaseResponse } from 'src/app/shared/interfaces/base-response';
 import { ApiErrorResponse } from 'src/app/shared/interfaces/api-error-response';
 import { UserUpdateDto } from 'src/app/shared/interfaces/dtos/users/user-update-dto';
-import { RoleTypeEnum } from 'src/app/shared/interfaces/enums/role-type-enum';
+import { RoleTypeEnum } from 'src/app/shared/interfaces/enums/role-type.enum';
 
 @Injectable({
   providedIn: 'root'

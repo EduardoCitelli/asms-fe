@@ -8,7 +8,7 @@ import { AuthResponseDto } from 'src/app/shared/interfaces/dtos/auth/auth-respon
 import { environment } from 'src/environments/environment';
 import { LocalStorageService } from './local-storage.service';
 import { ToastrService } from 'ngx-toastr';
-import { RoleTypeEnum } from 'src/app/shared/interfaces/enums/role-type-enum';
+import { RoleTypeEnum } from 'src/app/shared/interfaces/enums/role-type.enum';
 import { BaseSimpleService } from './base-simple.service';
 
 @Injectable({

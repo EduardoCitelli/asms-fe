@@ -2,7 +2,7 @@ import { AfterViewInit, AfterViewChecked, ChangeDetectorRef, Component, OnInit, 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable, delay, filter } from 'rxjs';
-import { RoleTypeEnum } from 'src/app/shared/interfaces/enums/role-type-enum';
+import { RoleTypeEnum } from 'src/app/shared/interfaces/enums/role-type.enum';
 import { AuthService } from '../services/auth.service';
 import { MatSidenav } from '@angular/material/sidenav';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
