@@ -9,6 +9,7 @@ import { ConfirmDialogModule } from './confirm-dialog/confirm-dialog.module';
 import { registerLocaleData } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
 import localeEs from '@angular/common/locales/es-AR';
+import { TimeSpanInterceptor } from './interceptors/timespan.interceptor';
 
 registerLocaleData(localeEs);
 
@@ -31,6 +32,7 @@ registerLocaleData(localeEs);
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TimeSpanInterceptor, multi: true },
     { provide: DEFAULT_CURRENCY_CODE, useValue: '$' },
     { provide: LOCALE_ID, useValue: 'es-AR' },
   ]

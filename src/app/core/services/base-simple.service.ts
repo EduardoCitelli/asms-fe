@@ -20,9 +20,9 @@ export abstract class BaseSimpleService {
     let errorMessage: string;
 
     if (error.error instanceof ErrorEvent)
-      errorMessage = `An error occurred: ${error.error.message}`;
+      errorMessage = `Ocurrio un error: ${error.error.message}`;
     else
-      errorMessage = `An error occurred: ${error.error?.errors}`;
+      errorMessage = `Ocurrio un error: ${error.error?.errors}`;
 
     return throwError(() => errorMessage);
   }

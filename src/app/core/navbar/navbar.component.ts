@@ -105,6 +105,7 @@ export class NavbarComponent implements OnInit, AfterViewChecked, AfterViewInit 
     },
     {
       roles: [
+        RoleTypeEnum.SuperAdmin,
         RoleTypeEnum.Manager,
         RoleTypeEnum.StaffMember,
       ],

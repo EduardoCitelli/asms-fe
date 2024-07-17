@@ -1,4 +1,4 @@
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -46,6 +46,7 @@ export class EditCoachComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _location: Location,
     private _toastrService: ToastrService,
+    private _datePipe: DatePipe,
   ) {
     this.form = this._formBuilder.group({
       userName: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
@@ -128,8 +129,8 @@ export class EditCoachComponent implements OnInit {
   }
 
   private DateChangeCreator(date: Date): string {
-    const selectedDate = date.toISOString().split('T')[0];
-    return selectedDate;
+    const selectedDate = this._datePipe.transform(date, "YYYY-MM-dd");
+    return selectedDate!;
   }
 
   get UserName() { return this.form.get(this.userNameProperty); }

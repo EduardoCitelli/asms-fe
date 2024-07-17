@@ -28,7 +28,7 @@
 
         <ng-container matColumnDef="price">
           <mat-header-cell *matHeaderCellDef class="table-header">Precio</mat-header-cell>
-          <mat-cell class="price-cell" *matCellDef="let plan">{{plan.price | currency }}</mat-cell>
+          <mat-cell class="price-cell" *matCellDef="let plan">{{plan.price | currency : 'USD' }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="option">

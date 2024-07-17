@@ -57,7 +57,10 @@ const component = [
   imports: [component],
   exports: [component],
   providers: [
-    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
+    {
+      provide: CURRENCY_MASK_CONFIG,
+      useValue: CustomCurrencyMaskConfig
+    },
   ],
 })
 export class MaterialManageFormsModule { }
