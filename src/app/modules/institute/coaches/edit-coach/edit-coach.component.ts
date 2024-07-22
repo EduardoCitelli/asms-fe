@@ -128,7 +128,7 @@ export class EditCoachComponent implements OnInit {
     }
   }
 
-  private DateChangeCreator(date: Date): string {
+  private dateChangeCreator(date: Date): string {
     const selectedDate = this._datePipe.transform(date, "YYYY-MM-dd");
     return selectedDate!;
   }
@@ -166,7 +166,7 @@ export class EditCoachComponent implements OnInit {
         email: this.Email?.value,
       },
       personalInfo: {
-        birthDate: this.DateChangeCreator(this.BirthDate?.value),
+        birthDate: this.dateChangeCreator(this.BirthDate?.value),
         phone: this.Phone?.value,
         addressStreet: this.AddressStreet?.value,
         addressNumber: this.AddressNumber?.value,
@@ -187,7 +187,7 @@ export class EditCoachComponent implements OnInit {
         password: this.Password?.value,
       },
       personalInfo: {
-        birthDate: this.DateChangeCreator(this.BirthDate?.value),
+        birthDate: this.dateChangeCreator(this.BirthDate?.value),
         phone: this.Phone?.value,
         addressStreet: this.AddressStreet?.value,
         addressNumber: this.AddressNumber?.value,

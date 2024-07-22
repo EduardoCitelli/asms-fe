@@ -134,6 +134,11 @@ export class NavbarComponent implements OnInit, AfterViewChecked, AfterViewInit 
           icon: 'room_preferences'
         },
         {
+          title: 'Clases',
+          link: 'institute/classes',
+          icon: 'calendar_month'
+        },
+        {
           roles: [
             RoleTypeEnum.Manager,
           ],

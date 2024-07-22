@@ -8,6 +8,7 @@ import { CoachUpdateDto } from 'src/app/shared/interfaces/dtos/coaches/coach-upd
 import { PagedList } from 'src/app/shared/interfaces/paged-list-dto';
 import { environment } from 'src/environments/environment';
 import { BaseService } from './base-service.service';
+import { ComboDto } from 'src/app/shared/interfaces/combo-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -40,4 +41,7 @@ export class CoachesService extends BaseService<CoachSingleDto, CoachListDto, Co
     return this.deleteBase(id);
   }
 
+  public getCombo(): Observable<ComboDto<number>[]> {
+    return this.getComboBase();
+  }
 }

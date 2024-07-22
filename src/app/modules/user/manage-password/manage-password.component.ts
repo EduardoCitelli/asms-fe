@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { catchError, tap, throwError } from 'rxjs';
 import { MyUserService } from 'src/app/core/services/my-user.service';
 import { UpdateMyPasswordDto } from 'src/app/shared/interfaces/dtos/my-user/update-my-password-dto';
-import { ConfirmedValidator } from 'src/app/shared/utils/validators/confirmed.validator';
+import { confirmedValidator } from 'src/app/shared/utils/validators/confirmed.validator';
 
 @UntilDestroy({ checkProperties: true })
 @Component({
@@ -29,7 +29,7 @@ export class ManagePasswordComponent {
       oldPassword: new FormControl<string | undefined>(undefined, [Validators.required]),
       password: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(7)]),
       confirmPassword: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(7)]),
-    }, { validator: ConfirmedValidator(this.passwordNameProperty, this.confirmPasswordNameProperty) });
+    }, { validator: confirmedValidator(this.passwordNameProperty, this.confirmPasswordNameProperty) });
   }
 
   get OldPassword() { return this.form.get(this.oldPasswordNameProperty); }

@@ -1,0 +1,180 @@
+<div fxLayout="row" class="background">
+  <div fxFlex="80" fxFlexOffset="10%">
+
+    <section id="header">
+      <h1 class="h1-header">
+        {{title}}
+      </h1>
+    </section>
+
+    <section id="body">
+      <form [formGroup]="formGroup" (ngSubmit)="save()">
+        <mat-card>
+          <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="1rem">
+            <div fxFlex>
+              <mat-form-field appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <input matInput [formControl]="descriptionControl">
+                <mat-error *ngIf="descriptionControl.invalid">
+                  {{getError(descriptionControl.errors)}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex>
+              <mat-form-field appearance="outline">
+                <mat-label>Entrenador titular</mat-label>
+                <mat-select [formControl]="principalCoachIdControl">
+                  <mat-option>Seleccionar</mat-option>
+                  <mat-option *ngFor="let coach of coachCombo" [value]="coach.id">
+                    {{coach.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="principalCoachIdControl.invalid">
+                  {{getError(principalCoachIdControl.errors)}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="1rem">
+            <div fxFlex>
+              <mat-form-field appearance="outline">
+                <mat-label>Salon</mat-label>
+                <mat-select [formControl]="roomIdControl">
+                  <mat-option>Seleccionar</mat-option>
+                  <mat-option *ngFor="let room of roomCombo" [value]="room.id">
+                    {{room.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="roomIdControl.invalid">
+                  {{getError(roomIdControl.errors)}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex>
+              <mat-form-field appearance="outline">
+                <mat-label>Entrenador Auxiliar</mat-label>
+                <mat-select [formControl]="auxCoachIdControl">
+                  <mat-option>Seleccionar</mat-option>
+                  <mat-option *ngFor="let coach of coachCombo" [value]="coach.id">
+                    {{coach.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="auxCoachIdControl.invalid">
+                  {{getError(auxCoachIdControl.errors)}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="1rem">
+            <div fxFlex>
+              <mat-form-field appearance="outline">
+                <input matInput name="startTime" [format]="24" [max]="'22:00'" [min]="'06:00'"
+                  [formControl]="startTimeControl" [ngxMatTimepicker]="pickerG" placeholder="Hora de comienzo"
+                  [step]="1800" readonly />
+                <ngx-mat-timepicker-toggle matSuffix></ngx-mat-timepicker-toggle>
+                <ngx-mat-timepicker color="accent" #pickerG></ngx-mat-timepicker>
+                <mat-error *ngIf="startTimeControl.invalid">
+                  {{getError(startTimeControl.errors)}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex>
+              <mat-form-field appearance="outline">
+                <mat-label>Duración en minutos</mat-label>
+                <mat-select [formControl]="minutesDurationControl">
+                  <mat-option>Seleccionar</mat-option>
+                  <mat-option *ngFor="let minute of posibleMinutes" [value]="minute">
+                    {{minute}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="minutesDurationControl.invalid">
+                  {{getError(minutesDurationControl.errors)}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxFlex *ngIf="!isEdit">
+            <mat-form-field appearance="outline">
+              <mat-label>Actividad</mat-label>
+              <mat-select [formControl]="activityIdControl">
+                <mat-option>Seleccionar</mat-option>
+                <mat-option *ngFor="let activity of activityCombo" [value]="activity.id">
+                  {{activity.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="activityIdControl.invalid">
+                {{getError(activityIdControl.errors)}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-checkbox class="is-recurrence-control" (change)="handleRecurrence($event)"
+              [formControl]="isRecurrenceControl">Es recurrente? </mat-checkbox>
+
+            <fieldset>
+              <legend style="margin-bottom: 0.5rem;" >{{recurrenceTitle}}</legend>
+
+              <div *ngIf="isRecurrenceControl.value else notRecurrenceClass" fxLayout="row wrap"
+                fxLayoutAlign="space-evenly center" fxLayoutGap="1rem">
+                <div fxFlex>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Rango de fechas</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                      <input matStartDate [formControl]="fromRangeControl" placeholder="Fecha desde">
+                      <input matEndDate [formControl]="toRangeControl" placeholder="Fecha hasta">
+                    </mat-date-range-input>
+                    <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                    <mat-error *ngIf="fromRangeControl.invalid || toRangeControl.invalid">
+                      {{getError(fromRangeControl.errors)}}
+                      {{getError(toRangeControl.errors)}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Días de la semana</mat-label>
+                    <input matInput [formControl]="daysOfWeekControl">
+                    <mat-select [formControl]="daysOfWeekControl" multiple="true">
+                      <mat-option *ngFor="let day of daysOfWeek" [value]="day">
+                        {{getDayOfWeekName(day)}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="daysOfWeekControl.invalid">
+                      {{getError(daysOfWeekControl.errors)}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <ng-template #notRecurrenceClass>
+                <mat-form-field appearance="outline">
+                  <mat-label>Fecha de clase</mat-label>
+                  <input matInput [min]="minDate" [max]="maxDate" [formControl]="notRecurrenceDateControl"
+                    [matDatepicker]="picker1" required>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                  <mat-error *ngIf="notRecurrenceDateControl.invalid">
+                    {{getError(notRecurrenceDateControl.errors)}}
+                  </mat-error>
+                </mat-form-field>
+              </ng-template>
+            </fieldset>
+          </div>
+        </mat-card>
+        <br>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <button mat-flat-button type="submit" [disabled]="!formGroup.valid" class="save-changes">GUARDAR
+            CAMBIOS</button>
+          <button routerLink="/institute/classes" mat-raised-button class="cancel-changes">CANCELAR</button>
+        </div>
+      </form>
+    </section>
+  </div>
+</div>

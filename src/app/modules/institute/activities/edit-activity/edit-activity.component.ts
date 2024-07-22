@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap, throwError } from 'rxjs';
 import { ActivitiesService } from 'src/app/core/services/activities.service';
@@ -9,6 +10,7 @@ import { ActivityCreateDto } from 'src/app/shared/interfaces/dtos/activities/act
 import { ActivitySingleDto } from 'src/app/shared/interfaces/dtos/activities/activity-single-dto';
 import { ActivityUpdateDto } from 'src/app/shared/interfaces/dtos/activities/activity-update-dto';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-edit-activity',
   templateUrl: './edit-activity.component.html',

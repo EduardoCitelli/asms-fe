@@ -8,6 +8,7 @@ import { RoomUpdateDto } from 'src/app/shared/interfaces/dtos/rooms/room-update-
 import { PagedList } from 'src/app/shared/interfaces/paged-list-dto';
 import { environment } from 'src/environments/environment';
 import { BaseService } from './base-service.service';
+import { ComboDto } from 'src/app/shared/interfaces/combo-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,9 @@ export class RoomsService extends BaseService<RoomSingleDto, RoomListDto, RoomCr
 
   public delete(id: number): Observable<RoomSingleDto> {
     return this.deleteBase(id);
+  }
+
+  public getCombo(): Observable<ComboDto<number>[]> {
+    return this.getComboBase();
   }
 }
