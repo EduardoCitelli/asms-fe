@@ -1,0 +1,62 @@
+<div fxLayout="row" class="background">
+  <div fxFlex="80" fxFlexOffset="10%">
+    <section id="header">
+      <h1 class="h1-header">{{title}}</h1>
+    </section>
+
+    <section id="table">
+      <div>
+        <button mat-flat-button class="add-btn" (click)="add()">Agregar nueva <mat-icon>add</mat-icon></button>
+      </div>
+
+      <mat-table class="mat-elevation-z0" [dataSource]="dataSource">
+
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef class="table-header">#</mat-header-cell>
+          <mat-cell *matCellDef="let instituteClass">{{instituteClass.id}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef class="table-header">Descripción</mat-header-cell>
+          <mat-cell *matCellDef="let instituteClass">{{instituteClass.description}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="startTime">
+          <mat-header-cell *matHeaderCellDef class="table-header">Hora de Comienzo</mat-header-cell>
+          <mat-cell *matCellDef="let instituteClass">{{instituteClass.startTime }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="finishTime">
+          <mat-header-cell *matHeaderCellDef class="table-header">Hora de Finalización</mat-header-cell>
+          <mat-cell *matCellDef="let instituteClass">{{instituteClass.finishTime }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="fromRange">
+          <mat-header-cell *matHeaderCellDef class="table-header">Desde</mat-header-cell>
+          <mat-cell *matCellDef="let instituteClass">{{instituteClass.fromRange | date }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="toRange">
+          <mat-header-cell *matHeaderCellDef class="table-header">Hasta</mat-header-cell>
+          <mat-cell *matCellDef="let instituteClass">{{instituteClass.toRange | date }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="option">
+          <mat-header-cell *matHeaderCellDef class="table-header">Opciones</mat-header-cell>
+          <mat-cell *matCellDef="let instituteClass">
+            <button mat-mini-fab class="edit-btn" matTooltip="Editar Clase" (click)="edit(instituteClass.id)">
+              <mat-icon>create</mat-icon>
+            </button>
+          </mat-cell>
+
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+
+      <mat-paginator class="mat-elevation-z8" [length]="dataCount" [pageSize]="5" [pageSizeOptions]="[2, 5, 10, 20]">
+      </mat-paginator>
+    </section>
+  </div>
+</div>
