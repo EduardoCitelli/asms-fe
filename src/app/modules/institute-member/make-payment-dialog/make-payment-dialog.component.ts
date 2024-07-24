@@ -13,7 +13,7 @@ import { MakePaymentModel } from './models/make-payment-model';
 @Component({
   selector: 'app-make-payment-dialog',
   templateUrl: './make-payment-dialog.component.html',
-  styleUrls: ['./make-payment-dialog.component.css']
+  styleUrls: ['./make-payment-dialog.component.scss']
 })
 export class MakePaymentDialogComponent {
   paymentTypes: PaymentType[] = [];

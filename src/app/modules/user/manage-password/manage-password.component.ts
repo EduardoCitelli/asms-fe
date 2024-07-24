@@ -11,7 +11,7 @@ import { confirmedValidator } from 'src/app/shared/utils/validators/confirmed.va
 @Component({
   selector: 'app-manage-password',
   templateUrl: './manage-password.component.html',
-  styleUrls: ['./manage-password.component.css']
+  styleUrls: ['./manage-password.component.scss']
 })
 export class ManagePasswordComponent {
   public readonly oldPasswordNameProperty: string = 'oldPassword';

@@ -11,7 +11,7 @@ import { MembershipListDto } from 'src/app/shared/interfaces/dtos/memberships/me
 @Component({
   selector: 'app-manage-memberships',
   templateUrl: './manage-memberships.component.html',
-  styleUrls: ['./manage-memberships.component.css']
+  styleUrls: ['./manage-memberships.component.scss']
 })
 export class ManageMembershipsComponent {
   public title: string = "Membresías"

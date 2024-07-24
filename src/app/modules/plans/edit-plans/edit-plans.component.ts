@@ -12,7 +12,7 @@ import { PlanUpdateDto } from 'src/app/shared/interfaces/dtos/plans/plan-update-
 @Component({
   selector: 'app-edit-plans',
   templateUrl: './edit-plans.component.html',
-  styleUrls: ['./edit-plans.component.css']
+  styleUrls: ['./edit-plans.component.scss']
 })
 export class EditPlansComponent {
   public readonly nameProperty: string = 'name';

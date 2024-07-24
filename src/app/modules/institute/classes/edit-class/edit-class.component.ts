@@ -20,7 +20,7 @@ import { getControlError } from 'src/app/shared/utils/validators/get-input-error
 @Component({
   selector: 'app-edit-class',
   templateUrl: './edit-class.component.html',
-  styleUrls: ['./edit-class.component.css']
+  styleUrls: ['./edit-class.component.scss']
 })
 export class EditClassComponent implements OnInit {
   id: number = 0;

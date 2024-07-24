@@ -13,7 +13,7 @@ import { UntilDestroy } from '@ngneat/until-destroy';
 @Component({
   selector: 'app-manage-staff',
   templateUrl: './manage-staff.component.html',
-  styleUrls: ['./manage-staff.component.css']
+  styleUrls: ['./manage-staff.component.scss']
 })
 export class ManageStaffComponent {
   public title: string = "Staff"

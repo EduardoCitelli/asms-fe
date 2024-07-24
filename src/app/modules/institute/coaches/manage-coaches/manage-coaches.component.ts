@@ -11,11 +11,12 @@ import { CoachListDto } from 'src/app/shared/interfaces/dtos/coaches/coach-list-
 @Component({
   selector: 'app-manage-coaches',
   templateUrl: './manage-coaches.component.html',
-  styleUrls: ['./manage-coaches.component.css']
+  styleUrls: ['./manage-coaches.component.scss']
 })
 export class ManageCoachesComponent {
   public title: string = "Profesores"
   displayedColumns: string[] = [
+    "id",
     "fullName",
     "phone",
     "option",

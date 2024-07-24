@@ -12,7 +12,7 @@ import { MembershipTypeUpdateDto } from 'src/app/shared/interfaces/dtos/membersh
 @Component({
   selector: 'app-edit-membership-type',
   templateUrl: './edit-membership-type.component.html',
-  styleUrls: ['./edit-membership-type.component.css']
+  styleUrls: ['./edit-membership-type.component.scss']
 })
 export class EditMembershipTypeComponent implements OnInit {
   public readonly nameProperty: string = 'name';

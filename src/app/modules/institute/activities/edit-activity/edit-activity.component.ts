@@ -14,7 +14,7 @@ import { ActivityUpdateDto } from 'src/app/shared/interfaces/dtos/activities/act
 @Component({
   selector: 'app-edit-activity',
   templateUrl: './edit-activity.component.html',
-  styleUrls: ['./edit-activity.component.css']
+  styleUrls: ['./edit-activity.component.scss']
 })
 export class EditActivityComponent implements OnInit {
   public readonly nameProperty: string = 'name';

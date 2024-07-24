@@ -18,7 +18,7 @@ import { phoneValidator } from 'src/app/shared/utils/validators/phone.validator'
 @Component({
   selector: 'app-edit-institute',
   templateUrl: './edit-institute.component.html',
-  styleUrls: ['./edit-institute.component.css']
+  styleUrls: ['./edit-institute.component.scss']
 })
 export class EditInstituteComponent {
   id: number = 0;

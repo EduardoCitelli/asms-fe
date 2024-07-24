@@ -17,7 +17,7 @@ import { getControlError } from 'src/app/shared/utils/validators/get-input-error
 @Component({
   selector: 'app-edit-membership',
   templateUrl: './edit-membership.component.html',
-  styleUrls: ['./edit-membership.component.css']
+  styleUrls: ['./edit-membership.component.scss']
 })
 export class EditMembershipComponent implements OnInit {
   id: number = 0;

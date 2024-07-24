@@ -14,7 +14,7 @@ import { isNumber } from 'src/app/shared/utils/check-number';
 @Component({
   selector: 'app-my-institute',
   templateUrl: './my-institute.component.html',
-  styleUrls: ['./my-institute.component.css']
+  styleUrls: ['./my-institute.component.scss']
 })
 export class MyInstituteComponent implements OnInit {
   public readonly institutionNameProperty: string = 'institutionName';

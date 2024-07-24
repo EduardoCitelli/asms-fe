@@ -11,7 +11,7 @@ import { PlanListDto } from 'src/app/shared/interfaces/dtos/plans/plan-list-dto'
 @Component({
   selector: 'app-manage-plans',
   templateUrl: './manage-plans.component.html',
-  styleUrls: ['./manage-plans.component.css']
+  styleUrls: ['./manage-plans.component.scss']
 })
 export class ManagePlansComponent implements OnInit, AfterViewInit {
   public title: string = 'Planes';

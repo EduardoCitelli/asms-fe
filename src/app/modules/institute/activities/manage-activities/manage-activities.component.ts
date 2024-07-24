@@ -11,11 +11,12 @@ import { ActivityListDto } from 'src/app/shared/interfaces/dtos/activities/activ
 @Component({
   selector: 'app-manage-activities',
   templateUrl: './manage-activities.component.html',
-  styleUrls: ['./manage-activities.component.css']
+  styleUrls: ['./manage-activities.component.scss']
 })
 export class ManageActivitiesComponent implements OnInit, AfterViewInit {
   public title: string = 'Actividades';
   displayedColumns: string[] = [
+    "id",
     "name",
     "description",
     "option",

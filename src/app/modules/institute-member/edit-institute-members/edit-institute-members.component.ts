@@ -13,7 +13,7 @@ import { isNumber } from 'src/app/shared/utils/check-number';
 @Component({
   selector: 'app-edit-institute-members',
   templateUrl: './edit-institute-members.component.html',
-  styleUrls: ['./edit-institute-members.component.css']
+  styleUrls: ['./edit-institute-members.component.scss']
 })
 export class EditInstituteMembersComponent {
   public readonly userNameProperty: string = 'userName';

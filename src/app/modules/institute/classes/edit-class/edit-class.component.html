@@ -123,7 +123,7 @@
                 <div fxFlex>
                   <mat-form-field appearance="outline">
                     <mat-label>Rango de fechas</mat-label>
-                    <mat-date-range-input [rangePicker]="picker">
+                    <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate">
                       <input matStartDate [formControl]="fromRangeControl" placeholder="Fecha desde">
                       <input matEndDate [formControl]="toRangeControl" placeholder="Fecha hasta">
                     </mat-date-range-input>

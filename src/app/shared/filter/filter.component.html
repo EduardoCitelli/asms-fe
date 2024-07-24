@@ -1,0 +1,31 @@
+<mat-card class="filter-card">
+  <div fxFlex fxLayout="row wrap" fxLayoutGap="0.5rem" class="dense-5">
+    <div *ngFor="let field of filterFields">
+      <span [ngSwitch]="field.type">
+
+        <mat-form-field style="max-width: 8rem;" *ngSwitchCase="'number'" appearance="outline" subscriptSizing="dynamic"
+          [matTooltip]="field.description">
+          <mat-label>{{field.description}}</mat-label>
+          <input matInput type="number" min="0" [(ngModel)]="field.value">
+        </mat-form-field>
+
+        <mat-checkbox *ngSwitchCase="'boolean'" appearance="outline" [matTooltip]="field.description"
+          [(ngModel)]="field.value">{{field.description}}</mat-checkbox>
+
+        <mat-form-field *ngSwitchCase="'date'" appearance="outline" subscriptSizing="dynamic" [matTooltip]="field.description">
+          <mat-label>{{field.description}}</mat-label>
+          <input matInput type="datetime" [(ngModel)]="field.value">
+        </mat-form-field>
+
+        <mat-form-field *ngSwitchDefault appearance="outline" subscriptSizing="dynamic" [matTooltip]="field.description">
+          <mat-label>{{field.description}}</mat-label>
+          <input matInput type="string" [(ngModel)]="field.value">
+        </mat-form-field>
+      </span>
+    </div>
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="0.5rem" class="dense-3">
+    <button mat-flat-button class="filter-button" (click)="filter()">Filtrar <mat-icon>filter_alt</mat-icon> </button>
+    <button mat-flat-button class="filter-cancel-button" (click)="clearFilters()">Borrar filtros</button>
+  </div>
+</mat-card>

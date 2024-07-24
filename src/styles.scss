@@ -1,3 +1,28 @@
+@use '@angular/material' as mat;
+
+.dense-1 {
+  @include mat.form-field-density(-1);
+  @include mat.button-density(-1)
+}
+
+.dense-2 {
+  @include mat.form-field-density(-2);
+  @include mat.button-density(-2)
+}
+
+.dense-3 {
+  @include mat.form-field-density(-3);
+  @include mat.button-density(-3)
+}
+
+.dense-4 {
+  @include mat.form-field-density(-4);
+}
+
+.dense-5 {
+  @include mat.form-field-density(-5);
+}
+
 html,
 body {
   height: 100%;
@@ -211,3 +236,5 @@ mat-paginator {
 .mat-primary .mat-pseudo-checkbox-checked {
   background: #04A865;
 }
+
+

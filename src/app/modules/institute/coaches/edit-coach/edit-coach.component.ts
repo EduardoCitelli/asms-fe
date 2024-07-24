@@ -15,7 +15,7 @@ import { isNumber } from 'src/app/shared/utils/check-number';
 @Component({
   selector: 'app-edit-coach',
   templateUrl: './edit-coach.component.html',
-  styleUrls: ['./edit-coach.component.css']
+  styleUrls: ['./edit-coach.component.scss']
 })
 export class EditCoachComponent implements OnInit {
   public readonly userNameProperty: string = 'userName';

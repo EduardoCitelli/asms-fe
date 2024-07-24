@@ -4,10 +4,13 @@
       <h1 class="h1-header">{{title}}</h1>
     </section>
 
-    <section id="table">
+    <section id="table" style="gap: 1rem;">
       <div>
         <button mat-flat-button class="add-btn" (click)="add()">Agregar nueva <mat-icon>add</mat-icon></button>
       </div>
+
+      <app-filter [filterFields]="filterFields" (onFilter)="filterAction($event)">
+      </app-filter>
 
       <mat-table class="mat-elevation-z0" [dataSource]="dataSource">
 
@@ -29,6 +32,13 @@
         <ng-container matColumnDef="finishTime">
           <mat-header-cell *matHeaderCellDef class="table-header">Hora de Finalización</mat-header-cell>
           <mat-cell *matCellDef="let instituteClass">{{instituteClass.finishTime }}</mat-cell>
+        </ng-container>
+
+        <<ng-container matColumnDef="daysOfWeek">
+          <mat-header-cell *matHeaderCellDef class="table-header">Días de la semana</mat-header-cell>
+          <mat-cell *matCellDef="let instituteClass" fxLayout="column">
+            <span *ngFor="let day of instituteClass.daysOfWeek">{{getDayOfWeekName(day)}}</span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="fromRange">

@@ -13,7 +13,7 @@ import { RoleTypeEnum } from 'src/app/shared/interfaces/enums/role-type.enum';
 @Component({
   selector: 'app-roles-shelf',
   templateUrl: './roles-shelf.component.html',
-  styleUrls: ['./roles-shelf.component.css']
+  styleUrls: ['./roles-shelf.component.scss']
 })
 export class RolesShelfComponent {
   user: { id: number, name: string }

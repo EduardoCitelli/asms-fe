@@ -15,7 +15,7 @@ import { MakePaymentModel } from '../make-payment-dialog/models/make-payment-mod
 @Component({
   selector: 'app-manage-institute-members',
   templateUrl: './manage-institute-members.component.html',
-  styleUrls: ['./manage-institute-members.component.css']
+  styleUrls: ['./manage-institute-members.component.scss']
 })
 export class ManageInstituteMembersComponent {
   title: string = "Miembros de la institución"

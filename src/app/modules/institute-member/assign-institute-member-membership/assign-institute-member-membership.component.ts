@@ -20,7 +20,7 @@ import { DEFAULT_DATE_FORMAT } from 'src/app/shared/utils/constants';
 @Component({
   selector: 'app-assign-institute-member-membership',
   templateUrl: './assign-institute-member-membership.component.html',
-  styleUrls: ['./assign-institute-member-membership.component.css']
+  styleUrls: ['./assign-institute-member-membership.component.scss']
 })
 export class AssignInstituteMemberMembershipComponent {
   title: string;

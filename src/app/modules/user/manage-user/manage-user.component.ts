@@ -11,7 +11,7 @@ import { UpdateMyUserDto } from 'src/app/shared/interfaces/dtos/my-user/update-m
 @Component({
   selector: 'app-manage-user',
   templateUrl: './manage-user.component.html',
-  styleUrls: ['./manage-user.component.css']
+  styleUrls: ['./manage-user.component.scss']
 })
 export class ManageUserComponent implements OnInit{
   public readonly firstNameProperty: string = 'firstName';

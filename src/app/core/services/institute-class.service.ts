@@ -21,12 +21,12 @@ export class InstituteClassService extends BaseService<InstituteClassSingleDto, 
   }
 
   public getAll(pageNumber: number, pageSize: number, filter?: RootFilter): Observable<PagedList<InstituteClassListDto>> {
-    const params = new HttpParams()
+    let params = new HttpParams()
       .set('Page', pageNumber.toString())
       .set('Size', pageSize.toString());
 
     if (filter) {
-      params.set('Filter', JSON.stringify(filter))
+      params = params.append('Filter', JSON.stringify(filter))
     }
 
     return this.getAllBase(params);

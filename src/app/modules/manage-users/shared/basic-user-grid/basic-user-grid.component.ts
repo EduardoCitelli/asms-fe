@@ -14,7 +14,7 @@ import { RolesShelfComponent } from '../../user-roles/roles-shelf/roles-shelf.co
 @Component({
   selector: 'app-basic-user-grid',
   templateUrl: './basic-user-grid.component.html',
-  styleUrls: ['./basic-user-grid.component.css']
+  styleUrls: ['./basic-user-grid.component.scss']
 })
 export class BasicUserGridComponent implements AfterViewInit {
   public title: string = 'Usuarios';

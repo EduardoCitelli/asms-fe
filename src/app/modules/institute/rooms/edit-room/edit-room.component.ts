@@ -12,7 +12,7 @@ import { RoomUpdateDto } from 'src/app/shared/interfaces/dtos/rooms/room-update-
 @Component({
   selector: 'app-edit-room',
   templateUrl: './edit-room.component.html',
-  styleUrls: ['./edit-room.component.css']
+  styleUrls: ['./edit-room.component.scss']
 })
 export class EditRoomComponent implements OnInit {
   public readonly nameProperty: string = 'name';

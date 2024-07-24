@@ -14,7 +14,7 @@ import { UntilDestroy } from '@ngneat/until-destroy';
 @Component({
   selector: 'app-manage-institutes',
   templateUrl: './manage-institutes.component.html',
-  styleUrls: ['./manage-institutes.component.css']
+  styleUrls: ['./manage-institutes.component.scss']
 })
 export class ManageInstitutesComponent {
   public title: string = "Instituciones"

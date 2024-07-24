@@ -11,11 +11,12 @@ import { RoomListDto } from 'src/app/shared/interfaces/dtos/rooms/room-list-dto'
 @Component({
   selector: 'app-manage-rooms',
   templateUrl: './manage-rooms.component.html',
-  styleUrls: ['./manage-rooms.component.css']
+  styleUrls: ['./manage-rooms.component.scss']
 })
 export class ManageRoomsComponent implements OnInit, AfterViewInit {
   public title: string = 'Salones';
   displayedColumns: string[] = [
+    "id",
     "number",
     "name",
     "description",

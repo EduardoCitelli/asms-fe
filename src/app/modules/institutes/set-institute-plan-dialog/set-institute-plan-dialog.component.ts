@@ -14,7 +14,7 @@ import { InstitutePlanCreateDto } from 'src/app/shared/interfaces/dtos/institute
 @Component({
   selector: 'app-set-institute-plan-dialog',
   templateUrl: './set-institute-plan-dialog.component.html',
-  styleUrls: ['./set-institute-plan-dialog.component.css']
+  styleUrls: ['./set-institute-plan-dialog.component.scss']
 })
 export class SetInstitutePlanDialogComponent {
   instituteModel: InstituteListDto;
