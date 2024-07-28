@@ -5,8 +5,8 @@ export interface InstituteClassBlockListDto {
   id: number;
   description: string;
   principalCoachName: string;
-  startDateTime: string;
-  finishDateTime: string;
+  startDateTime: Date;
+  finishDateTime: Date;
   dayOfWeek: DayOfWeek;
   classStatus: ClassStatus;
 }

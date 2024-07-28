@@ -1,53 +1,44 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
-import { UntilDestroy } from '@ngneat/until-destroy';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
-import { InstituteClassService } from 'src/app/core/services/institute-class.service';
+import { InstituteClassBlockService } from 'src/app/core/services/institute-class-block.service';
 import { FilterField } from 'src/app/shared/filter/models/filter-field';
-import { InstituteClassListDto } from 'src/app/shared/interfaces/dtos/institute-classes/institute-class-list-dto';
+import { InstituteClassBlockListDto } from 'src/app/shared/interfaces/dtos/institute-class-blocks/institute-class-block-list-dto';
+import { ClassStatus } from 'src/app/shared/interfaces/enums/class-status.enum';
 import { DayOfWeek } from 'src/app/shared/interfaces/enums/day-of-week.enum';
 import { RootFilter } from 'src/app/shared/interfaces/filters/root-filter';
-import { manageClassesFilter } from './models/manage-classes.filters';
+import { manageBlocksFilterFields } from './models/manage-blocks.filters';
 
-@UntilDestroy({ checkProperties: true })
 @Component({
-  selector: 'app-manage-classes',
-  templateUrl: './manage-classes.component.html',
-  styleUrls: ['./manage-classes.component.scss']
+  selector: 'app-manage-blocks',
+  templateUrl: './manage-blocks.component.html',
+  styleUrls: ['./manage-blocks.component.scss']
 })
-export class ManageClassesComponent implements OnInit, AfterViewInit {
-  title: string = 'Clases';
+export class ManageBlocksComponent {
+  title: string = 'Horarios';
   dataCount: number = 0;
-  dataSource: InstituteClassListDto[] = [];
+  dataSource: InstituteClassBlockListDto[] = [];
   displayedColumns: string[] = [
     "description",
-    "startTime",
-    "finishTime",
-    "daysOfWeek",
-    "fromRange",
-    "toRange",
+    "principalCoachName",
+    "startDateTime",
+    "finishDateTime",
+    "dayOfWeek",
+    "classStatus",
     "option",
   ];
 
-  filterFields: FilterField[] = manageClassesFilter;
-
+  filterFields: FilterField[] = manageBlocksFilterFields;
   apliedFilters: FilterField[] = [];
-
-  defaultFilter: RootFilter = new RootFilter([{
-    field: 'isRecurrence',
-    value: true,
-    operator: 'eq',
-    logic: 'and',
-  }]);
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator | null = null;
 
   constructor(
-    private _service: InstituteClassService,
+    private _service: InstituteClassBlockService,
     private _router: Router,
     private _toastrService: ToastrService,
     private _dialog: MatDialog,
@@ -65,16 +56,16 @@ export class ManageClassesComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  add() {
-    this._router.navigate(['institute/classes/add']);
-  }
-
   edit(id: number) {
-    this._router.navigate(['institute/classes/edit', id]);
+    this._router.navigate(['institute/blocks/edit', id]);
   }
 
   getDayOfWeekName(dayOfWeek: DayOfWeek) {
     return DayOfWeek[dayOfWeek];
+  }
+
+  getStatusName(status: ClassStatus) {
+    return ClassStatus[status];
   }
 
   filterAction(filters: FilterField[]) {
@@ -91,8 +82,11 @@ export class ManageClassesComponent implements OnInit, AfterViewInit {
   }
 
   private loadData(pageIndex: number, pageSize: number) {
-    const helperFilter: RootFilter = { ...this.defaultFilter };
-    helperFilter.filters = helperFilter.filters.concat(this.apliedFilters);
+    let helperFilter;
+
+    if (this.apliedFilters.length > 0) {
+      helperFilter = new RootFilter(this.apliedFilters);
+    }
 
     this._service.getAll(pageIndex, pageSize, helperFilter).pipe(
       tap(list => {
@@ -100,7 +94,7 @@ export class ManageClassesComponent implements OnInit, AfterViewInit {
         this.dataCount = list.totalCount;
       }),
       catchError(error => {
-        this._toastrService.error("Error obteniendo clases");
+        this._toastrService.error("Error obteniendo los horarios");
         return error;
       })
     ).subscribe();

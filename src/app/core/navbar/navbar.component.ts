@@ -139,7 +139,13 @@ export class NavbarComponent implements OnInit, AfterViewChecked, AfterViewInit 
           icon: 'calendar_month'
         },
         {
+          title: 'Horarios',
+          link: 'institute/blocks',
+          icon: 'schedule'
+        },
+        {
           roles: [
+            RoleTypeEnum.SuperAdmin,
             RoleTypeEnum.Manager,
           ],
           title: 'Staff',

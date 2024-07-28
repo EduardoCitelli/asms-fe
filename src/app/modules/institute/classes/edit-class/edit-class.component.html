@@ -140,7 +140,6 @@
                 <div fxFlex>
                   <mat-form-field appearance="outline">
                     <mat-label>Días de la semana</mat-label>
-                    <input matInput [formControl]="daysOfWeekControl">
                     <mat-select [formControl]="daysOfWeekControl" multiple="true">
                       <mat-option *ngFor="let day of daysOfWeek" [value]="day">
                         {{getDayOfWeekName(day)}}

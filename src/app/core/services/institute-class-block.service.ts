@@ -17,12 +17,12 @@ export class InstituteClassBlockService extends BaseSimpleService {
   readonly basePath: string = `${environment.apiBaseUrl}instituteclassblock/`;
 
   getAll(pageNumber: number, pageSize: number, filter?: RootFilter): Observable<PagedList<InstituteClassBlockListDto>> {
-    const params = new HttpParams()
+    let params = new HttpParams()
       .set('Page', pageNumber.toString())
       .set('Size', pageSize.toString());
 
     if (filter) {
-      params.set('Filter', JSON.stringify(filter))
+      params = params.append('Filter', JSON.stringify(filter))
     }
 
     return this._http.get<BaseResponse<PagedList<InstituteClassBlockListDto>>>(this.basePath, { params: params })

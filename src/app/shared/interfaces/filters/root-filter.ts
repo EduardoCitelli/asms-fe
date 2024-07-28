@@ -1,8 +1,8 @@
 import { Filter } from "./filter";
 
 export class RootFilter {
-  constructor(filter: Filter) {
-    this.filters.push(filter);
+  constructor(filters: Filter[]) {
+    this.filters = filters;
   }
 
   logic: "and" | "or" = "and";

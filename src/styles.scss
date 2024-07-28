@@ -2,25 +2,35 @@
 
 .dense-1 {
   @include mat.form-field-density(-1);
-  @include mat.button-density(-1)
+  @include mat.button-density(-1);
+  @include mat.icon-button-density(-1);
+  @include mat.datepicker-density(-1);
 }
 
 .dense-2 {
   @include mat.form-field-density(-2);
-  @include mat.button-density(-2)
+  @include mat.button-density(-2);
+  @include mat.icon-button-density(-2);
+  @include mat.datepicker-density(-2);
 }
 
 .dense-3 {
   @include mat.form-field-density(-3);
-  @include mat.button-density(-3)
+  @include mat.button-density(-3);
+  @include mat.icon-button-density(-3);
+  @include mat.datepicker-density(-3);
 }
 
 .dense-4 {
   @include mat.form-field-density(-4);
+  @include mat.icon-button-density(-4);
+  @include mat.datepicker-density(-4);
 }
 
 .dense-5 {
   @include mat.form-field-density(-5);
+  @include mat.icon-button-density(-5);
+  @include mat.datepicker-density(-5);
 }
 
 html,

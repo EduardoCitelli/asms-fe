@@ -1,0 +1,72 @@
+<div fxLayout="row" class="background">
+  <div fxFlex="80" fxFlexOffset="10%">
+    <section id="header">
+      <h1 class="h1-header">{{title}}</h1>
+    </section>
+
+    <section id="table" style="gap: 1rem;">
+
+      <app-filter [filterFields]="filterFields" (onFilter)="filterAction($event)">
+      </app-filter>
+
+      <mat-table class="mat-elevation-z0" [dataSource]="dataSource">
+
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef class="table-header">#</mat-header-cell>
+          <mat-cell *matCellDef="let InstituteClassBlock">{{InstituteClassBlock.id}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef class="table-header">Descripción</mat-header-cell>
+          <mat-cell *matCellDef="let InstituteClassBlock">{{InstituteClassBlock.description}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="principalCoachName">
+          <mat-header-cell *matHeaderCellDef class="table-header">Profesor titular</mat-header-cell>
+          <mat-cell *matCellDef="let InstituteClassBlock">{{InstituteClassBlock.principalCoachName}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="startDateTime">
+          <mat-header-cell *matHeaderCellDef class="table-header">Hora de Comienzo</mat-header-cell>
+          <mat-cell *matCellDef="let InstituteClassBlock">{{InstituteClassBlock.startDateTime | date: 'dd/MM/yyy HH:mm'
+            }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="finishDateTime">
+          <mat-header-cell *matHeaderCellDef class="table-header">Hora de Finalización</mat-header-cell>
+          <mat-cell *matCellDef="let InstituteClassBlock">{{InstituteClassBlock.finishDateTime | date : 'dd/MM/yyy
+            HH:mm' }}</mat-cell>
+        </ng-container>
+
+        <<ng-container matColumnDef="dayOfWeek">
+          <mat-header-cell *matHeaderCellDef class="table-header">Días de la semana</mat-header-cell>
+          <mat-cell *matCellDef="let InstituteClassBlock" fxLayout="column">
+            {{getDayOfWeekName(InstituteClassBlock.dayOfWeek)}}
+          </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="classStatus">
+            <mat-header-cell *matHeaderCellDef class="table-header">Estado</mat-header-cell>
+            <mat-cell
+              *matCellDef="let InstituteClassBlock">{{getStatusName(InstituteClassBlock.classStatus)}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="option">
+            <mat-header-cell *matHeaderCellDef class="table-header">Opciones</mat-header-cell>
+            <mat-cell *matCellDef="let InstituteClassBlock">
+              <button mat-mini-fab class="edit-btn" matTooltip="Editar Clase" (click)="edit(InstituteClassBlock.id)">
+                <mat-icon>create</mat-icon>
+              </button>
+            </mat-cell>
+
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+
+      <mat-paginator class="mat-elevation-z8" [length]="dataCount" [pageSize]="5" [pageSizeOptions]="[2, 5, 10, 20]">
+      </mat-paginator>
+    </section>
+  </div>
+</div>

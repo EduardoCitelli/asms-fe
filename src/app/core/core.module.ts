@@ -10,6 +10,7 @@ import { registerLocaleData } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
 import localeEs from '@angular/common/locales/es-AR';
 import { TimeSpanInterceptor } from './interceptors/timespan.interceptor';
+import { DateInterceptor } from './interceptors/date.interceptor';
 
 registerLocaleData(localeEs);
 
@@ -33,6 +34,7 @@ registerLocaleData(localeEs);
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: TimeSpanInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: DateInterceptor, multi: true },
     { provide: DEFAULT_CURRENCY_CODE, useValue: '$' },
     { provide: LOCALE_ID, useValue: 'es-AR' },
   ]
