@@ -9,6 +9,7 @@ import { PagedList } from "src/app/shared/interfaces/paged-list-dto";
 import { catchError, map, Observable } from "rxjs";
 import { ApiErrorResponse } from "src/app/shared/interfaces/api-error-response";
 import { InstituteClassBlockSingleDto } from "src/app/shared/interfaces/dtos/institute-class-blocks/institute-class-block-single-dto";
+import { InstituteClassBlockCalendarDto } from "src/app/shared/interfaces/dtos/institute-class-blocks/institute-class-block-calendar-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,23 @@ export class InstituteClassBlockService extends BaseSimpleService {
     return this._http.get<BaseResponse<InstituteClassBlockSingleDto>>(url)
       .pipe(
         map(res => res.content),
+        catchError((error: ApiErrorResponse) => {
+          return this.handleError(error);
+        })
+      );
+  }
+
+  getCalendar(roomId: number, from: Date, to: Date): Observable<InstituteClassBlockCalendarDto[]> {
+    const params = new HttpParams()
+      .set('RoomId', roomId.toString())
+      .set('From', from.toDateString())
+      .set('To', to.toDateString());
+
+    return this._http.get<BaseResponse<InstituteClassBlockCalendarDto[]>>(this.basePath + 'calendar', { params: params })
+      .pipe(
+        map(res => {
+          return res.content;
+        }),
         catchError((error: ApiErrorResponse) => {
           return this.handleError(error);
         })

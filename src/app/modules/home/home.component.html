@@ -1,1 +1,20 @@
-<p>home works!</p>
+<div fxLayout="row" class="background">
+  <div fxFlex="95" fxFlexOffset="2%" fxLayout="column" fxLayoutGap="1rem">
+    <section id="header">
+      <h1 class="h1-header" style="margin: 1rem !important;">Horarios</h1>
+    </section>
+
+    <mat-card class="dense-5" style="padding: 0.5rem;">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" style="margin: 0;">
+        <mat-label>Salon</mat-label>
+        <mat-select [(ngModel)]="selectedRoom" (ngModelChange)="onChangeCombo()">
+          <mat-option *ngFor="let room of roomCombos" [value]="room.id">
+            {{room.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card>
+
+    <full-calendar class="classes-calendar" [options]="calendarOptions"></full-calendar>
+  </div>
+</div>
