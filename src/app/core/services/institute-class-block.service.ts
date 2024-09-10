@@ -65,4 +65,16 @@ export class InstituteClassBlockService extends BaseSimpleService {
         })
       );
   }
+
+  updateMembers(id: number, memberIds: number[]) : Observable<boolean> {
+    const url = this.basePath + id + '/updateMembers';
+
+    return this._http.put<BaseResponse<boolean>>(url, memberIds)
+      .pipe(
+        map(res => res.content),
+        catchError((error: ApiErrorResponse) => {
+          return this.handleError(error);
+        })
+      );
+  }
 }

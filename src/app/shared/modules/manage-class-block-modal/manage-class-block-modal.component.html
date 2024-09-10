@@ -1,0 +1,16 @@
+<h1 matDialogTitle class="shelf-title">Actualizar miembros para la clase {{model.description}}</h1>
+<mat-dialog-content class="shelf-content">
+  <div fxFlex fxLayout="column" class="select-members-section">
+    <mat-form-field appearance="outline">
+      <mat-label>Miembros</mat-label>
+      <mat-select [(ngModel)]="selectedInstituteMembers" placeholder="Seleccionar miembros" multiple>
+        <mat-option *ngFor="let member of instituteMembersCombos" [value]="member.id"
+          [disabled]="isOptionDisabled(member.id)">{{member.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+  <button mat-flat-button class="save-changes" (click)="saveChanges()">Guardar cambios</button>
+  <button mat-raised-button class="cancel-changes" mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

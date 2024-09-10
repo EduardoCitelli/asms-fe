@@ -6,7 +6,7 @@ import { ManageClassesComponent } from './manage-classes/manage-classes.componen
 import { EditClassComponent } from './edit-class/edit-class.component';
 import { MaterialManageFormsModule } from 'src/app/shared/material-manage-forms/material-manage-forms.module';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
-import { FilterModule } from 'src/app/shared/filter/filter.module';
+import { FilterModule } from 'src/app/shared/modules/filter/filter.module';
 
 
 @NgModule({

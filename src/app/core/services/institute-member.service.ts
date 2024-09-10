@@ -39,4 +39,14 @@ export class InstituteMemberService extends BaseService<InstituteMemberSingleDto
   public delete(id: number): Observable<InstituteMemberSingleDto> {
     return this.deleteBase(id);
   }
+
+  public combo(activityId?: number) {
+    let params;
+    if (activityId){
+      params = new HttpParams()
+      .set('ActivityId', activityId.toString());
+    }
+
+    return this.getComboBase(params);
+  }
 }

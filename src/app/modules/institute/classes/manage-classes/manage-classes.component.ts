@@ -6,7 +6,7 @@ import { UntilDestroy } from '@ngneat/until-destroy';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
 import { InstituteClassService } from 'src/app/core/services/institute-class.service';
-import { FilterField } from 'src/app/shared/filter/models/filter-field';
+import { FilterField } from 'src/app/shared/modules/filter/models/filter-field';
 import { InstituteClassListDto } from 'src/app/shared/interfaces/dtos/institute-classes/institute-class-list-dto';
 import { DayOfWeek } from 'src/app/shared/interfaces/enums/day-of-week.enum';
 import { RootFilter } from 'src/app/shared/interfaces/filters/root-filter';

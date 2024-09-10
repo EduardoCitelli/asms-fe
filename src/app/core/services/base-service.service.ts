@@ -37,9 +37,9 @@ export abstract class BaseService<TSingleDto, TListDto, TCreateDto, TUpdateDto> 
       );
   }
 
-  protected getComboBase(): Observable<ComboDto<number>[]> {
+  protected getComboBase(params?: HttpParams): Observable<ComboDto<number>[]> {
     const url = this.basePath + 'combos'
-    return this._http.get<BaseResponse<ComboDto<number>[]>>(url)
+    return this._http.get<BaseResponse<ComboDto<number>[]>>(url, { params: params })
       .pipe(
         map(res => {
           return res.content;

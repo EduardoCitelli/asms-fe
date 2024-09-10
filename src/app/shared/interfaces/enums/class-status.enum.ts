@@ -1,9 +1,10 @@
 import { ComboDto } from "../combo-dto";
 
 export enum ClassStatus {
-  Nueva = 1,
+  Pendiente = 1,
   Finalizada,
-  Cancelada
+  Cancelada,
+  Activa,
 }
 
 /**

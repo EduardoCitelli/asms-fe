@@ -1,4 +1,4 @@
-import { FilterField } from "src/app/shared/filter/models/filter-field";
+import { FilterField } from "src/app/shared/modules/filter/models/filter-field";
 import { InstituteClassFilter } from "src/app/shared/interfaces/filters/institute-classes/institute-classes-filters";
 import { nameofFactory } from "src/app/shared/utils/nameof-proxy";
 

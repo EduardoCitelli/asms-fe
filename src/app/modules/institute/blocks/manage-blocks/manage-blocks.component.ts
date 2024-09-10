@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
 import { InstituteClassBlockService } from 'src/app/core/services/institute-class-block.service';
-import { FilterField } from 'src/app/shared/filter/models/filter-field';
+import { FilterField } from 'src/app/shared/modules/filter/models/filter-field';
 import { InstituteClassBlockListDto } from 'src/app/shared/interfaces/dtos/institute-class-blocks/institute-class-block-list-dto';
 import { ClassStatus } from 'src/app/shared/interfaces/enums/class-status.enum';
 import { DayOfWeek } from 'src/app/shared/interfaces/enums/day-of-week.enum';

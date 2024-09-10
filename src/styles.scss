@@ -116,6 +116,14 @@ mat-form-field {
   padding-bottom: 0 !important;
 }
 
+.shelf-title {
+  text-align: center;
+  font-family: RobotoBold;
+  text-transform: uppercase;
+  box-shadow: 3px 5px 25px black;
+  background-color: #45894b;
+  margin-bottom: 2rem;
+}
 
 /* Table */
 
@@ -233,6 +241,7 @@ mat-paginator {
   background-color: #F2545B !important;
 }
 
+.mat-mdc-form-field.mat-focused.mat-primary .mat-mdc-select-arrow,
 .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
   color: yellowgreen;
 }

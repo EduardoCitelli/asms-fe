@@ -10,6 +10,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import esLocale from '@fullcalendar/core/locales/es-us';
 import typpy from 'tippy.js'
+import { InstituteClassBlockCalendarDto } from 'src/app/shared/interfaces/dtos/institute-class-blocks/institute-class-block-calendar-dto';
+import { MatDialog } from '@angular/material/dialog';
+import { ManageClassBlockModalComponent } from 'src/app/shared/modules/manage-class-block-modal/manage-class-block-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +24,7 @@ export class HomeComponent {
   roomCombos: ComboDto<number>[] = [];
   selectedRoom: number = 0;
   timeLong: number = 14;
+  blocks: InstituteClassBlockCalendarDto[] = [];
 
   from: Date = new Date();
   to: Date = new Date(new Date().setDate(this.from.getDate() + this.timeLong + 1));
@@ -28,6 +32,7 @@ export class HomeComponent {
   constructor(
     private _instituteClassBlockService: InstituteClassBlockService,
     private _roomService: RoomsService,
+    private _dialog: MatDialog,
   ) {
     this.calendarOptions = {
       locale: esLocale,
@@ -79,6 +84,7 @@ export class HomeComponent {
     this._instituteClassBlockService.getCalendar(this.selectedRoom, this.from, this.to)
       .pipe(
         tap(response => {
+          this.blocks = response;
           this.calendarOptions.events = response.map(value => {
             return {
               id: value.id.toString(),
@@ -87,7 +93,6 @@ export class HomeComponent {
               end: value.finishDateTime,
               interactive: true,
               url: '#',
-
             }
           })
         })
@@ -95,6 +100,18 @@ export class HomeComponent {
   }
 
   private handleEventClick(clickInfo: EventClickArg) {
+    const block = this.blocks.find(x => x.id.toString() == clickInfo.event.id);
+
+    this._dialog.open(ManageClassBlockModalComponent, {
+      data: block,
+      width: '40rem'
+    }).afterClosed()
+    .subscribe(confirmed => {
+      if (confirmed) {
+        this.setData();
+      }
+    });
+
     clickInfo.jsEvent.preventDefault();
   }
 }

@@ -1,4 +1,4 @@
-import { FilterField } from "src/app/shared/filter/models/filter-field";
+import { FilterField } from "src/app/shared/modules/filter/models/filter-field";
 import { getClassStatusCombo } from "src/app/shared/interfaces/enums/class-status.enum";
 import { HeaderInstituteClassFilter, InstituteClassBlockFilter } from "src/app/shared/interfaces/filters/institute-class-blocks/institute-class-blocks-filters";
 import { nameofFactory } from "src/app/shared/utils/nameof-proxy";
