@@ -28,14 +28,12 @@
 
         <ng-container matColumnDef="startDateTime">
           <mat-header-cell *matHeaderCellDef class="table-header">Hora de Comienzo</mat-header-cell>
-          <mat-cell *matCellDef="let InstituteClassBlock">{{InstituteClassBlock.startDateTime | date: 'dd/MM/yyy HH:mm'
-            }}</mat-cell>
+          <mat-cell *matCellDef="let InstituteClassBlock">{{InstituteClassBlock.startDateTime | date: 'dd/MM/yyy HH:mm'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="finishDateTime">
           <mat-header-cell *matHeaderCellDef class="table-header">Hora de Finalización</mat-header-cell>
-          <mat-cell *matCellDef="let InstituteClassBlock">{{InstituteClassBlock.finishDateTime | date : 'dd/MM/yyy
-            HH:mm' }}</mat-cell>
+          <mat-cell *matCellDef="let InstituteClassBlock">{{InstituteClassBlock.finishDateTime | date : 'dd/MM/yyy HH:mm' }}</mat-cell>
         </ng-container>
 
         <<ng-container matColumnDef="dayOfWeek">
@@ -54,8 +52,15 @@
           <ng-container matColumnDef="option">
             <mat-header-cell *matHeaderCellDef class="table-header">Opciones</mat-header-cell>
             <mat-cell *matCellDef="let InstituteClassBlock">
-              <button mat-mini-fab class="edit-btn" matTooltip="Editar Clase" (click)="edit(InstituteClassBlock.id)">
+              <!-- <button mat-mini-fab class="edit-btn" matTooltip="Editar clase" (click)="edit(InstituteClassBlock.id)">
                 <mat-icon>create</mat-icon>
+              </button> -->
+              <button *ngIf="InstituteClassBlock.classStatus == 1 || InstituteClassBlock.classStatus == 4"
+                      mat-mini-fab
+                      class="delete-btn"
+                      matTooltip="Cancelar clase"
+                      (click)="cancel(InstituteClassBlock.id)">
+                <mat-icon>block</mat-icon>
               </button>
             </mat-cell>
 

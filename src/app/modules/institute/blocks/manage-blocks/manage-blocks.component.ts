@@ -11,7 +11,10 @@ import { ClassStatus } from 'src/app/shared/interfaces/enums/class-status.enum';
 import { DayOfWeek } from 'src/app/shared/interfaces/enums/day-of-week.enum';
 import { RootFilter } from 'src/app/shared/interfaces/filters/root-filter';
 import { manageBlocksFilterFields } from './models/manage-blocks.filters';
+import { ConfirmDialogComponent } from 'src/app/core/confirm-dialog/confirm-dialog.component';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-manage-blocks',
   templateUrl: './manage-blocks.component.html',
@@ -60,6 +63,18 @@ export class ManageBlocksComponent {
     this._router.navigate(['institute/blocks/edit', id]);
   }
 
+  cancel(id: number) {
+    this._dialog.open(ConfirmDialogComponent, {
+      data: '¿Esta seguro que desea cancelar la clase?',
+    })
+      .afterClosed()
+      .pipe(untilDestroyed(this))
+      .subscribe(confirmed => {
+        if (confirmed)
+          this.cancelClass(id);
+      });
+  }
+
   getDayOfWeekName(dayOfWeek: DayOfWeek) {
     return DayOfWeek[dayOfWeek];
   }
@@ -72,6 +87,22 @@ export class ManageBlocksComponent {
     this.apliedFilters = filters;
     this.paginator!.pageIndex = 0;
     this.loadData(this.paginator!.pageIndex + 1, this.paginator!.pageSize);
+  }
+
+  private cancelClass(id: number) {
+    this._service.cancel(id)
+      .pipe(
+        tap(response => {
+          if (response) {
+            this.showSuccess("Clase cancelada correctamente");
+            this.loadData(this.paginator!.pageIndex + 1, this.paginator!.pageSize);
+          }
+        }),
+        catchError(error => {
+          this.showError(error);
+          return error;
+        })
+      ).subscribe();
   }
 
   private loadPage() {
@@ -98,5 +129,13 @@ export class ManageBlocksComponent {
         return error;
       })
     ).subscribe();
+  }
+
+  private showSuccess(message: string) {
+    this._toastrService.success(message);
+  }
+
+  private showError(message: string) {
+    this._toastrService.error(message);
   }
 }
