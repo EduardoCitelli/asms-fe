@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'institute-members', canActivate: [AuthGuard], loadChildren: () => import('./modules/institute-member/institute-member.module').then(m => m.InstituteMemberModule) },
   { path: 'manage-users', canActivate: [AuthGuard], loadChildren: () => import('./modules/manage-users/manage-users.module').then(m => m.ManageUsersModule) },
   { path: 'institutes', canActivate: [AuthGuard], loadChildren: () => import('./modules/institutes/institutes.module').then(m => m.InstitutesModule) },
+  { path: 'payments', canActivate: [AuthGuard], loadChildren: () => import('./modules/payments/payments.module').then(m => m.PaymentsModule) },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' },
 ];

@@ -1,0 +1,13 @@
+<h1 matDialogTitle class="shelf-title">Pago</h1>
+<mat-dialog-content class="shelf-content">
+  <div fxFlex fxLayout="column" class="select-members-section">
+    <p><strong>Fecha de emisión:</strong> {{payment?.emittedDate | date}}</p>
+    <p><strong>Monto:</strong> {{payment?.amount | currency}}</p>
+    <p><strong>Forma de pago:</strong> {{payment?.paymentType}}</p>
+    <p><strong>Membresía:</strong> {{payment?.membershipName }}</p>
+    <p><strong>Tipo de membresía:</strong> {{payment?.membershipTypeName }}</p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row wrap" fxLayoutAlign="center center">
+  <button mat-raised-button class="cancel-changes" mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

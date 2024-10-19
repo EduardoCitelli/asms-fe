@@ -10,6 +10,7 @@ import { HttpParams } from "@angular/common/http";
 import { PagedList } from "src/app/shared/interfaces/paged-list-dto";
 import { BaseResponse } from "src/app/shared/interfaces/base-response";
 import { ApiErrorResponse } from "src/app/shared/interfaces/api-error-response";
+import { RootFilter } from "src/app/shared/interfaces/filters/root-filter";
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +18,18 @@ import { ApiErrorResponse } from "src/app/shared/interfaces/api-error-response";
 export class PaymentsService extends BaseService<PaymentSingleDto, PaymentListDto, PaymentCreateDto, PaymentUpdateDto> {
   override readonly basePath = `${environment.apiBaseUrl}Payment/`;
 
-  public getPayment(id: number): Observable<PaymentSingleDto> {
+  public getOne(id: number): Observable<PaymentSingleDto> {
     return this.getOneBase(id);
   }
 
-  public getPayments(pageNumber: number, pageSize: number): Observable<PagedList<PaymentListDto>> {
-    const params = new HttpParams()
+  public getAll(pageNumber: number, pageSize: number, filter?: RootFilter): Observable<PagedList<PaymentListDto>> {
+    let params = new HttpParams()
       .set('Page', pageNumber.toString())
       .set('Size', pageSize.toString());
+
+      if (filter) {
+        params = params.append('Filter', JSON.stringify(filter))
+      }
 
     return this.getAllBase(params);
   }

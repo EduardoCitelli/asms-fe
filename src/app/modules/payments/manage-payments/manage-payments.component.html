@@ -1,0 +1,60 @@
+<div fxLayout="row" class="background">
+  <div fxFlex="80" fxFlexOffset="10%">
+    <section id="header">
+      <h1 class="h1-header">{{title}}</h1>
+    </section>
+
+    <section id="table" style="gap: 1rem;">
+
+      <app-filter [filterFields]="filterFields" (onFilter)="filterAction($event)">
+      </app-filter>
+
+      <mat-table class="mat-elevation-z0" [dataSource]="dataSource">
+
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef class="table-header">#</mat-header-cell>
+          <mat-cell *matCellDef="let payment">{{payment.id}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="emittedDate">
+          <mat-header-cell *matHeaderCellDef class="table-header">Fecha de emisión</mat-header-cell>
+          <mat-cell *matCellDef="let payment">{{payment.emittedDate | date }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+          <mat-header-cell *matHeaderCellDef class="table-header">Monto</mat-header-cell>
+          <mat-cell *matCellDef="let payment">{{payment.amount | currency }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="payBy">
+          <mat-header-cell *matHeaderCellDef class="table-header">Pagado por</mat-header-cell>
+          <mat-cell *matCellDef="let payment">{{payment.payBy}}</mat-cell>
+        </ng-container>
+
+        <<ng-container matColumnDef="paymentType">
+          <mat-header-cell *matHeaderCellDef class="table-header">Forma de pago</mat-header-cell>
+          <mat-cell *matCellDef="let payment">
+            <span>{{getPaymentTypeName(payment.paymentType)}}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="option">
+          <mat-header-cell *matHeaderCellDef class="table-header">Opciones</mat-header-cell>
+          <mat-cell *matCellDef="let payment">
+            <button mat-mini-fab class="edit-btn" matTooltip="ver pago" (click)="view(payment.id)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </mat-cell>
+
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+
+      <mat-paginator class="mat-elevation-z8" [length]="dataCount" [pageSize]="5" [pageSizeOptions]="[2, 5, 10, 20]">
+      </mat-paginator>
+    </section>
+  </div>
+</div>
+

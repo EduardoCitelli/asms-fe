@@ -201,7 +201,7 @@ export class NavbarComponent implements OnInit, AfterViewChecked, AfterViewInit 
       ],
       heading: 'Pagos',
       icon: 'payments',
-      link: '',
+      link: 'payments',
       children: []
     },
     {

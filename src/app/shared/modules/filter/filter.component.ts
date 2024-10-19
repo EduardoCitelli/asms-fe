@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FilterField } from './models/filter-field';
 
 @Component({
@@ -6,17 +6,22 @@ import { FilterField } from './models/filter-field';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss']
 })
-export class FilterComponent {
+export class FilterComponent implements OnInit {
   @Input() filterFields: FilterField[] = [];
-
   @Output() onFilter = new EventEmitter<FilterField[]>();
+
+  ngOnInit(): void {
+    this.clearFilters(false);
+  }
 
   filter() {
     this.onFilter.emit(this.filterFields.filter(x => x.value !== null));
   }
 
-  clearFilters(){
+  clearFilters(emitCall:boolean = true) {
     this.filterFields.map(x => x.value = null);
-    this.onFilter.emit([]);
+
+    if (emitCall)
+      this.onFilter.emit([]);
   }
 }
