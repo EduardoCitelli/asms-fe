@@ -162,33 +162,38 @@ export class NavbarComponent implements OnInit, AfterViewChecked, AfterViewInit 
         RoleTypeEnum.Coach,
         RoleTypeEnum.Member,
       ],
-      heading: 'Gestionar Miembros',
-      icon: 'people',
-      link: 'institute-members',
-      children: []
-    },
-    {
-      roles: [
-        RoleTypeEnum.SuperAdmin,
-        RoleTypeEnum.Manager,
-        RoleTypeEnum.StaffMember,
-        RoleTypeEnum.Coach,
-        RoleTypeEnum.Member,
-      ],
-      heading: 'Gestion',
+      heading: 'Gestion de membresías',
       icon: 'store',
       link: '',
       children: [
         {
+          roles: [
+            RoleTypeEnum.SuperAdmin,
+            RoleTypeEnum.Manager,
+          ],
           title: 'Membresias',
           link: 'manage/memberships',
           icon: 'card_membership',
         },
         {
+          roles: [
+            RoleTypeEnum.SuperAdmin,
+            RoleTypeEnum.Manager,
+          ],
           title: 'Tipos de Membresias',
           link: 'manage/membership-types',
           icon: 'list',
-        }
+        },
+        {
+          roles: [
+            RoleTypeEnum.SuperAdmin,
+            RoleTypeEnum.Manager,
+            RoleTypeEnum.StaffMember,
+          ],
+          title: 'Gestionar Miembros',
+          link: 'institute-members',
+          icon: 'people',
+        },
       ]
     },
     {
